@@ -1,0 +1,204 @@
+---
+title: Tu primer programa en Quetzal
+description: Tutorial paso a paso para crear y ejecutar tu primer programa completo en Lenguaje Quetzal.
+---
+
+import { Card, CardGrid, Steps, Code, Tabs, TabItem, Badge } from '@astrojs/starlight/components';
+
+# Tu primer programa en Quetzal
+
+En este tutorial crearás y ejecutarás tu primer programa completo en Lenguaje Quetzal, explorando las características básicas del lenguaje.
+
+## ¡Hola, mundo!
+
+Comencemos con el clásico programa "Hola, mundo":
+
+<Steps>
+
+1. **Crear el archivo**
+   
+   Crea un nuevo archivo llamado `hola_mundo.qz` en tu carpeta preferida.
+
+2. **Escribir el código**
+   
+   ```quetzal
+   // Mi primer programa en Lenguaje Quetzal
+   imprimir("¡Hola, mundo desde Quetzal!")
+   ```
+
+3. **Ejecutar el programa**
+   
+   Abre Command Prompt o PowerShell en la carpeta donde guardaste el archivo y ejecuta:
+   
+   ```cmd
+   lenguaje-quetzal hola_mundo.qz
+   ```
+
+4. **Resultado esperado**
+   
+   ```
+   ¡Hola, mundo desde Quetzal!
+   ```
+
+</Steps>
+
+¡Felicidades! Acabas de ejecutar tu primer programa en Quetzal.
+
+## Programa completo paso a paso
+
+Ahora crearemos un programa más completo que demuestre varias características del lenguaje:
+
+### Código completo
+
+Crea un archivo llamado `mi_primer_programa.qz`:
+
+```quetzal
+/*
+ Mi primer programa completo en Lenguaje Quetzal
+ Autor: Tu nombre
+ Fecha: Hoy
+*/
+
+imprimir_exito("=== MI PRIMER PROGRAMA EN QUETZAL ===")
+
+// ===== VARIABLES Y TIPOS =====
+imprimir_informacion("1. Trabajando con variables...")
+
+// Tipos básicos
+entero edad = 25
+cadena nombre = "Ana García"
+número salario = 2500.50
+bool esta_empleado = verdadero
+
+// Mostrar variables
+imprimir("Nombre: " + nombre)
+imprimir("Edad: " + edad.cadena() + " años")
+imprimir("Salario: $" + salario.cadena())
+imprimir("Empleado: " + esta_empleado.cadena())
+
+// ===== LISTAS =====
+imprimir_informacion("2. Trabajando con listas...")
+
+lista<cadena> hobbies = ["programar", "leer", "viajar", "cocinar"]
+lista<entero> numeros_favoritos = [7, 13, 21, 42]
+
+imprimir("Hobbies: " + hobbies.cadena())
+imprimir("Números favoritos: " + numeros_favoritos.cadena())
+
+// ===== FUNCIONES =====
+imprimir_informacion("3. Usando funciones...")
+
+// Función para calcular área de un círculo
+número calcular_area_circulo(número radio) {
+    número pi = 3.14159
+    retornar pi * radio * radio
+}
+
+// Función para crear saludo personalizado
+cadena crear_saludo(cadena nombre_persona, entero edad_persona) {
+    si (edad_persona >= 18) {
+        retornar "Hola " + nombre_persona + ", eres mayor de edad"
+    } sino {
+        retornar "Hola " + nombre_persona + ", eres menor de edad"
+    }
+}
+
+// Usar las funciones
+número area = calcular_area_circulo(5.0)
+cadena saludo = crear_saludo(nombre, edad)
+
+imprimir("Área del círculo (radio 5): " + area.cadena())
+imprimir(saludo)
+
+// ===== CONDICIONALES =====
+imprimir_informacion("4. Usando condicionales...")
+
+entero puntuacion = 85
+
+si (puntuacion >= 90) {
+    imprimir("Calificación: Excelente")
+} sino si (puntuacion >= 80) {
+    imprimir("Calificación: Muy bueno")
+} sino si (puntuacion >= 70) {
+    imprimir("Calificación: Bueno")
+} sino {
+    imprimir("Calificación: Necesita mejorar")
+}
+
+// ===== BUCLES =====
+imprimir_informacion("5. Usando bucles...")
+
+imprimir("Contando del 1 al 5:")
+para (entero i = 1; i <= 5; i++) {
+    imprimir("Número: " + i.cadena())
+}
+
+imprimir("Recorriendo hobbies:")
+para (cadena hobby en hobbies) {
+    imprimir("- " + hobby)
+}
+
+// ===== OBJETOS JSON =====
+imprimir_informacion("6. Trabajando con JSON...")
+
+jsn persona = {
+    nombre: nombre,
+    edad: edad,
+    salario: salario,
+    hobbies: hobbies,
+    contacto: {
+        email: "ana@ejemplo.com",
+        telefono: "+502 1234-5678"
+    },
+    activo: verdadero
+}
+
+imprimir("Datos de la persona:")
+imprimir(persona.cadena())
+
+// ===== OPERACIONES MATEMÁTICAS =====
+imprimir_informacion("7. Operaciones matemáticas...")
+
+entero a = 15
+entero b = 4
+
+imprimir("Operaciones con " + a.cadena() + " y " + b.cadena() + ":")
+imprimir("Suma: " + (a + b).cadena())
+imprimir("Resta: " + (a - b).cadena())
+imprimir("Multiplicación: " + (a * b).cadena())
+imprimir("División: " + (a / b).cadena())
+imprimir("Módulo: " + (a % b).cadena())
+
+// ===== VARIABLES MUTABLES =====
+imprimir_informacion("8. Variables mutables...")
+
+entero mut contador = 0
+imprimir("Contador inicial: " + contador.cadena())
+
+contador = contador + 10
+imprimir("Contador después de sumar 10: " + contador.cadena())
+
+contador += 5
+imprimir("Contador después de += 5: " + contador.cadena())
+
+// ===== FINAL =====
+imprimir_exito("¡Programa completado exitosamente!")
+imprimir("Has aprendido los conceptos básicos de Lenguaje Quetzal:")
+imprimir("✓ Variables y tipos de datos")
+imprimir("✓ Funciones")
+imprimir("✓ Condicionales")
+imprimir("✓ Bucles")
+imprimir("✓ Listas")
+imprimir("✓ Objetos JSON")
+imprimir("✓ Operaciones matemáticas")
+imprimir("✓ Variables mutables")
+```
+
+### Ejecutar el programa
+
+```cmd
+lenguaje-quetzal mi_primer_programa.qz
+```
+
+### Salida esperada
+

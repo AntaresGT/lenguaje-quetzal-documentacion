@@ -1,0 +1,138 @@
+---
+title: Bienvenido a Lenguaje Quetzal
+description: Introducción al lenguaje de programación Quetzal v0.0.1, un lenguaje interpretado moderno desarrollado en Rust con sintaxis en español.
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+# ¡Bienvenido a Lenguaje Quetzal! 🦅
+
+**Lenguaje Quetzal** es un lenguaje de programación interpretado moderno, diseñado con sintaxis completamente en español para hacer la programación más accesible a la comunidad hispanohablante.
+
+## ¿Qué es Lenguaje Quetzal?
+
+Quetzal es un lenguaje interpretado en tiempo de ejecución, implementado en **Rust** para garantizar alto rendimiento y seguridad. Su diseño se enfoca en:
+
+- **Sintaxis en español**: Todas las palabras clave están en español
+- **Tipado fuerte**: Previene errores comunes en tiempo de compilación
+- **Soporte nativo de JSON**: Interoperabilidad directa con estructuras JSON
+- **Rendimiento optimizado**: Implementado en Rust para máxima eficiencia
+
+## Características principales
+
+<CardGrid>
+  <Card title="Sintaxis Natural" icon="document">
+    Palabras clave en español como `si`, `sino`, `mientras`, `para`, haciendo el código más legible para hispanohablantes.
+  </Card>
+  
+  <Card title="Tipado Fuerte" icon="setting">
+    Sistema de tipos robusto que detecta errores en tiempo de compilación, con tipos como `entero`, `cadena`, `número`, `bool`.
+  </Card>
+  
+  <Card title="JSON Nativo" icon="open-book">
+    Soporte directo para objetos JSON con el tipo `jsn`, sin necesidad de conversiones externas.
+  </Card>
+  
+  <Card title="Alto Rendimiento" icon="rocket">
+    Implementado en Rust para garantizar velocidad y seguridad en la ejecución.
+  </Card>
+</CardGrid>
+
+## Tu primer programa
+
+Aquí tienes un ejemplo básico de código Quetzal:
+
+```quetzal
+// Mi primer programa en Quetzal
+imprimir_exito("¡Hola, mundo desde Lenguaje Quetzal!")
+
+// Variables con tipos
+entero edad = 25
+cadena nombre = "María García"
+bool esta_activo = verdadero
+
+// Función simple
+cadena saludar(cadena nombre_usuario) {
+    retornar "¡Hola, " + nombre_usuario + "!"
+}
+
+// Llamada a función
+cadena saludo = saludar(nombre)
+imprimir(saludo)
+
+// Condicional
+si (edad >= 18) {
+    imprimir("Es mayor de edad")
+} sino {
+    imprimir("Es menor de edad")
+}
+
+// Lista de datos
+lista<cadena> frutas = ["manzana", "banana", "naranja"]
+para (cadena fruta en frutas) {
+    imprimir("Fruta: " + fruta)
+}
+
+// Objeto JSON
+jsn persona = {
+    nombre: "Ana López",
+    edad: 30,
+    ciudad: "Guatemala",
+    activo: verdadero
+}
+
+imprimir("Persona: " + persona.cadena())
+```
+
+## ¿Por qué Quetzal?
+
+### 1. **Accesibilidad lingüística**
+Quetzal elimina la barrera del idioma en la programación, permitiendo que los desarrolladores hispanohablantes trabajen con conceptos familiares en su idioma nativo.
+
+### 2. **Diseño moderno**
+Incorpora características de lenguajes modernos como:
+- Inferencia de tipos
+- Programación asíncrona con `asincrono` y `esperar`
+- Manejo de errores con `intentar`, `atrapar`, `finalmente`
+- Sistema de módulos con `importar` y `exportar`
+
+### 3. **Comunidad hispanohablante**
+Diseñado específicamente para fomentar el crecimiento de la programación en la comunidad de habla hispana.
+
+## Próximos pasos
+
+<CardGrid>
+  <Card title="Instalación" icon="setting">
+    Aprende cómo instalar y configurar el intérprete de Quetzal en tu sistema.
+    
+    [Ver guía de instalación →](/es/introduccion/instalacion)
+  </Card>
+  
+  <Card title="Tu primer programa" icon="rocket">
+    Crea y ejecuta tu primer programa en Lenguaje Quetzal paso a paso.
+    
+    [Crear primer programa →](/es/introduccion/primer-programa)
+  </Card>
+  
+  <Card title="Fundamentos" icon="document">
+    Explora los conceptos básicos del lenguaje: tipos, variables y sintaxis.
+    
+    [Aprender fundamentos →](/es/fundamentos/sintaxis-basica)
+  </Card>
+  
+  <Card title="Ejemplos" icon="open-book">
+    Revisa ejemplos prácticos y proyectos de muestra para inspirarte.
+    
+    [Ver ejemplos →](/es/ejemplos/basicos)
+  </Card>
+</CardGrid>
+
+## Filosofía del proyecto
+
+> *"La programación no debería requerir que abandones tu idioma nativo. Quetzal trae la programación moderna al español, manteniendo la potencia y elegancia de los lenguajes contemporáneos."*
+
+Lenguaje Quetzal representa un paso hacia la democratización de la programación en el mundo hispanohablante, combinando familiaridad lingüística con características técnicas modernas.
+
+---
+
+¿Listo para comenzar? Continúa con la [guía de instalación](/es/introduccion/instalacion) para configurar tu entorno de desarrollo.
