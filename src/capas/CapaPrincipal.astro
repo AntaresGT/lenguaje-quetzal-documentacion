@@ -1,9 +1,17 @@
+---
+import { ClientRouter } from "astro:transitions"
+---
+
 <!doctype html>
 <html lang="es">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Lenguaje Quetzal - Documentación</title>
+        <ClientRouter />
+
+        <!-- Aquí va el SEO de la página -->
+        <slot name="seo" />
     </head>
     <body>
         <!-- Aquí va el contenido de la página -->
