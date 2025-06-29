@@ -1,0 +1,310 @@
+/* Colores del Lenguaje Quetzal basados en el logo */
+:root {
+  /* Colores principales del Quetzal */
+  --quetzal-verde-primario: #2d8a73;
+  --quetzal-verde-secundario: #359c85;
+  --quetzal-rojo: #c53030;
+  --quetzal-azul-marino: #1a365d;
+  --quetzal-blanco: #ffffff;
+  
+  /* Gradientes */
+  --quetzal-gradiente-principal: linear-gradient(135deg, var(--quetzal-verde-primario), var(--quetzal-verde-secundario));
+  --quetzal-gradiente-header: linear-gradient(90deg, var(--quetzal-verde-primario), var(--quetzal-azul-marino));
+}
+
+/* Personalización del tema de Starlight */
+[data-theme='light'] {
+  --sl-color-accent: var(--quetzal-verde-primario);
+  --sl-color-accent-low: #2d8a7320;
+  --sl-color-accent-high: var(--quetzal-verde-secundario);
+  --sl-color-white: var(--quetzal-blanco);
+  --sl-color-gray-1: #f8fafc;
+  --sl-color-gray-2: #f1f5f9;
+  --sl-color-gray-3: #e2e8f0;
+  --sl-color-gray-4: #cbd5e1;
+  --sl-color-gray-5: #94a3b8;
+  --sl-color-gray-6: #64748b;
+  --sl-color-black: var(--quetzal-azul-marino);
+}
+
+[data-theme='dark'] {
+  --sl-color-accent: var(--quetzal-verde-secundario);
+  --sl-color-accent-low: #359c8520;
+  --sl-color-accent-high: #4ade80;
+  --sl-color-white: var(--quetzal-blanco);
+  --sl-color-gray-1: #1e293b;
+  --sl-color-gray-2: #334155;
+  --sl-color-gray-3: #475569;
+  --sl-color-gray-4: #64748b;
+  --sl-color-gray-5: #94a3b8;
+  --sl-color-gray-6: #cbd5e1;
+  --sl-color-black: #0f172a;
+}
+
+/* Banner principal */
+.banner-principal {
+  background: var(--quetzal-gradiente-principal);
+  padding: 4rem 2rem;
+  border-radius: 1rem;
+  margin: 2rem 0;
+  color: var(--quetzal-blanco);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.banner-principal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+  opacity: 0.3;
+}
+
+.banner-principal > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Consola de ejemplo */
+.consola-ejemplo {
+  background: var(--quetzal-azul-marino);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  font-family: 'Courier New', monospace;
+  color: #00ff00;
+  overflow-x: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.consola-ejemplo .prompt {
+  color: var(--quetzal-verde-secundario);
+}
+
+.consola-ejemplo .output {
+  color: #ffffff;
+}
+
+.consola-ejemplo .success {
+  color: #4ade80;
+}
+
+.consola-ejemplo .error {
+  color: var(--quetzal-rojo);
+}
+
+.consola-ejemplo .warning {
+  color: #fbbf24;
+}
+
+/* Animación del Quetzal */
+.quetzal-animado {
+  animation: volar 3s ease-in-out infinite;
+}
+
+@keyframes volar {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-10px) rotate(2deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-15px) rotate(-2deg);
+  }
+}
+
+/* Tarjetas de características */
+.tarjeta-caracteristica {
+  background: var(--sl-color-white);
+  border: 2px solid var(--quetzal-verde-primario);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin: 1rem 0;
+  box-shadow: 0 4px 6px rgba(45, 138, 115, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tarjeta-caracteristica:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 15px rgba(45, 138, 115, 0.2);
+}
+
+/* Botones personalizados */
+.boton-quetzal {
+  background: var(--quetzal-gradiente-principal);
+  color: var(--quetzal-blanco);
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.boton-quetzal:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(45, 138, 115, 0.3);
+  color: var(--quetzal-blanco);
+}
+
+/* Resaltado de código Quetzal */
+.codigo-quetzal {
+  background: #f8fafc;
+  border: 1px solid var(--quetzal-verde-primario);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  font-family: 'Courier New', monospace;
+}
+
+[data-theme='dark'] .codigo-quetzal {
+  background: #1e293b;
+  border-color: var(--quetzal-verde-secundario);
+}
+
+/* Iconos de lenguaje */
+.icono-lenguaje {
+  width: 24px;
+  height: 24px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+}
+
+/* Personalización del header */
+.sl-nav {
+  background: var(--quetzal-gradiente-header) !important;
+}
+
+/* Grid responsivo */
+.grid-caracteristicas {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+/* Badges de versión */
+.badge-version {
+  background: var(--quetzal-verde-primario);
+  color: var(--quetzal-blanco);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Notificaciones */
+.notificacion {
+  padding: 1rem;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  border-left: 4px solid;
+}
+
+.notificacion.info {
+  background: #dbeafe;
+  border-color: #3b82f6;
+  color: #1e40af;
+}
+
+.notificacion.warning {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #92400e;
+}
+
+.notificacion.success {
+  background: #d1fae5;
+  border-color: var(--quetzal-verde-primario);
+  color: #065f46;
+}
+
+.notificacion.error {
+  background: #fee2e2;
+  border-color: var(--quetzal-rojo);
+  color: #991b1b;
+}
+
+/* Resaltado de sintaxis personalizado para Quetzal */
+.astro-code[data-language="qz"],
+.astro-code[data-language="quetzal"] {
+  --astro-code-color-text: #333333;
+  --astro-code-color-background: #fafafa;
+  --astro-code-token-constant: var(--quetzal-rojo);
+  --astro-code-token-string: #22863a;
+  --astro-code-token-comment: #6a737d;
+  --astro-code-token-keyword: var(--quetzal-verde-primario);
+  --astro-code-token-parameter: #032f62;
+  --astro-code-token-function: var(--quetzal-azul-marino);
+  --astro-code-token-string-expression: #22863a;
+  --astro-code-token-punctuation: #24292e;
+  --astro-code-token-link: #005cc5;
+}
+
+[data-theme='dark'] .astro-code[data-language="qz"],
+[data-theme='dark'] .astro-code[data-language="quetzal"] {
+  --astro-code-color-text: #e6e6e6;
+  --astro-code-color-background: #2d3748;
+  --astro-code-token-constant: #f97583;
+  --astro-code-token-string: #85e89d;
+  --astro-code-token-comment: #6a737d;
+  --astro-code-token-keyword: var(--quetzal-verde-secundario);
+  --astro-code-token-parameter: #79b8ff;
+  --astro-code-token-function: #b392f0;
+  --astro-code-token-string-expression: #85e89d;
+  --astro-code-token-punctuation: #e6e6e6;
+  --astro-code-token-link: #79b8ff;
+}
+
+/* Resaltado específico para palabras reservadas de Quetzal */
+.astro-code .token.keyword.quetzal {
+  color: var(--quetzal-verde-primario);
+  font-weight: 600;
+}
+
+.astro-code .token.function.quetzal {
+  color: var(--quetzal-azul-marino);
+  font-weight: 500;
+}
+
+.astro-code .token.builtin.quetzal {
+  color: var(--quetzal-rojo);
+  font-style: italic;
+}
+
+/* Mejoras para el código en línea */
+code:not(pre code) {
+  background: var(--sl-color-gray-2);
+  color: var(--quetzal-verde-primario);
+  font-weight: 500;
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.9em;
+}
+
+[data-theme='dark'] code:not(pre code) {
+  background: var(--sl-color-gray-3);
+  color: var(--quetzal-verde-secundario);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .banner-principal {
+    padding: 2rem 1rem;
+  }
+  
+  .grid-caracteristicas {
+    grid-template-columns: 1fr;
+  }
+}

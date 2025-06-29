@@ -1,0 +1,200 @@
+---
+title: Quetzal Programming Language
+description: A functional, modern programming language in Spanish
+template: splash
+hero:
+  tagline: A completely functional, modern and expressive programming language, designed to be intuitive and powerful.
+  actions:
+    - text: Get Started
+      link: /en/installation/
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/AntaresGT/lenguaje-quetzal
+      icon: external
+---al Programming Language
+description: A functional, modern programming language designed in Spanish
+template: splash
+hero:
+  tagline: A purely functional, modern and expressive programming language, designed to be intuitive and powerful.
+  image:
+    file: ../../assets/logo_lenguaje_quetzal.png
+  actions:
+    - text: Get Started
+      link: /en/installation/
+      icon: right-arrow
+      variant: primary
+    - text: View on GitHub
+      link: https://github.com/AntaresGT/lenguaje-quetzal
+      icon: external
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+<div class="banner-principal">
+  <div class="flex flex-col items-center space-y-6">
+    <div class="quetzal-animado">
+      <img src="/src/assets/logo_lenguaje_quetzal.png" alt="Quetzal Logo" class="w-24 h-24 mx-auto" />
+    </div>
+    <h1 class="text-4xl md:text-6xl font-bold">Quetzal Language</h1>
+    <p class="text-xl md:text-2xl opacity-90">Functional programming in Spanish</p>
+    <span class="badge-version">v0.0.1</span>
+  </div>
+</div>
+
+## 🚀 Interactive Console Example
+
+<div class="consola-ejemplo">
+<div class="prompt">quetzal@terminal:~$</div> cargo run hello_world.qz
+<div class="output">Running: hello_world.qz</div>
+<div class="success">✓ Successful compilation</div>
+<div class="output">
+```javascript
+// Basic example in Quetzal
+imprimir_exito("¡Hello world from Quetzal!")
+
+cadena nombre = "Developer"
+entero edad = 25
+
+imprimir("My name is: " + nombre)
+imprimir("I am " + edad.cadena() + " years old")
+
+// Simple function
+número sumar(número a, número b) {
+    retornar a + b
+}
+
+número resultado = sumar(10, 15)
+imprimir_exito("Result: " + resultado.cadena())
+```
+</div>
+<div class="success">¡Hello world from Quetzal!</div>
+<div class="output">My name is: Developer</div>
+<div class="output">I am 25 years old</div>
+<div class="success">Result: 25</div>
+<div class="prompt">quetzal@terminal:~$</div>
+</div>
+
+## ✨ Key Features
+
+<CardGrid>
+  <Card title="🇪🇸 100% Spanish Syntax" icon="translate">
+    Complete syntax in Spanish for more natural and intuitive programming.
+  </Card>
+  <Card title="⚡ High Performance" icon="rocket">
+    Implemented in Rust to ensure maximum speed and efficiency.
+  </Card>
+  <Card title="🔧 Strong Typing" icon="setting">
+    Robust type system that prevents common programming errors.
+  </Card>
+  <Card title="🌐 Native JSON" icon="document">
+    Native JSON support without the need for external conversions.
+  </Card>
+  <Card title="🔄 Functional Programming" icon="puzzle">
+    Designed from scratch to support functional programming paradigms.
+  </Card>
+  <Card title="🎯 Easy to Learn" icon="open-book">
+    Clear and expressive syntax, perfect for beginners and experts.
+  </Card>
+</CardGrid>
+
+## 📊 Language Information
+
+<div class="grid-caracteristicas">
+  <div class="tarjeta-caracteristica">
+    <h3>📦 Quick Installation</h3>
+    <p>Only <strong>56KB</strong> of space required</p>
+    <p>Compatible with <strong>Windows</strong></p>
+    <p>Installation in less than 30 seconds</p>
+  </div>
+
+  <div class="tarjeta-caracteristica">
+    <h3>🔧 Tools</h3>
+    <p>Official extension for <strong>VS Code</strong></p>
+    <p>Complete syntax highlighting</p>
+    <p>Intelligent autocompletion</p>
+  </div>
+
+  <div class="tarjeta-caracteristica">
+    <h3>📖 Documentation</h3>
+    <p>Available in <strong>4 languages</strong></p>
+    <p>Practical examples included</p>
+    <p>Step-by-step guides</p>
+  </div>
+
+  <div class="tarjeta-caracteristica">
+    <h3>🌟 Open Source</h3>
+    <p>Free license for commercial use</p>
+    <p>Developed by <strong>AntaresGT</strong></p>
+    <p>Active community on GitHub</p>
+  </div>
+</div>
+
+## 🎯 Why Quetzal?
+
+Quetzal is more than a programming language; it's a development philosophy that prioritizes:
+
+- **Clarity**: Spanish syntax that facilitates understanding
+- **Efficiency**: Optimized performance thanks to Rust
+- **Simplicity**: Minimalist but powerful design
+- **Functionality**: Functional paradigm for cleaner code
+- **Accessibility**: Integrated tools for all levels
+
+## 🚀 Getting Started is Easy
+
+1. **Download** the executable from GitHub (56KB)
+2. **Install** the VS Code extension
+3. **Create** your first `.qz` file
+4. **Run** `cargo run my_program.qz`
+
+<div class="flex gap-4 justify-center mt-8">
+  <a href="/en/installation/" class="boton-quetzal">
+    📥 Download Quetzal v0.0.1
+  </a>
+  <a href="https://marketplace.visualstudio.com/items?itemName=AntaresGT.lenguaje-quetzal-vscode-extension" class="boton-quetzal">
+    🔧 VS Code Extension
+  </a>
+</div>
+
+## 📝 Code Example
+
+```javascript
+// Example program: Simple calculator
+objeto Calculadora {
+    número sumar(número a, número b) {
+        retornar a + b
+    }
+    
+    número restar(número a, número b) {
+        retornar a - b
+    }
+    
+    número multiplicar(número a, número b) {
+        retornar a * b
+    }
+    
+    número dividir(número a, número b) {
+        si (b == 0) {
+            lanzar nuevo Excepción("Division by zero")
+        }
+        retornar a / b
+    }
+}
+
+// Using the calculator
+Calculadora calc = nuevo Calculadora()
+número resultado = calc.sumar(10, 5)
+imprimir_exito("10 + 5 = " + resultado.cadena())
+```
+
+<div class="notificacion info">
+  <strong>💡 Note:</strong> Quetzal is in active development. Version v0.0.1 includes basic programming functions that will expand over time.
+</div>
+
+---
+
+<div class="text-center text-sm opacity-75 mt-8">
+  Developed with ❤️ by <a href="https://antaresgt.com" class="text-quetzal-verde-primario">AntaresGT</a> | 
+  Open source under free license | 
+  <a href="https://github.com/AntaresGT/lenguaje-quetzal" class="text-quetzal-verde-primario">GitHub</a>
+</div>

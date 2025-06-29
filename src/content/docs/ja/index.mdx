@@ -1,0 +1,153 @@
+---
+title: Quetzal プログラミング言語
+description: 関数型で現代的なスペイン語のプログラミング言語
+template: splash
+hero:
+  tagline: 直感的で強力に設計された、完全に関数型で現代的で表現力豊かなプログラミング言語です。
+  actions:
+    - text: 今すぐ始める
+      link: /ja/installation/
+      icon: right-arrow
+      variant: primary
+    - text: GitHubで見る
+      link: https://github.com/AntaresGT/lenguaje-quetzal
+      icon: external
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import BannerQuetzal from '../../../components/BannerQuetzal.astro';
+
+<BannerQuetzal />
+
+## 🚀 インタラクティブコンソールの例
+
+<div class="consola-ejemplo">
+<div class="prompt">quetzal@terminal:~$</div> cargo run hola_mundo.qz
+<div class="output">実行中: hola_mundo.qz</div>
+<div class="success">✓ コンパイル成功</div>
+<div class="output">
+```javascript
+// Quetzalの基本例
+imprimir_exito("¡Hola mundo desde Quetzal!")
+
+cadena nombre = "開発者"
+entero edad = 25
+
+imprimir("私の名前は: " + nombre)
+imprimir("年齢は " + edad.cadena() + " 歳です")
+
+// シンプルな関数
+número sumar(número a, número b) {
+    devolver a + b
+}
+
+entero resultado = sumar(10, 20)
+imprimir("結果: " + resultado.cadena())
+```
+</div>
+</div>
+
+## ✨ 主な特徴
+
+<CardGrid>
+  <Card title="🇪🇸 スペイン語" icon="translate">
+    スペイン語のキーワードを自然に使用する初のプログラミング言語。
+  </Card>
+  <Card title="⚡ モダン & 高速" icon="rocket">
+    Rustで構築、わずか56KB、高性能とメモリ安全性。
+  </Card>
+  <Card title="🔧 関数型" icon="setting">
+    表現力豊かで直感的な構文を持つ純粋な関数型パラダイム。
+  </Card>
+  <Card title="💡 習得しやすい" icon="approve-check">
+    明確な構文と完全なドキュメントにより、学習が容易。
+  </Card>
+</CardGrid>
+
+## 🛠️ ツール & 統合
+
+<CardGrid>
+  <Card title="VS Code拡張機能" icon="seti:vscode">
+    シンタックスハイライトとIntelliSenseを備えたVisual Studio Code公式拡張機能。
+    
+    [拡張機能をダウンロード →](https://marketplace.visualstudio.com/items?itemName=AntaresGT.quetzal-language)
+  </Card>
+  <Card title="GitHubリリース" icon="github">
+    最新リリースとソースコードは公式GitHubリポジトリで入手可能。
+    
+    [リリースを見る →](https://github.com/AntaresGT/lenguaje-quetzal/releases)
+  </Card>
+</CardGrid>
+
+## 📚 コード例
+
+Quetzalの力と優雅さを示すいくつかの例：
+
+### データ構造
+```javascript
+// リストの操作
+lista números = [1, 2, 3, 4, 5]
+lista pares = números.filtrar(n => n % 2 == 0)
+imprimir("偶数: " + pares.cadena())
+
+// オブジェクトとプロパティ
+objeto persona = {
+    nombre: "田中太郎",
+    edad: 30,
+    ciudad: "東京"
+}
+
+imprimir("こんにちは " + persona.nombre)
+```
+
+### 関数 & 制御フロー
+```javascript
+// パラメータ付き関数
+cadena saludar(cadena nombre) {
+    devolver "こんにちは、" + nombre + "！"
+}
+
+// 条件分岐
+si (edad >= 18) {
+    imprimir("成人です")
+} sino {
+    imprimir("未成年です")
+}
+
+// ループ
+para i desde 1 hasta 10 {
+    imprimir("番号: " + i.cadena())
+}
+```
+
+### 非同期操作
+```javascript
+// 非同期関数
+asincrono promesa<cadena> obtener_datos() {
+    aguardar tiempo_espera(1000)
+    devolver "データの読み込み完了"
+}
+
+// awaitでの使用
+cadena resultado = aguardar obtener_datos()
+imprimir(resultado)
+```
+
+## 🎯 Quetzalを選ぶ理由
+
+- **自然**: 読みやすく理解しやすいスペイン語の構文
+- **強力**: 型安全性と高性能を備えた関数型パラダイム
+- **軽量**: わずか56KB、あらゆるプロジェクトに適している
+- **本番対応**: 現在Windows用、マルチプラットフォーム対応予定
+- **コミュニティ**: アクティブなサポートと完全なドキュメント
+
+---
+
+<div class="text-center py-8">
+  <h2>始める準備はできましたか？</h2>
+  <p class="text-lg opacity-80 mb-6">今日からQuetzalでプログラミングの旅を始めましょう。</p>
+  <div class="flex gap-4 justify-center">
+    <a href="/ja/installation/" class="btn-primary">インストールガイド</a>
+    <a href="/ja/first-steps/" class="btn-secondary">最初のステップ</a>
+  </div>
+</div>

@@ -1,0 +1,153 @@
+---
+title: Bahasa Pemrograman Quetzal
+description: Bahasa pemrograman fungsional, modern, dan dalam bahasa Spanyol
+template: splash
+hero:
+  tagline: Bahasa pemrograman yang sepenuhnya fungsional, modern dan ekspresif, dirancang untuk intuitif dan kuat.
+  actions:
+    - text: Mulai Sekarang
+      link: /id/instalasi/
+      icon: right-arrow
+      variant: primary
+    - text: Lihat di GitHub
+      link: https://github.com/AntaresGT/lenguaje-quetzal
+      icon: external
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import BannerQuetzal from '../../../components/BannerQuetzal.astro';
+
+<BannerQuetzal />
+
+## 🚀 Contoh Konsol Interaktif
+
+<div class="consola-ejemplo">
+<div class="prompt">quetzal@terminal:~$</div> cargo run hola_mundo.qz
+<div class="output">Menjalankan: hola_mundo.qz</div>
+<div class="success">✓ Kompilasi berhasil</div>
+<div class="output">
+```javascript
+// Contoh dasar dalam Quetzal
+imprimir_exito("¡Hola mundo desde Quetzal!")
+
+cadena nombre = "Pengembang"
+entero edad = 25
+
+imprimir("Nama saya: " + nombre)
+imprimir("Saya berusia " + edad.cadena() + " tahun")
+
+// Fungsi sederhana
+número sumar(número a, número b) {
+    devolver a + b
+}
+
+entero resultado = sumar(10, 20)
+imprimir("Hasil: " + resultado.cadena())
+```
+</div>
+</div>
+
+## ✨ Fitur Utama
+
+<CardGrid>
+  <Card title="🇪🇸 Dalam Bahasa Spanyol" icon="translate">
+    Bahasa pemrograman pertama yang menggunakan kata kunci dalam bahasa Spanyol secara alami.
+  </Card>
+  <Card title="⚡ Modern & Cepat" icon="rocket">
+    Dibangun dengan Rust, hanya 56KB, dengan performa tinggi dan keamanan memori.
+  </Card>
+  <Card title="🔧 Fungsional" icon="setting">
+    Paradigma fungsional murni dengan sintaks yang ekspresif dan intuitif.
+  </Card>
+  <Card title="💡 Mudah Dipelajari" icon="approve-check">
+    Sintaks yang jelas dan dokumentasi lengkap membuatnya mudah untuk dipelajari.
+  </Card>
+</CardGrid>
+
+## 🛠️ Alat & Integrasi
+
+<CardGrid>
+  <Card title="VS Code Extension" icon="seti:vscode">
+    Ekstensi resmi untuk Visual Studio Code dengan syntax highlighting dan IntelliSense.
+    
+    [Unduh Ekstensi →](https://marketplace.visualstudio.com/items?itemName=AntaresGT.quetzal-language)
+  </Card>
+  <Card title="GitHub Releases" icon="github">
+    Rilis terbaru dan kode sumber tersedia di repositori GitHub resmi.
+    
+    [Lihat Rilis →](https://github.com/AntaresGT/lenguaje-quetzal/releases)
+  </Card>
+</CardGrid>
+
+## 📚 Contoh Kode
+
+Berikut adalah beberapa contoh untuk menunjukkan kekuatan dan keeleganan Quetzal:
+
+### Struktur Data
+```javascript
+// Bekerja dengan daftar
+lista números = [1, 2, 3, 4, 5]
+lista pares = números.filtrar(n => n % 2 == 0)
+imprimir("Bilangan genap: " + pares.cadena())
+
+// Objek dan properti
+objeto persona = {
+    nombre: "Ana García",
+    edad: 30,
+    ciudad: "Madrid"
+}
+
+imprimir("Halo " + persona.nombre)
+```
+
+### Fungsi & Kontrol Alur
+```javascript
+// Fungsi dengan parameter
+cadena saludar(cadena nombre) {
+    devolver "Halo, " + nombre + "!"
+}
+
+// Kondisional
+si (edad >= 18) {
+    imprimir("Anda sudah dewasa")
+} sino {
+    imprimir("Anda masih di bawah umur")
+}
+
+// Loop
+para i desde 1 hasta 10 {
+    imprimir("Nomor: " + i.cadena())
+}
+```
+
+### Operasi Asinkron
+```javascript
+// Fungsi asinkron
+asincrono promesa<cadena> obtener_datos() {
+    aguardar tiempo_espera(1000)
+    devolver "Data berhasil dimuat"
+}
+
+// Penggunaan dengan await
+cadena resultado = aguardar obtener_datos()
+imprimir(resultado)
+```
+
+## 🎯 Mengapa Memilih Quetzal?
+
+- **Alami**: Sintaks dalam bahasa Spanyol yang mudah dibaca dan dipahami
+- **Kuat**: Paradigma fungsional dengan type safety dan performa tinggi
+- **Ringan**: Hanya 56KB, cocok untuk proyek apapun
+- **Siap Produksi**: Saat ini untuk Windows, dengan rencana multiplatform
+- **Komunitas**: Dukungan aktif dan dokumentasi lengkap
+
+---
+
+<div class="text-center py-8">
+  <h2>Siap untuk memulai?</h2>
+  <p class="text-lg opacity-80 mb-6">Mulai perjalanan pemrograman Anda dengan Quetzal hari ini.</p>
+  <div class="flex gap-4 justify-center">
+    <a href="/id/instalasi/" class="btn-primary">Panduan Instalasi</a>
+    <a href="/id/primeros-pasos/" class="btn-secondary">Langkah Pertama</a>
+  </div>
+</div>
