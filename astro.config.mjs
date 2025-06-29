@@ -13,8 +13,12 @@ export default defineConfig({
 				ja: 'ケツァル語',
 			},
 			description: 'Documentación oficial del Lenguaje de Programación Quetzal v0.0.1',
-			defaultLocale: 'es',
+			defaultLocale: 'root',
 			locales: {
+				root: {
+					label: 'Español',
+					lang: 'es',
+				},
 				es: {
 					label: 'Español',
 					lang: 'es',

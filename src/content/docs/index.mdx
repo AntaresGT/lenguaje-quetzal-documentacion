@@ -1,36 +1,70 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
+title: Lenguaje Quetzal
+description: Bienvenido a la documentación oficial del Lenguaje de Programación Quetzal v0.0.1
 template: splash
 hero:
-  tagline: Congrats on setting up a new Starlight project!
+  tagline: ¡Un lenguaje de programación moderno con sintaxis en español!
   image:
-    file: ../../assets/houston.webp
+    file: ../../assets/logo_lenguaje_quetzal.png
   actions:
-    - text: Example Guide
-      link: /guides/example/
+    - text: Comenzar tutorial
+      link: /introduccion/bienvenido/
       icon: right-arrow
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
+    - text: Ver en GitHub
+      link: https://github.com/AntaresGT/lenguaje-quetzal
       icon: external
       variant: minimal
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## Next steps
+## ¿Por qué Quetzal?
 
 <CardGrid stagger>
-	<Card title="Update content" icon="pencil">
-		Edit `src/content/docs/index.mdx` to see this page change.
+	<Card title="Sintaxis en español" icon="rocket">
+		Programar en tu idioma nativo hace que el código sea más fácil de leer y entender.
 	</Card>
-	<Card title="Add new content" icon="add-document">
-		Add Markdown or MDX files to `src/content/docs` to create new pages.
+	<Card title="Tipado fuerte" icon="setting">
+		Sistema de tipos robusto que previene errores comunes en tiempo de compilación.
 	</Card>
-	<Card title="Configure your site" icon="setting">
-		Edit your `sidebar` and other config in `astro.config.mjs`.
+	<Card title="Inmutabilidad por defecto" icon="approve-check">
+		Las variables son constantes a menos que se especifique lo contrario, promoviendo código más seguro.
 	</Card>
-	<Card title="Read the docs" icon="open-book">
-		Learn more in [the Starlight Docs](https://starlight.astro.build/).
+	<Card title="Facilidad de uso" icon="open-book">
+		Sintaxis clara y expresiva diseñada para ser intuitiva para hispanohablantes.
+	</Card>
+</CardGrid>
+
+## Ejemplo rápido
+
+```quetzal
+// Un programa simple en Quetzal
+cadena nombre = "Mundo"
+entero edad = 25
+bool es_activo = verdadero
+
+// Función para saludar
+fn saludar(cadena persona) -> cadena {
+    retornar "¡Hola, " + persona + "!"
+}
+
+// Programa principal
+imprimir(saludar(nombre))
+```
+
+## Próximos pasos
+
+<CardGrid>
+	<Card title="Aprende lo básico" icon="document">
+		Comienza con [Sintaxis básica](/fundamentos/sintaxis-basica/) y aprende los fundamentos del lenguaje.
+	</Card>
+	<Card title="Instala Quetzal" icon="setting">
+		Sigue la [guía de instalación](/introduccion/instalacion/) para configurar tu entorno de desarrollo.
+	</Card>
+	<Card title="Explora ejemplos" icon="laptop">
+		Revisa los [ejemplos prácticos](/ejemplos/basicos/) para ver Quetzal en acción.
+	</Card>
+	<Card title="Contribuir" icon="github">
+		Únete al desarrollo en [GitHub](https://github.com/AntaresGT/lenguaje-quetzal).
 	</Card>
 </CardGrid>

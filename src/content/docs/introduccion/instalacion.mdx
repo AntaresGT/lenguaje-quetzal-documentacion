@@ -5,8 +5,6 @@ description: Guía paso a paso para instalar el intérprete de Lenguaje Quetzal 
 
 import { Card, CardGrid, Steps, Badge } from '@astrojs/starlight/components';
 
-# Instalación de Lenguaje Quetzal
-
 Esta guía te llevará paso a paso por el proceso de instalación del intérprete de Lenguaje Quetzal en Windows.
 
 <Badge text="Solo Windows" variant="note" />
@@ -48,7 +46,7 @@ Esta guía te llevará paso a paso por el proceso de instalación del intérpret
    C:\quetzal\
    ```
    
-   Mueve el archivo `lenguaje-quetzal.exe` descargado a esta carpeta.
+   Mueve el archivo `quetzal.exe` descargado a esta carpeta.
 
 3. **Configurar variables de entorno**
    
@@ -81,19 +79,13 @@ Esta guía te llevará paso a paso por el proceso de instalación del intérpret
 ### Ejecutar un archivo Quetzal
 
 ```cmd
-lenguaje-quetzal mi_programa.qz
-```
-
-### Modo interactivo
-
-```cmd
-lenguaje-quetzal --interactivo
+quetzal mi_programa.qz
 ```
 
 ### Ver ayuda
 
 ```cmd
-lenguaje-quetzal --ayuda
+quetzal --ayuda
 ```
 
 ## Verificación rápida
@@ -118,7 +110,7 @@ si (edad >= 18) {
 Ejecuta el archivo:
 
 ```cmd
-lenguaje-quetzal prueba.qz
+quetzal prueba.qz
 ```
 
 Si ves la salida correcta, ¡la instalación fue exitosa!
@@ -127,12 +119,12 @@ Si ves la salida correcta, ¡la instalación fue exitosa!
 
 <CardGrid>
   <Card title="Comando no reconocido" icon="error">
-    **Error**: `'lenguaje-quetzal' no se reconoce como un comando interno o externo`
+    **Error**: `'quetzal' no se reconoce como un comando interno o externo`
     
     **Solución**:
     - Verifica que agregaste la ruta correcta al PATH
     - Reinicia Command Prompt/PowerShell después de cambiar variables de entorno
-    - Asegúrate de que el archivo esté en `C:\quetzal\lenguaje-quetzal.exe`
+    - Asegúrate de que el archivo esté en `C:\quetzal\quetzal.exe`
   </Card>
   
   <Card title="Error de permisos" icon="warning">
@@ -158,22 +150,22 @@ Si ves la salida correcta, ¡la instalación fue exitosa!
 
 ```cmd
 # Verificar que el archivo existe
-dir C:\quetzal\lenguaje-quetzal.exe
+dir C:\quetzal\quetzal.exe
 
 # Verificar variables de entorno
 echo %PATH%
 
 # Ejecutar con información detallada
-lenguaje-quetzal --version --verbose
+lenguaje-quetzal --info
 ```
 
 ## Actualizar Quetzal
 
 Para actualizar a una nueva versión:
 
-1. Descarga la nueva versión de `lenguaje-quetzal.exe` desde GitHub Releases
+1. Descarga la nueva versión de `quetzal.exe` desde GitHub Releases
 2. Reemplaza el archivo anterior en `C:\quetzal\`
-3. Verifica la nueva versión con `lenguaje-quetzal --version`
+3. Verifica la nueva versión con `quetzal --version`
 
 ## Desinstalar
 
