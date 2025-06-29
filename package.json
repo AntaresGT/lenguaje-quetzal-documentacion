@@ -12,6 +12,7 @@
     "@astrojs/prism": "^3.3.0",
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.10.1",
+    "gsap": "^3.13.0",
     "tailwindcss": "^4.1.11"
   }
 }
