@@ -1,0 +1,185 @@
+/*
+ Archivo de prueba para operadores en Quetzal v0.0.1
+ Prueba todos los operadores disponibles en el lenguaje
+*/
+
+imprimir_exito("=== PRUEBA DE OPERADORES ===")
+
+// ===== OPERADORES ARITMÉTICOS =====
+imprimir_informacion("1. Probando operadores aritméticos...")
+
+entero a = 15
+entero b = 4
+número c = 7.5
+número d = 2.5
+
+imprimir("Valores: a=" + a.cadena() + ", b=" + b.cadena() + ", c=" + c.cadena() + ", d=" + d.cadena())
+
+// Suma
+entero suma_enteros = a + b
+número suma_decimales = c + d
+imprimir("Suma enteros (15+4): " + suma_enteros.cadena())
+imprimir("Suma decimales (7.5+2.5): " + suma_decimales.cadena())
+
+// Resta
+entero resta_enteros = a - b
+número resta_decimales = c - d
+imprimir("Resta enteros (15-4): " + resta_enteros.cadena())
+imprimir("Resta decimales (7.5-2.5): " + resta_decimales.cadena())
+
+// Multiplicación
+entero mult_enteros = a * b
+número mult_decimales = c * d
+imprimir("Multiplicación enteros (15*4): " + mult_enteros.cadena())
+imprimir("Multiplicación decimales (7.5*2.5): " + mult_decimales.cadena())
+
+// División
+entero div_enteros = a / b
+número div_decimales = c / d
+imprimir("División enteros (15/4): " + div_enteros.cadena())
+imprimir("División decimales (7.5/2.5): " + div_decimales.cadena())
+
+// Módulo
+entero mod_enteros = a % b
+imprimir("Módulo enteros (15%4): " + mod_enteros.cadena())
+
+// ===== OPERADORES DE ASIGNACIÓN =====
+imprimir_informacion("2. Probando operadores de asignación...")
+
+entero mut x = 10
+número mut z = 5.0
+
+imprimir("Valores iniciales: x=" + x.cadena() + ", z=" + z.cadena())
+
+// Asignación con suma
+x += 5
+z += 2.5
+imprimir("Después de += : x=" + x.cadena() + ", z=" + z.cadena())
+
+// Asignación con resta
+x -= 3
+z -= 1.5
+imprimir("Después de -= : x=" + x.cadena() + ", z=" + z.cadena())
+
+// Asignación con multiplicación
+x *= 2
+z *= 3.0
+imprimir("Después de *= : x=" + x.cadena() + ", z=" + z.cadena())
+
+// Asignación con división
+x /= 4
+z /= 2.0
+imprimir("Después de /= : x=" + x.cadena() + ", z=" + z.cadena())
+
+// Asignación con módulo
+x %= 3
+imprimir("Después de %= : x=" + x.cadena())
+
+// ===== OPERADORES DE INCREMENTO Y DECREMENTO =====
+imprimir_informacion("3. Probando incremento y decremento...")
+
+entero mut contador = 5
+imprimir("Contador inicial: " + contador.cadena())
+
+// Incremento
+contador++
+imprimir("Después de ++: " + contador.cadena())
+
+// Decremento
+contador--
+imprimir("Después de --: " + contador.cadena())
+
+// ===== OPERADORES DE COMPARACIÓN =====
+imprimir_informacion("4. Probando operadores de comparación...")
+
+entero val1 = 10
+entero val2 = 20
+entero val3 = 10
+
+// Igualdad
+bool igual = val1 == val3
+imprimir("10 == 10: " + igual.cadena())
+
+// Desigualdad
+bool diferente = val1 != val2
+imprimir("10 != 20: " + diferente.cadena())
+
+// Mayor que
+bool mayor = val2 > val1
+imprimir("20 > 10: " + mayor.cadena())
+
+// Menor que
+bool menor = val1 < val2
+imprimir("10 < 20: " + menor.cadena())
+
+// Mayor o igual
+bool mayor_igual = val1 >= val3
+imprimir("10 >= 10: " + mayor_igual.cadena())
+
+// Menor o igual
+bool menor_igual = val1 <= val2
+imprimir("10 <= 20: " + menor_igual.cadena())
+
+// ===== OPERADORES LÓGICOS =====
+imprimir_informacion("5. Probando operadores lógicos...")
+
+bool verdadero_val = verdadero
+bool falso_val = falso
+
+// AND con &&
+bool and_resultado = verdadero_val && falso_val
+imprimir("verdadero && falso: " + and_resultado.cadena())
+
+// AND con y
+bool y_resultado = verdadero_val y verdadero_val
+imprimir("verdadero y verdadero: " + y_resultado.cadena())
+
+// OR con ||
+bool or_resultado = verdadero_val || falso_val
+imprimir("verdadero || falso: " + or_resultado.cadena())
+
+// OR con o
+bool o_resultado = falso_val o verdadero_val
+imprimir("falso o verdadero: " + o_resultado.cadena())
+
+// NOT
+bool not_resultado = !verdadero_val
+imprimir("!verdadero: " + not_resultado.cadena())
+
+// ===== OPERADORES DE CONCATENACIÓN =====
+imprimir_informacion("6. Probando operadores de concatenación...")
+
+cadena texto1 = "Hola"
+cadena texto2 = "Mundo"
+cadena mut texto_dinamico = "Inicio"
+
+// Concatenación simple
+cadena resultado_concat = texto1 + " " + texto2
+imprimir("Concatenación: " + resultado_concat)
+
+// Concatenación con asignación
+texto_dinamico += " - Agregado"
+imprimir("Concatenación con +=: " + texto_dinamico)
+
+// Concatenación con números
+entero valor_para_concatenar = 42
+cadena texto_con_valor = "El número es: " + valor_para_concatenar.cadena()
+imprimir("Texto con número: " + texto_con_valor)
+
+// ===== OPERADOR TERNARIO =====
+imprimir_informacion("7. Probando operador ternario...")
+
+entero edad = 25
+cadena categoria = edad >= 18 ? "adulto" : "menor"
+imprimir("Categoría por edad: " + categoria)
+
+entero nota = 85
+cadena estado = nota >= 70 ? "aprobado" : "reprobado"
+imprimir("Estado por nota: " + estado)
+
+bool tiene_descuento = verdadero
+número precio_original = 100.0
+número precio_final = tiene_descuento ? precio_original * 0.8 : precio_original
+imprimir("Precio final: " + precio_final.cadena())
+
+imprimir_exito("✓ Todas las pruebas de operadores completadas")

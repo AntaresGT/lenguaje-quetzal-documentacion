@@ -1,0 +1,112 @@
+/*
+ Archivo de prueba para funciones en Quetzal v0.0.1
+ Prueba declaración y llamada de funciones según la sintaxis correcta
+*/
+
+imprimir_exito("=== PRUEBA DE FUNCIONES ===")
+
+// ===== FUNCIONES QUE NO RETORNAN NADA =====
+imprimir_informacion("1. Probando funciones sin retorno...")
+
+vacio saludar() {
+    imprimir("¡Hola desde una función!")
+}
+
+vacio saludar_personalizado(cadena nombre_usuario) {
+    imprimir("¡Hola " + nombre_usuario + "!")
+}
+
+vacio mostrar_valores(entero primer_val, entero segundo_val) {
+    imprimir("Primer valor: " + primer_val.cadena())
+    imprimir("Segundo valor: " + segundo_val.cadena())
+}
+
+// Llamadas a funciones sin retorno
+saludar()
+saludar_personalizado("María")
+mostrar_valores(10, 20)
+
+// ===== FUNCIONES QUE RETORNAN VALORES =====
+imprimir_informacion("2. Probando funciones con retorno...")
+
+entero sumar(entero x, entero z) {
+    retornar x + z
+}
+
+número calcular_area_circulo(número radio) {
+    número pi = 3.14159
+    retornar pi * radio * radio
+}
+
+cadena crear_saludo(cadena nombre_persona, cadena apellido) {
+    retornar "Hola " + nombre_persona + " " + apellido
+}
+
+bool es_mayor(entero primer_valor, entero segundo_valor) {
+    retornar primer_valor > segundo_valor
+}
+
+// Llamadas a funciones con retorno
+entero resultado_suma = sumar(15, 25)
+número area_calculada = calcular_area_circulo(5.0)
+cadena saludo_completo = crear_saludo("Ana", "García")
+bool resultado_comparacion = es_mayor(10, 5)
+
+imprimir("Suma: " + resultado_suma.cadena())
+imprimir("Área del círculo: " + area_calculada.cadena())
+imprimir("Saludo completo: " + saludo_completo)
+imprimir("10 es mayor que 5: " + resultado_comparacion.cadena())
+
+// ===== FUNCIONES CON PARÁMETROS MUTABLES =====
+imprimir_informacion("3. Probando funciones con parámetros mutables...")
+
+vacio modificar_valor(entero mut valor_entrada) {
+    valor_entrada = valor_entrada * 2
+    imprimir("Valor modificado dentro de función: " + valor_entrada.cadena())
+}
+
+cadena procesar_texto(cadena mut texto_entrada) {
+    texto_entrada = texto_entrada + " - procesado"
+    retornar texto_entrada
+}
+
+entero mut valor_mutable = 5
+modificar_valor(valor_mutable)
+
+cadena mut texto_mutable = "original"
+cadena texto_procesado = procesar_texto(texto_mutable)
+imprimir("Texto procesado: " + texto_procesado)
+
+// ===== FUNCIONES ANIDADAS (LLAMADAS DENTRO DE OTRAS) =====
+imprimir_informacion("4. Probando funciones anidadas...")
+
+entero multiplicar(entero factor1, entero factor2) {
+    retornar factor1 * factor2
+}
+
+entero calcular_complejo(entero valor_x, entero valor_z) {
+    entero suma_parcial = sumar(valor_x, valor_z)
+    entero resultado_final = multiplicar(suma_parcial, 2)
+    retornar resultado_final
+}
+
+entero resultado_complejo = calcular_complejo(3, 7)
+imprimir("Resultado complejo: " + resultado_complejo.cadena())
+
+// ===== FUNCIONES ASÍNCRONAS =====
+imprimir_informacion("5. Probando funciones asíncronas...")
+
+asincrono cadena obtener_datos_remotos(cadena url_servicio) {
+    // Simulación de operación asíncrona
+    retornar "Datos obtenidos de: " + url_servicio
+}
+
+asincrono vacio procesar_async() {
+    cadena datos_remotos = esperar obtener_datos_remotos("https://api.ejemplo.com")
+    imprimir("Datos asíncronos: " + datos_remotos)
+}
+
+// Nota: La llamada asíncrona se manejará cuando se implemente completamente
+// procesar_async()
+
+imprimir_exito("✓ Todas las pruebas de funciones completadas")

@@ -1,0 +1,175 @@
+/*
+ Archivo de prueba para condicionales en Quetzal v0.0.1
+ Prueba estructuras if, else, else if y operadores lógicos
+*/
+
+imprimir_exito("=== PRUEBA DE CONDICIONALES ===")
+
+// ===== CONDICIONALES SIMPLES =====
+imprimir_informacion("1. Probando condicionales simples...")
+
+entero edad = 25
+bool tiene_licencia = verdadero
+
+si (edad >= 18) {
+    imprimir("Es mayor de edad")
+} sino {
+    imprimir("Es menor de edad")
+}
+
+si (tiene_licencia) {
+    imprimir("Puede conducir")
+} sino {
+    imprimir("No puede conducir")
+}
+
+// ===== CONDICIONALES MÚLTIPLES =====
+imprimir_informacion("2. Probando condicionales múltiples...")
+
+entero puntuacion = 85
+
+si (puntuacion >= 90) {
+    imprimir("Calificación: Excelente")
+} sino si (puntuacion >= 80) {
+    imprimir("Calificación: Muy bueno")
+} sino si (puntuacion >= 70) {
+    imprimir("Calificación: Bueno")
+} sino si (puntuacion >= 60) {
+    imprimir("Calificación: Suficiente")
+} sino {
+    imprimir("Calificación: Insuficiente")
+}
+
+// ===== OPERADORES LÓGICOS =====
+imprimir_informacion("3. Probando operadores lógicos...")
+
+bool es_estudiante = verdadero
+bool tiene_beca = falso
+entero ingresos = 15000
+
+// Operador Y (&&)
+si (es_estudiante && tiene_beca) {
+    imprimir("Estudiante con beca")
+} sino {
+    imprimir("Estudiante sin beca o no es estudiante")
+}
+
+// Operador Y (y)
+si (edad >= 18 y ingresos > 10000) {
+    imprimir("Puede solicitar crédito")
+} sino {
+    imprimir("No cumple requisitos para crédito")
+}
+
+// Operador O (||)
+si (es_estudiante || ingresos < 20000) {
+    imprimir("Aplica para descuento")
+} sino {
+    imprimir("No aplica para descuento")
+}
+
+// Operador O (o)
+si (edad < 18 o edad > 65) {
+    imprimir("Precio especial por edad")
+} sino {
+    imprimir("Precio regular")
+}
+
+// Operador NO (!)
+si (!tiene_beca) {
+    imprimir("No tiene beca")
+} sino {
+    imprimir("Tiene beca")
+}
+
+// ===== OPERADORES DE COMPARACIÓN =====
+imprimir_informacion("4. Probando operadores de comparación...")
+
+entero a = 10
+entero b = 20
+entero c = 10
+
+// Igualdad
+si (a == c) {
+    imprimir("a es igual a c")
+}
+
+// Desigualdad
+si (a != b) {
+    imprimir("a es diferente de b")
+}
+
+// Mayor que
+si (b > a) {
+    imprimir("b es mayor que a")
+}
+
+// Menor que
+si (a < b) {
+    imprimir("a es menor que b")
+}
+
+// Mayor o igual
+si (a >= c) {
+    imprimir("a es mayor o igual que c")
+}
+
+// Menor o igual
+si (a <= b) {
+    imprimir("a es menor o igual que b")
+}
+
+// ===== CONDICIONALES ANIDADOS =====
+imprimir_informacion("5. Probando condicionales anidados...")
+
+cadena clima = "soleado"
+entero temperatura = 25
+
+si (clima == "soleado") {
+    si (temperatura > 20) {
+        imprimir("Día perfecto para salir")
+    } sino {
+        imprimir("Soleado pero frío")
+    }
+} sino si (clima == "lluvioso") {
+    si (temperatura > 15) {
+        imprimir("Lluvia templada")
+    } sino {
+        imprimir("Lluvia fría")
+    }
+} sino {
+    imprimir("Clima incierto")
+}
+
+// ===== OPERADOR TERNARIO =====
+imprimir_informacion("6. Probando operador ternario...")
+
+entero x = 15
+cadena tipo_numero = x % 2 == 0 ? "par" : "impar"
+imprimir("El número " + x.cadena() + " es " + tipo_numero)
+
+entero mayor = a > b ? a : b
+imprimir("El mayor entre " + a.cadena() + " y " + b.cadena() + " es " + mayor.cadena())
+
+// ===== CONDICIONALES CON DIFERENTES TIPOS =====
+imprimir_informacion("7. Probando condicionales con diferentes tipos...")
+
+cadena texto = "hola"
+lista<entero> numeros = [1, 2, 3]
+bool estado = verdadero
+
+si (texto == "hola") {
+    imprimir("Saludo reconocido")
+}
+
+si (estado == verdadero) {
+    imprimir("Estado activo")
+}
+
+si (estado == falso) {
+    imprimir("Estado inactivo")
+} sino {
+    imprimir("Estado activo confirmado")
+}
+
+imprimir_exito("✓ Todas las pruebas de condicionales completadas")
