@@ -1,0 +1,325 @@
+---
+title: Sintaxis Básica
+description: Aprende la sintaxis fundamental del Lenguaje Quetzal, incluyendo variables, tipos de datos, operadores y estructuras básicas.
+---
+
+# Sintaxis Básica del Lenguaje Quetzal
+
+El Lenguaje Quetzal es un lenguaje de programación interpretado con tipado fuerte, diseñado para ser expresivo y eficiente. Esta guía te enseñará los fundamentos de su sintaxis.
+
+## Características Generales
+
+- **Sin punto y coma**: Las instrucciones no requieren `;` al final
+- **Tipado fuerte**: Todos los valores tienen un tipo específico
+- **Inmutabilidad por defecto**: Las variables son constantes a menos que se indique lo contrario
+- **Sintaxis en español**: Palabras clave y conceptos en español
+
+## Comentarios
+
+Los comentarios te permiten documentar tu código sin afectar la ejecución.
+
+```quetzal
+// Esto es un comentario de una sola línea
+
+/*
+ Esto es un comentario
+ de múltiples líneas
+ que puede ocupar varias líneas
+*/
+```
+
+## Tipos de Datos
+
+### Tipos Básicos
+
+Quetzal incluye los tipos de datos fundamentales para la mayoría de aplicaciones:
+
+```quetzal
+// Tipo vacío - para variables sin valor inicial
+vacio variable_sin_valor
+
+// Números enteros
+entero edad = 25
+entero temperatura = -10
+
+// Números decimales
+número precio = 199.99
+número pi = 3.14159
+
+// Cadenas de texto
+cadena nombre = "María García"
+cadena mensaje = "¡Hola, mundo!"
+
+// Valores booleanos
+bool es_activo = verdadero
+bool tiene_permisos = falso
+```
+
+### Listas
+
+Las listas pueden contener elementos del mismo tipo o tipos mixtos:
+
+```quetzal
+// Lista tipada - todos los elementos del mismo tipo
+lista<entero> numeros = [1, 2, 3, 4, 5]
+lista<cadena> nombres = ["Ana", "Carlos", "Luis"]
+
+// Lista automática - el intérprete deduce el tipo
+lista valores = [10, 20, 30]
+
+// Lista mixta - diferentes tipos de datos
+lista datos_mixtos = [42, "texto", verdadero, 3.14]
+
+// Lista vacía
+lista<cadena> lista_vacia = []
+```
+
+### Objetos JSON
+
+Quetzal tiene soporte nativo para objetos JSON:
+
+```quetzal
+// Objeto JSON básico
+jsn persona = {
+    nombre: "Juan Pérez",
+    edad: 30,
+    activo: verdadero,
+    salario: 2500.50
+}
+
+// Objeto JSON anidado
+jsn empresa = {
+    nombre: "TechCorp",
+    empleados: {
+        total: 150,
+        departamentos: ["desarrollo", "ventas", "soporte"]
+    },
+    direccion: {
+        calle: "Av. Principal 123",
+        ciudad: "Guatemala"
+    }
+}
+```
+
+## Variables Mutables
+
+Por defecto, todas las variables son constantes. Para crear variables modificables, usa la palabra clave `mut`:
+
+```quetzal
+// Variable constante (no se puede modificar)
+entero valor_fijo = 100
+
+// Variable mutable (se puede modificar)
+entero mut contador = 0
+cadena mut mensaje_dinamico = "inicial"
+
+// Modificando variables mutables
+contador = contador + 1
+mensaje_dinamico = "modificado"
+```
+
+## Convenciones de Nombres
+
+Quetzal admite dos estilos de nomenclatura:
+
+```quetzal
+// Estilo camelCase
+entero miEdad = 25
+cadena nombreCompleto = "Ana López"
+bool estaActivo = verdadero
+
+// Estilo snake_case
+entero mi_edad = 25
+cadena nombre_completo = "Ana López"
+bool esta_activo = verdadero
+```
+
+## Operadores
+
+### Operadores Aritméticos
+
+```quetzal
+entero a = 10
+entero b = 3
+
+entero suma = a + b        // 13
+entero resta = a - b       // 7
+entero multiplicacion = a * b  // 30
+entero division = a / b    // 3
+entero modulo = a % b      // 1
+```
+
+### Operadores de Comparación
+
+```quetzal
+entero x = 10
+entero y = 20
+
+bool igual = x == y        // falso
+bool diferente = x != y    // verdadero
+bool mayor = x > y         // falso
+bool menor = x < y         // verdadero
+bool mayor_igual = x >= y  // falso
+bool menor_igual = x <= y  // verdadero
+```
+
+### Operadores Lógicos
+
+```quetzal
+bool a = verdadero
+bool b = falso
+
+// Operador Y (AND)
+bool resultado_y = a && b    // falso
+bool resultado_y2 = a y b    // falso (sintaxis alternativa)
+
+// Operador O (OR)
+bool resultado_o = a || b    // verdadero
+bool resultado_o2 = a o b    // verdadero (sintaxis alternativa)
+
+// Operador NO (NOT)
+bool resultado_no = !a       // falso
+```
+
+### Operadores de Asignación
+
+```quetzal
+entero mut valor = 10
+
+valor += 5    // valor = valor + 5 (15)
+valor -= 3    // valor = valor - 3 (12)
+valor *= 2    // valor = valor * 2 (24)
+valor /= 4    // valor = valor / 4 (6)
+valor %= 5    // valor = valor % 5 (1)
+```
+
+### Operadores de Incremento y Decremento
+
+```quetzal
+entero mut contador = 5
+
+contador++    // Incrementa en 1 (6)
+contador--    // Decrementa en 1 (5)
+```
+
+### Operador Ternario
+
+```quetzal
+entero edad = 20
+cadena categoria = edad >= 18 ? "adulto" : "menor"
+
+entero nota = 85
+cadena resultado = nota >= 70 ? "aprobado" : "reprobado"
+```
+
+## Concatenación de Cadenas
+
+```quetzal
+cadena nombre = "María"
+cadena apellido = "González"
+
+// Concatenación simple
+cadena nombre_completo = nombre + " " + apellido
+
+// Concatenación con números
+entero edad = 25
+cadena presentacion = "Me llamo " + nombre + " y tengo " + edad.cadena() + " años"
+
+// Concatenación con asignación
+cadena mut mensaje = "Hola"
+mensaje += " mundo"  // "Hola mundo"
+```
+
+## Conversión de Tipos
+
+Quetzal proporciona métodos para convertir entre diferentes tipos de datos:
+
+```quetzal
+// Convertir cadenas a números
+cadena texto_numero = "123"
+entero numero_entero = texto_numero.entero()
+número numero_decimal = "456.78".numero()
+
+// Convertir números a cadenas
+entero valor = 789
+cadena valor_texto = valor.cadena()
+
+// Convertir booleanos
+bool estado = verdadero
+cadena estado_texto = estado.cadena()
+
+// Convertir JSON
+cadena json_texto = '{"nombre": "Juan", "edad": 30}'
+jsn objeto = json_texto.jsn()
+```
+
+## Funciones de Consola
+
+Para mostrar información en pantalla:
+
+```quetzal
+// Mensaje normal
+imprimir("Hola, mundo!")
+
+// Mensajes con colores y estilos
+imprimir_exito("Operación completada correctamente")
+imprimir_error("Ha ocurrido un error")
+imprimir_advertencia("Cuidado con esta operación")
+imprimir_informacion("Información importante")
+```
+
+## Ejemplo Completo
+
+Aquí tienes un ejemplo que combina varios elementos de la sintaxis básica:
+
+```quetzal
+// Variables básicas
+cadena nombre = "Ana García"
+entero edad = 28
+número salario = 3500.50
+bool tiene_experiencia = verdadero
+
+// Lista de habilidades
+lista<cadena> habilidades = ["Python", "JavaScript", "Rust"]
+
+// Información del empleado como JSON
+jsn empleado = {
+    nombre: nombre,
+    edad: edad,
+    salario: salario,
+    departamento: "Desarrollo",
+    habilidades: habilidades,
+    activo: tiene_experiencia
+}
+
+// Operaciones y lógica
+cadena categoria = edad >= 25 ? "senior" : "junior"
+número salario_anual = salario * 12
+
+// Mostrar información
+imprimir_exito("=== INFORMACIÓN DEL EMPLEADO ===")
+imprimir("Nombre: " + nombre)
+imprimir("Categoría: " + categoria)
+imprimir("Salario anual: " + salario_anual.cadena())
+imprimir("Datos completos: " + empleado.cadena())
+```
+
+## Palabras Reservadas
+
+Es importante conocer las palabras que no puedes usar como nombres de variables:
+
+```
+vacio, entero, número, cadena, bool, verdadero, falso, lista, jsn,
+mut, tipo, publico, privado, libre, fn, retornar, objeto, nuevo, ambiente,
+asincrono, esperar, si, sino, mientras, para, hacer, romper, continuar,
+intentar, atrapar, finalmente, lanzar, excepción, importar, exportar,
+desde, como, y, o, en
+```
+
+## Próximos Pasos
+
+Ahora que conoces la sintaxis básica, puedes continuar con:
+
+- [Funciones](/es/fundamentos/funciones) - Cómo definir y usar funciones
+- [Estructuras de Control](/es/fundamentos/estructuras-control) - Condicionales y bucles
+- [Listas y Objetos](/es/fundamentos/listas-objetos) - Trabajo con estructuras de datos complejas
