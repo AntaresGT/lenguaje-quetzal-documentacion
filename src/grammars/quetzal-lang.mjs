@@ -7,8 +7,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
 
 export const quetzalLang = {
-  /** id interno que usará Shiki */
-  id: 'quetzal',
   /** scopeName debe coincidir con el de tu .tmLanguage */
   scopeName: 'source.quetzal',
   /** alias para las vallas ```qz */
