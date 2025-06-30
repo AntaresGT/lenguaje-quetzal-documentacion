@@ -5,66 +5,199 @@ template: splash
 hero:
   tagline: ¡Un lenguaje de programación moderno con sintaxis en español!
   image:
-    file: ../../assets/logo_lenguaje_quetzal.png
+    alt: Logo de Lenguaje Quetzal
+    light: ../../assets/logo_lenguaje_quetzal.png
+    dark: ../../assets/logo_lenguaje_quetzal_blanc.png
   actions:
     - text: Comenzar tutorial
       link: /introduccion/bienvenido/
       icon: right-arrow
+      variant: primary
     - text: Ver en GitHub
       link: https://github.com/AntaresGT/lenguaje-quetzal
       icon: external
-      variant: minimal
+      variant: secondary
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-## ¿Por qué Quetzal?
+<div class="hero-section">
+  <div class="floating-code">
+    <pre class="code-snippet">
+      <code class="language-qz">
+{`// Bienvenido a Lenguaje Quetzal
+cadena saludo = "¡Hola Guatemala!"
+número version = 0.0.1
+bool es_moderno = verdadero
 
-<CardGrid stagger>
-	<Card title="Sintaxis en español" icon="rocket">
-		Programar en tu idioma nativo hace que el código sea más fácil de leer y entender.
-	</Card>
-	<Card title="Tipado fuerte" icon="setting">
-		Sistema de tipos robusto que previene errores comunes en tiempo de compilación.
-	</Card>
-	<Card title="Inmutabilidad por defecto" icon="approve-check">
-		Las variables son constantes a menos que se especifique lo contrario, promoviendo código más seguro.
-	</Card>
-	<Card title="Facilidad de uso" icon="open-book">
-		Sintaxis clara y expresiva diseñada para ser intuitiva para hispanohablantes.
-	</Card>
-</CardGrid>
+imprimir_exito(saludo)
+imprimir("Versión: " + version.cadena())`}
+      </code>
+    </pre>
+  </div>
+</div>
 
-## Ejemplo rápido
+## 🌟 ¿Por qué Lenguaje Quetzal?
 
+<div class="features-grid">
+  <CardGrid>
+    <Card title="Sintaxis en Español" icon="document">
+      Programar en tu idioma nativo hace que el código sea más fácil de leer, entender y mantener. ¡Perfecto para la comunidad guatemalteca e hispanohablante!
+    </Card>
+    <Card title="⚡ Alto Rendimiento" icon="rocket">
+      Implementado en Rust para garantizar velocidad extrema y seguridad en memoria, sin sacrificar la facilidad de uso.
+    </Card>
+    <Card title="🔒 Tipado Fuerte" icon="setting">
+      Sistema de tipos robusto que previene errores comunes en tiempo de compilación, haciendo tu código más confiable.
+    </Card>
+    <Card title="📊 JSON Nativo" icon="open-book">
+      Soporte directo para estructuras JSON sin conversiones complicadas. Ideal para desarrollo web y APIs modernas.
+    </Card>
+  </CardGrid>
+</div>
+
+## 🚀 Ejemplo en Vivo
+
+<div class="live-example">
+  <div class="code-container">
+    
 ```qz
-// Un programa simple en Quetzal
-cadena nombre = "Mundo"
-entero edad = 25
-bool es_activo = verdadero
+// Programa completo en Lenguaje Quetzal
+imprimir_exito("=== BIENVENIDO A QUETZAL ===")
 
-// Función para saludar
-fn saludar(cadena persona) -> cadena {
-    retornar "¡Hola, " + persona + "!"
+// Variables tipadas en español
+cadena nombre = "María Gonzalez"
+entero edad = 28
+número salario = 15000.50
+bool programadora = verdadero
+
+// Lista de tecnologías
+lista<cadena> tecnologias = [
+    "Quetzal", "Python", "JavaScript", "Rust"
+]
+
+// Objeto JSON nativo
+jsn perfil = {
+    nombre: nombre,
+    edad: edad,
+    salario: salario,
+    ubicacion: "Guatemala City",
+    tecnologias: tecnologias,
+    activa: programadora
 }
 
-// Programa principal
-imprimir(saludar(nombre))
+// Función con tipos explícitos
+cadena crear_presentacion(cadena nombre_dev, entero experiencia) {
+    si (experiencia >= 5) {
+        retornar "Desarrolladora Senior: " + nombre_dev
+    } sino {
+        retornar "Desarrolladora Junior: " + nombre_dev
+    }
+}
+
+// Ejecución
+cadena presentacion = crear_presentacion(nombre, 6)
+imprimir_informacion(presentacion)
+imprimir("Perfil completo: " + perfil.cadena())
+
+// Bucle con sintaxis natural
+para (cadena tech en tecnologias) {
+    imprimir("🔧 Domina: " + tech)
+}
+
+imprimir_exito("¡Código ejecutado exitosamente!")
 ```
+    
+  </div>
+</div>
 
-## Próximos pasos
+## 🎯 Características Destacadas
 
-<CardGrid>
-	<Card title="Aprende lo básico" icon="document">
-		Comienza con [Sintaxis básica](/fundamentos/sintaxis-basica/) y aprende los fundamentos del lenguaje.
-	</Card>
-	<Card title="Instala Quetzal" icon="setting">
-		Sigue la [guía de instalación](/introduccion/instalacion/) para configurar tu entorno de desarrollo.
-	</Card>
-	<Card title="Explora ejemplos" icon="laptop">
-		Revisa los [ejemplos prácticos](/ejemplos/basicos/) para ver Quetzal en acción.
-	</Card>
-	<Card title="Contribuir" icon="github">
-		Únete al desarrollo en [GitHub](https://github.com/AntaresGT/lenguaje-quetzal).
-	</Card>
-</CardGrid>
+<div class="highlights-section">
+  <CardGrid>
+    <Card title="🌱 Fácil de Aprender" icon="approve-check">
+      Sintaxis intuitiva diseñada para que cualquier persona pueda comenzar a programar sin barreras del idioma.
+      
+      **Perfecto para:**
+      - Estudiantes principiantes
+      - Programadores experimentados
+      - Educación en español
+    </Card>
+    
+    <Card title="🏗️ Desarrollo Moderno" icon="laptop">
+      Todas las características que esperas de un lenguaje contemporáneo, pero en español.
+      
+      **Incluye:**
+      - Programación orientada a objetos
+      - Funciones asíncronas
+      - Manejo de excepciones
+      - Sistema de módulos
+    </Card>
+    
+    <Card title="🔗 Interoperabilidad" icon="setting">
+      Diseñado para integrarse perfectamente con el ecosistema de desarrollo actual.
+      
+      **Compatible con:**
+      - APIs REST
+      - Bases de datos
+      - Servicios web
+      - Herramientas modernas
+    </Card>
+    
+    <Card title="🎨 Expresivo y Elegante" icon="star">
+      Código limpio y legible que expresa tus ideas de manera natural.
+      
+      **Beneficios:**
+      - Menos errores de sintaxis
+      - Código autodocumentado
+      - Fácil mantenimiento
+      - Mejor colaboración en equipos
+    </Card>
+  </CardGrid>
+</div>
+
+## 🗺️ Comienza tu Viaje
+
+<div class="journey-section">
+  <CardGrid>
+    <Card title="📚 1. Aprende lo Básico" icon="document">
+      Domina los fundamentos del lenguaje con nuestra guía paso a paso.
+      
+      [Sintaxis Básica →](/fundamentos/sintaxis-basica/)
+    </Card>
+    
+    <Card title="⚙️ 2. Instala Quetzal" icon="setting">
+      Configura tu entorno de desarrollo en minutos.
+      
+      [Guía de Instalación →](/introduccion/instalacion/)
+    </Card>
+    
+    <Card title="🎮 3. Practica con Ejemplos" icon="laptop">
+      Explora proyectos reales y casos de uso prácticos.
+      
+      [Ejemplos Prácticos →](/ejemplos/basicos/)
+    </Card>
+    
+    <Card title="🤝 4. Únete a la Comunidad" icon="github">
+      Contribuye al desarrollo y conecta con otros desarrolladores.
+      
+      [Contribuir en GitHub →](https://github.com/AntaresGT/lenguaje-quetzal)
+    </Card>
+  </CardGrid>
+</div>
+
+---
+
+<div class="cta-section">
+  <h2>🚀 ¿Listo para Programar en Español?</h2>
+  <p>Únete a la revolución de la programación en español y descubre lo poderoso que puede ser Lenguaje Quetzal.</p>
+  
+  <div class="cta-buttons">
+    <a href="/introduccion/instalacion/" class="cta-primary">
+      ⚡ Instalar Ahora
+    </a>
+    <a href="/introduccion/primer-programa/" class="cta-secondary">
+      📖 Tutorial Rápido
+    </a>
+  </div>
+</div>

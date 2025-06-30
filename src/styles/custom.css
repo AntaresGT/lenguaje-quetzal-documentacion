@@ -1,55 +1,371 @@
-/* Estilos personalizados para syntax highlighting de Quetzal */
+/* Colores del Quetzal - Inspirados en el ave nacional de Guatemala */
+:root {
+  /* Colores principales del quetzal */
+  --quetzal-green: #1a5f3f;
+  --quetzal-bright-green: #2d8f47;
+  --quetzal-emerald: #0f9d58;
+  --quetzal-red: #d32f2f;
+  --quetzal-gold: #ffd700;
+  --quetzal-dark: #0d2818;
+  --quetzal-light: #e8f5e8;
+  --quetzal-title-color-light: #24292f;
+  --quetzal-title-color-dark: #f0f6fc;
 
-/* Mejorar la legibilidad de los bloques de código */
+  /* Tema oscuro por defecto */
+  --background-gradient: linear-gradient(135deg, #0d1117 0%, #161b22 50%, #0d2818 100%);
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-border: rgba(45, 143, 71, 0.2);
+  --text-primary: #f0f6fc;
+  --text-secondary: #8b949e;
+  --accent: var(--quetzal-bright-green);
+}
+
+/* Tema claro - Colores inspirados en el quetzal */
+[data-theme='light'] {
+  --background-gradient: linear-gradient(135deg, #ffffff 0%, #e3e3e3 50%, var(--quetzal-light) 100%);
+  --card-bg: rgba(26, 95, 63, 0.05);
+  --card-border: rgba(26, 95, 63, 0.15);
+  --text-primary: #24292f;
+  --text-secondary: #656d76;
+  --accent: var(--quetzal-green);
+
+  & .site-title {
+    color: var(--quetzal-title-color-light);
+  }
+}
+
+/* Tema oscuro - Colores inspirados en el quetzal */
+[data-theme='dark'] {
+  --background-gradient: linear-gradient(135deg, #161b22 0%, #0d1117 50%, var(--quetzal-dark) 100%);
+  --card-bg: rgba(13, 40, 24, 0.05);
+  --card-border: rgba(45, 143, 71, 0.2);
+  --text-primary: #f0f6fc;
+  --text-secondary: #8b949e;
+  --accent: var(--quetzal-bright-green);
+  
+  & .site-title {
+    color: var(--quetzal-title-color-dark);
+  }
+}
+
+
+
+/* Fondo principal con gradiente animado */
+.page {
+  background: var(--background-gradient);
+  background-size: 400% 400%;
+  animation: gradientShift 15s ease infinite;
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* Hero Section con animaciones */
+.hero-section {
+  position: relative;
+  padding: 2rem 0;
+  overflow: hidden;
+}
+
+.floating-code {
+  position: absolute;
+  top: 50%;
+  right: -10%;
+  transform: translateY(-50%);
+  opacity: 0.1;
+  animation: float 6s ease-in-out infinite;
+  z-index: 0;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(-50%) rotate(0deg); }
+  50% { transform: translateY(-60%) rotate(2deg); }
+}
+
+.code-snippet {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.9rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+/* Animaciones para las tarjetas */
+.features-grid .card {
+  transition: all 0.3s ease;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+}
+
+.features-grid .card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(45, 143, 71, 0.2);
+  border-color: var(--accent);
+}
+
+/* Efectos para el ejemplo en vivo */
+.live-example {
+  margin: 3rem 0;
+  position: relative;
+}
+
+.code-container {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 2px solid var(--card-border);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.code-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--quetzal-green), var(--quetzal-bright-green), var(--quetzal-emerald));
+  animation: shimmer 2s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Sección de características destacadas */
+.highlights-section {
+  margin: 4rem 0;
+}
+
+.highlights-section .card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+  transition: all 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.highlights-section .card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(45, 143, 71, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.highlights-section .card:hover::before {
+  left: 100%;
+}
+
+.highlights-section .card:hover {
+  transform: scale(1.05);
+  border-color: var(--accent);
+}
+
+/* Sección del viaje */
+.journey-section {
+  margin: 4rem 0;
+  position: relative;
+}
+
+.journey-section .card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.journey-section .card:hover {
+  background: rgba(45, 143, 71, 0.1);
+  transform: translateY(-3px);
+}
+
+/* Casos de uso */
+.use-cases {
+  margin: 4rem 0;
+}
+
+.use-cases .card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+/* Testimonios */
+.testimonials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 3rem 0;
+}
+
+.testimonial-card {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 16px;
+  padding: 2rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(45, 143, 71, 0.15);
+}
+
+.testimonial-card blockquote {
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+.testimonial-card cite {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Call to Action */
+.cta-section {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: var(--card-bg);
+  border-radius: 20px;
+  border: 2px solid var(--card-border);
+  backdrop-filter: blur(20px);
+  margin: 4rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(45, 143, 71, 0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-primary, .cta-secondary {
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-primary {
+  background: linear-gradient(45deg, var(--quetzal-green), var(--quetzal-bright-green));
+  color: white;
+  box-shadow: 0 10px 30px rgba(45, 143, 71, 0.3);
+}
+
+.cta-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(45, 143, 71, 0.4);
+}
+
+.cta-secondary {
+  background: transparent;
+  color: var(--accent);
+  border: 2px solid var(--accent);
+}
+
+.cta-secondary:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-3px);
+}
+
+/* Mejoras para syntax highlighting de Quetzal */
 .expressive-code {
-  --ec-brdRad: 8px;
+  --ec-brdRad: 12px;
   --ec-codeFontFam: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  margin: 1.5rem 0;
+}
+
+.expressive-code .frame {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--card-border);
 }
 
 /* Colores personalizados para tokens de Quetzal */
 .expressive-code .token.keyword.control.quetzal {
-  color: #ff79c6; /* Rosa para palabras de control */
+  color: var(--quetzal-bright-green);
   font-weight: bold;
 }
 
 .expressive-code .token.storage.type.primitive.quetzal {
-  color: #8be9fd; /* Cyan para tipos primitivos */
+  color: var(--quetzal-emerald);
   font-weight: bold;
 }
 
 .expressive-code .token.support.function.builtin.quetzal {
-  color: #50fa7b; /* Verde para funciones built-in */
+  color: var(--quetzal-gold);
 }
 
 .expressive-code .token.constant.language.boolean.quetzal {
-  color: #bd93f9; /* Púrpura para booleanos */
+  color: #bd93f9;
 }
 
 .expressive-code .token.string.quoted.quetzal {
-  color: #f1fa8c; /* Amarillo para strings */
+  color: #f1fa8c;
 }
 
 .expressive-code .token.constant.numeric.quetzal {
-  color: #bd93f9; /* Púrpura para números */
+  color: #bd93f9;
 }
 
 .expressive-code .token.comment.quetzal {
-  color: #6272a4; /* Gris azulado para comentarios */
+  color: #6272a4;
   font-style: italic;
 }
 
 .expressive-code .token.entity.name.function.quetzal {
-  color: #50fa7b; /* Verde para nombres de función */
+  color: var(--quetzal-bright-green);
 }
 
-.expressive-code .token.entity.name.type.class.quetzal {
-  color: #8be9fd; /* Cyan para clases */
-  font-weight: bold;
-}
-
-/* Tema claro */
+/* Tema claro para syntax highlighting */
 [data-theme='light'] .expressive-code .token.keyword.control.quetzal {
-  color: #d73a49;
+  color: var(--quetzal-green);
 }
 
 [data-theme='light'] .expressive-code .token.storage.type.primitive.quetzal {
@@ -57,21 +373,74 @@
 }
 
 [data-theme='light'] .expressive-code .token.support.function.builtin.quetzal {
-  color: #22863a;
-}
-
-[data-theme='light'] .expressive-code .token.constant.language.boolean.quetzal {
-  color: #6f42c1;
+  color: #d73a49;
 }
 
 [data-theme='light'] .expressive-code .token.string.quoted.quetzal {
   color: #032f62;
 }
 
-[data-theme='light'] .expressive-code .token.constant.numeric.quetzal {
-  color: #005cc5;
-}
-
 [data-theme='light'] .expressive-code .token.comment.quetzal {
   color: #6a737d;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .floating-code {
+    display: none;
+  }
+  
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cta-primary, .cta-secondary {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .testimonials {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Animación de entrada para las secciones */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.features-grid,
+.highlights-section,
+.journey-section,
+.use-cases,
+.testimonials,
+.cta-section {
+  animation: fadeInUp 0.8s ease-out;
+}
+
+/* Efectos de hover mejorados */
+.card:hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mejora del hero */
+.hero h1 {
+  background: linear-gradient(45deg, var(--quetzal-bright-green), var(--quetzal-emerald));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero .tagline {
+  color: var(--text-secondary);
+  font-size: 1.2rem;
+  margin: 1rem 0 2rem;
 }

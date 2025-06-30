@@ -48,10 +48,6 @@ export default defineConfig({
 				baseUrl: 'https://github.com/AntaresGT/lenguaje-quetzal-documentacion/edit/main/',
 			},
 			favicon: '/favicon.ico',
-			logo: {
-				src: './src/assets/logo_lenguaje_quetzal.png',
-				replacesTitle: false,
-			},
 			expressiveCode: {
 				shiki: {
 					langs: [quetzalLang],
@@ -468,7 +464,14 @@ export default defineConfig({
 					tag: 'meta',
 					attrs: {
 						name: 'keywords',
-						content: 'quetzal, programming language, lenguaje programación, rust, intérprete, español',
+						content: 'quetzal, programming language, lenguaje programación, rust, intérprete, español, guatemala',
+					},
+				},
+				{
+					tag: 'meta',
+					attrs: {
+						property: 'og:image',
+						content: '/og-image.png',
 					},
 				},
 			],
