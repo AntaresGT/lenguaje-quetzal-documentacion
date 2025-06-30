@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import { quetzalLang } from './src/grammars/quetzal-lang.mjs'
 
 // https://astro.build/config
 export default defineConfig({
@@ -37,10 +38,10 @@ export default defineConfig({
 				}
 			},
 			social: [
-				{ 
-					icon: 'github', 
-					label: 'GitHub', 
-					href: 'https://github.com/AntaresGT/lenguaje-quetzal' 
+				{
+					icon: 'github',
+					label: 'GitHub',
+					href: 'https://github.com/AntaresGT/lenguaje-quetzal'
 				}
 			],
 			editLink: {
@@ -51,6 +52,14 @@ export default defineConfig({
 				src: './src/assets/logo_lenguaje_quetzal.png',
 				replacesTitle: false,
 			},
+			expressiveCode: {
+				shiki: {
+					langs: [quetzalLang],
+					langAlias: {
+						qz: 'quetzal',
+					}
+				},
+			},
 			sidebar: [
 				{
 					label: 'Introducción',
@@ -60,32 +69,32 @@ export default defineConfig({
 						ja: '概要',
 					},
 					items: [
-						{ 
+						{
 							label: 'Bienvenido a Quetzal',
 							translations: {
 								en: 'Welcome to Quetzal',
 								id: 'Selamat Datang di Quetzal',
 								ja: 'ケツァルへようこそ',
 							},
-							slug: 'introduccion/bienvenido' 
+							slug: 'introduccion/bienvenido'
 						},
-						{ 
+						{
 							label: 'Instalación',
 							translations: {
 								en: 'Installation',
 								id: 'Instalasi',
 								ja: 'インストール',
 							},
-							slug: 'introduccion/instalacion' 
+							slug: 'introduccion/instalacion'
 						},
-						{ 
+						{
 							label: 'Tu primer programa',
 							translations: {
 								en: 'Your first program',
 								id: 'Program pertama Anda',
 								ja: '最初のプログラム',
 							},
-							slug: 'introduccion/primer-programa' 
+							slug: 'introduccion/primer-programa'
 						},
 					],
 				},

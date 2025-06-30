@@ -1,0 +1,77 @@
+/* Estilos personalizados para syntax highlighting de Quetzal */
+
+/* Mejorar la legibilidad de los bloques de código */
+.expressive-code {
+  --ec-brdRad: 8px;
+  --ec-codeFontFam: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+}
+
+/* Colores personalizados para tokens de Quetzal */
+.expressive-code .token.keyword.control.quetzal {
+  color: #ff79c6; /* Rosa para palabras de control */
+  font-weight: bold;
+}
+
+.expressive-code .token.storage.type.primitive.quetzal {
+  color: #8be9fd; /* Cyan para tipos primitivos */
+  font-weight: bold;
+}
+
+.expressive-code .token.support.function.builtin.quetzal {
+  color: #50fa7b; /* Verde para funciones built-in */
+}
+
+.expressive-code .token.constant.language.boolean.quetzal {
+  color: #bd93f9; /* Púrpura para booleanos */
+}
+
+.expressive-code .token.string.quoted.quetzal {
+  color: #f1fa8c; /* Amarillo para strings */
+}
+
+.expressive-code .token.constant.numeric.quetzal {
+  color: #bd93f9; /* Púrpura para números */
+}
+
+.expressive-code .token.comment.quetzal {
+  color: #6272a4; /* Gris azulado para comentarios */
+  font-style: italic;
+}
+
+.expressive-code .token.entity.name.function.quetzal {
+  color: #50fa7b; /* Verde para nombres de función */
+}
+
+.expressive-code .token.entity.name.type.class.quetzal {
+  color: #8be9fd; /* Cyan para clases */
+  font-weight: bold;
+}
+
+/* Tema claro */
+[data-theme='light'] .expressive-code .token.keyword.control.quetzal {
+  color: #d73a49;
+}
+
+[data-theme='light'] .expressive-code .token.storage.type.primitive.quetzal {
+  color: #005cc5;
+}
+
+[data-theme='light'] .expressive-code .token.support.function.builtin.quetzal {
+  color: #22863a;
+}
+
+[data-theme='light'] .expressive-code .token.constant.language.boolean.quetzal {
+  color: #6f42c1;
+}
+
+[data-theme='light'] .expressive-code .token.string.quoted.quetzal {
+  color: #032f62;
+}
+
+[data-theme='light'] .expressive-code .token.constant.numeric.quetzal {
+  color: #005cc5;
+}
+
+[data-theme='light'] .expressive-code .token.comment.quetzal {
+  color: #6a737d;
+}
