@@ -20,10 +20,6 @@ export default defineConfig({
 					label: 'Español',
 					lang: 'es',
 				},
-				es: {
-					label: 'Español',
-					lang: 'es',
-				},
 				en: {
 					label: 'English',
 					lang: 'en',
@@ -47,7 +43,7 @@ export default defineConfig({
 			editLink: {
 				baseUrl: 'https://github.com/AntaresGT/lenguaje-quetzal-documentacion/edit/main/',
 			},
-			favicon: '/favicon.ico',
+			favicon: '/favicon.png',
 			expressiveCode: {
 				shiki: {
 					langs: [quetzalLang],
@@ -92,6 +88,15 @@ export default defineConfig({
 							},
 							slug: 'introduccion/primer-programa'
 						},
+						{
+							label: 'Hoja de ruta',
+							translations: {
+								en: 'Roadmap',
+								id: 'Peta jalan',
+								ja: 'ロードマップ',
+							},
+							slug: 'introduccion/hoja-de-ruta'
+						}
 					],
 				},
 				{
