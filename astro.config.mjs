@@ -5,6 +5,7 @@ import { quetzalLang } from './src/grammars/quetzal-lang.mjs'
 
 // https://astro.build/config
 export default defineConfig({
+	site: 'https://lenguaje-quetzal.antaresgt.com',
 	integrations: [
 		starlight({
 			title: {
@@ -13,6 +14,7 @@ export default defineConfig({
 				id: 'Bahasa Quetzal',
 				ja: 'ケツァル語',
 			},
+			routeMiddleware: './src/routeData.ts',
 			description: 'Documentación oficial del Lenguaje de Programación Quetzal v0.0.1',
 			defaultLocale: 'root',
 			locales: {
