@@ -14,7 +14,6 @@ export default defineConfig({
 				id: 'Bahasa Quetzal',
 				ja: 'ケツァル語',
 			},
-			routeMiddleware: './src/routeData.ts',
 			description: 'Documentación oficial del Lenguaje de Programación Quetzal v0.0.1',
 			defaultLocale: 'root',
 			locales: {
