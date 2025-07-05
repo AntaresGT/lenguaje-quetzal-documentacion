@@ -1,6 +1,0 @@
-// Prueba de rechazo de palabras reservadas
-
-imprimir_exito("=== PRUEBA DE PALABRAS RESERVADAS ===")
-
-// Esto debería fallar
-entero numero = 5
