@@ -1,16 +1,31 @@
 ---
-title: Funciones Asíncronas
-description: Programación asíncrona con funciones en Quetzal
+title: Funciones asincrónicas
+description: Estado actual del soporte asincrónico en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+La gramática de Lenguaje Quetzal incluye las palabras reservadas `asincrono` y `esperar` para preparar el soporte de funciones asincrónicas. Sin embargo, en la versión v0.0.12 estas características aún no están implementadas en el intérprete.
 
-Esta sección necesita ser completada con información sobre las funciones asíncronas en el Lenguaje Quetzal.
+## Sintaxis reservada
 
-## Contenido pendiente:
-- Declaración de funciones async
-- Uso de await
-- Promesas y futures
-- Manejo de errores asíncronos
-- Concurrencia
-- Ejemplos de uso
+```qz
+asincrono texto obtener_datos() {
+    // Implementación pendiente
+}
+
+texto resultado = esperar obtener_datos()
+```
+
+El código anterior no puede ejecutarse actualmente; el intérprete mostrará un error indicando que la funcionalidad no está disponible.
+
+## Hoja de ruta
+
+- Las funciones marcadas con `asincrono` podrán ejecutar operaciones que devuelvan promesas o tareas diferidas.
+- `esperar` permitirá pausar la función en curso hasta que finalice la tarea asincrónica.
+- El sistema respetará las mismas reglas de tipos y manejo de errores que las funciones sincrónicas.
+
+## Recomendaciones temporales
+
+- Implementa operaciones dependientes de E/S como funciones sincrónicas y usa módulos nativos (por ejemplo, `quetzal/matemática`) mientras el soporte asincrónico se completa.
+- Sigue las actualizaciones de la hoja de ruta para conocer la disponibilidad de esta característica.
+
+Cuando la funcionalidad se publique, esta sección incluirá ejemplos prácticos y patrones recomendados.

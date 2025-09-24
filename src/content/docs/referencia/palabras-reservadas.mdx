@@ -1,16 +1,42 @@
 ---
-title: Palabras Reservadas
-description: Palabras reservadas del Lenguaje Quetzal
+title: Palabras reservadas
+description: Lista de palabras que no pueden usarse como identificadores en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## Tipos de datos
 
-Esta sección necesita ser completada con la lista completa de palabras reservadas en el Lenguaje Quetzal.
+`vacio`, `entero`, `número`, `texto`, `log`, `lista`, `jsn`
 
-## Contenido pendiente:
-- Lista completa de palabras reservadas
-- Categorización por funcionalidad
-- Ejemplos de uso
-- Palabras reservadas futuras
-- Convenciones de nomenclatura
-- Tabla de referencia rápida
+## Modificadores y visibilidad
+
+`var`, `publico`, `privado`, `libre`, `ambiente`
+
+## Control de flujo
+
+`si`, `sino`, `sino si`, `para`, `mientras`, `hacer`, `romper`, `continuar`, `en`, `cada`, `retornar`
+
+## Objetos y creación de instancias
+
+`objeto`, `nuevo`, `constructor`
+
+## Asincronía reservada
+
+`asincrono`, `esperar`
+
+## Manejo de excepciones
+
+`intentar`, `capturar`, `finalmente`, `lanzar`, `excepcion`
+
+## Módulos
+
+`importar`, `exportar`, `desde`, `como`
+
+## Literales y operadores lógicos
+
+`verdadero`, `falso`, `nulo`, `y`, `o`, `no`
+
+## Otros identificadores protegidos
+
+`mut`, `de`, `es`
+
+Aunque algunas palabras (como `asincrono` o `mut`) aún no tienen implementación completa en v0.0.12, se reservan para futuras extensiones del lenguaje. Evita utilizarlas como nombres de variables, funciones, objetos o propiedades para prevenir errores de análisis.

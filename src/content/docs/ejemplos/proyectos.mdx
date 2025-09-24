@@ -1,16 +1,35 @@
 ---
-title: Proyectos Completos
-description: Proyectos completos de ejemplo en el Lenguaje Quetzal
+title: Ideas de proyectos
+description: Propuestas para practicar con Lenguaje Quetzal usando la versión v0.0.12.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## 1. Calculadora de presupuesto
 
-Esta sección necesita ser completada con proyectos completos de ejemplo en el Lenguaje Quetzal.
+- Usa listas para almacenar gastos y `Matemática.promedio` o `Matemática.suma_total` para obtener métricas.
+- Solicita datos mediante `consola.pedir` y valida entradas con condicionales.
+- Exporta las funciones principales en un módulo `finanzas.qz` y reutilízalas en el archivo principal.
 
-## Contenido pendiente:
-- Calculadora
-- Juego simple
-- Aplicación CRUD
-- API REST básica
-- Procesador de archivos
-- Aplicación con interfaz
+## 2. Gestor de tareas sencillo
+
+- Define un objeto `Tarea` con atributos `texto` y `log` para indicar si está completada.
+- Implementa métodos en `Tarea` para marcar y mostrar el estado usando `ambiente`.
+- Crea una lista mutable de tareas y proporciona funciones para agregar, listar y filtrar tareas completadas.
+
+## 3. Analizador de texto
+
+- Aplica los métodos de `texto` para dividir frases, contar palabras y normalizar mayúsculas.
+- Usa `metodos_listas.qz` como referencia para ordenar resultados o eliminar duplicados.
+- Implementa manejo de excepciones al convertir valores y muestra resultados con `consola.mostrar_informacion`.
+
+## 4. Reporte estadístico
+
+- Importa `Matemática` y calcula promedio, máximo y mínimo de una lista de mediciones.
+- Genera un JSON con los resultados y conviértelo a texto formateado para imprimirlo.
+- Exporta el reporte en un módulo para reutilizarlo en diferentes conjuntos de datos.
+
+## 5. Biblioteca de utilidades
+
+- Agrupa funciones de uso frecuente (validaciones, transformaciones de texto, generadores de listas) en uno o varios módulos.
+- Documenta cada función con comentarios y crea ejemplos en la carpeta `pruebas-ia` para verificar su comportamiento con el intérprete.
+
+Estas ideas pueden ampliarse combinando módulos, objetos y listas. Inspírate en los archivos de la carpeta `ejemplos` para partir de código probado.

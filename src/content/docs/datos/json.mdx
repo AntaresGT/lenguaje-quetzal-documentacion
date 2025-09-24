@@ -1,16 +1,78 @@
 ---
-title: Objetos JSON
-description: Manejo de objetos JSON en el Lenguaje Quetzal
+title: JSON
+description: Manipulación de valores `jsn` en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+Los valores `jsn` representan objetos JSON con soporte nativo para propiedades anidadas, listas y métodos utilitarios.
 
-Esta sección necesita ser completada con información sobre los objetos JSON en el Lenguaje Quetzal.
+## Declaración
 
-## Contenido pendiente:
-- Sintaxis de objetos JSON
-- Acceso a propiedades
-- Métodos de objetos
-- Serialización y deserialización
-- Objetos anidados
-- Ejemplos de uso
+```qz
+jsn var persona = {
+    nombre: "Ana",
+    datos_personales: {
+        fecha_nacimiento: "1998-05-15",
+        dpi: "1234567890101"
+    },
+    direcciones: [
+        { tipo: "casa", direccion: "Ciudad" },
+        { tipo: "trabajo", direccion: "Antigua" }
+    ],
+    telefonos: ["555-1234", "555-5678"],
+    activo: verdadero
+}
+```
+
+## Acceso a propiedades
+
+- Por punto: `persona.nombre`
+- Por índice o clave con corchetes: `persona["datos_personales"].dpi`
+- Índices en listas anidadas: `persona.direcciones[0].direccion`
+
+## Métodos frecuentes
+
+| Método | Descripción |
+|--------|-------------|
+| `contiene_clave(clave)` | Verifica si la propiedad existe. |
+| `claves()` | Devuelve una lista de las claves de primer nivel. |
+| `valores()` | Devuelve una lista de los valores. |
+| `establecer(clave, valor)` | Asigna o crea una propiedad. |
+| `eliminar(clave)` | Elimina una propiedad y devuelve el valor eliminado. |
+| `fusionar(otro_json)` | Combina propiedades (las existentes se sobrescriben). |
+| `texto()` | Serializa sin formato. |
+| `texto_formateado()` | Serializa con indentación. |
+
+Los métodos mutadores requieren que el `jsn` se declare con `var`.
+
+## Ejemplo de uso
+
+```qz
+jsn var persona = {
+    nombre: "Ana",
+    activo: verdadero
+}
+
+persona.establecer("apellido", "Gómez")
+log tiene_dpi = persona.contiene_clave("dpi")
+
+si (no tiene_dpi) {
+    persona.establecer("dpi", "0000000000000")
+}
+
+texto como_texto = persona.texto_formateado()
+consola.mostrar(como_texto)
+```
+
+## Conversión desde texto
+
+```qz
+jsn configuracion = "{\"puerto\":8080,\"debug\":true}".jsn()
+```
+
+Si la cadena no es JSON válido se lanza una excepción, por lo que conviene envolver la operación en `intentar` y `capturar`.
+
+## Buenas prácticas
+
+- Declara los `jsn` que deban modificarse con la palabra `var`.
+- Usa `claves()` y `valores()` para iterar sobre propiedades en combinación con bucles.
+- Restringe el acceso a rutas del sistema de archivos mediante `quetzal.json` cuando importes módulos que manipulan JSON proveniente de archivos externos.

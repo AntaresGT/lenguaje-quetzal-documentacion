@@ -1,266 +1,77 @@
 ---
-title: Tu primer programa en Quetzal
-description: Tutorial paso a paso para crear y ejecutar tu primer programa completo en Lenguaje Quetzal.
+title: Tu primer programa
+description: Guía paso a paso para crear y ejecutar un archivo de Lenguaje Quetzal desde cero.
 ---
 
-import { Card, CardGrid, Steps, Code, Tabs, TabItem, Badge } from '@astrojs/starlight/components';
+## 1. Crear la carpeta del proyecto
 
-En este tutorial crearás y ejecutarás tu primer programa completo en Lenguaje Quetzal, explorando las características básicas del lenguaje.
+En un directorio de trabajo crea una carpeta para tus experimentos y agrega la configuración opcional de permisos:
 
-## ¡Hola, mundo!
+```bash
+mkdir -p proyectos/mi-primer-quetzal
+cd proyectos/mi-primer-quetzal
+cat <<'JSON' > quetzal.json
+{
+  "versión": "1.0.0",
+  "aplicación": "mi-primer-quetzal",
+  "permisos": []
+}
+JSON
+```
 
-Comencemos con el clásico programa "Hola, mundo":
+## 2. Escribir el programa
 
-<Steps>
-
-1. **Crear el archivo**
-   
-   Crea un nuevo archivo llamado `hola_mundo.qz` en tu carpeta preferida.
-
-2. **Escribir el código**
-   
-   ```qz
-   // Mi primer programa en Lenguaje Quetzal
-   imprimir("¡Hola, mundo desde Quetzal!")
-   ```
-
-3. **Ejecutar el programa**
-   
-   Abre Command Prompt o PowerShell en la carpeta donde guardaste el archivo y ejecuta:
-   
-   ```cmd
-   quetzal hola_mundo.qz
-   ```
-
-4. **Resultado esperado**
-   
-   ```
-   ¡Hola, mundo desde Quetzal!
-   ```
-
-</Steps>
-
-¡Felicidades! Acabas de ejecutar tu primer programa en Quetzal.
-
-## Programa completo paso a paso
-
-Ahora crearemos un programa más completo que demuestre varias características del lenguaje:
-
-### Código completo
-
-Crea un archivo llamado `mi_primer_programa.qz`:
+Crea un archivo `hola.qz` con el siguiente contenido:
 
 ```qz
-/*
- Mi primer programa completo en Lenguaje Quetzal
- Autor: Tu nombre
- Fecha: Hoy
-*/
+// hola.qz
+consola.mostrar_exito("Hola desde Lenguaje Quetzal")
 
-imprimir_exito("=== MI PRIMER PROGRAMA EN QUETZAL ===")
+lista<entero> numeros = [1, 2, 3, 4, 5]
 
-// ===== VARIABLES Y TIPOS =====
-imprimir_informacion("1. Trabajando con variables...")
-
-// Tipos básicos
-entero edad = 25
-cadena nombre = "Ana García"
-número salario = 2500.50
-bool esta_empleado = verdadero
-
-// Mostrar variables
-imprimir("Nombre: " + nombre)
-imprimir("Edad: " + edad.cadena() + " años")
-imprimir("Salario: $" + salario.cadena())
-imprimir("Empleado: " + esta_empleado.cadena())
-
-// ===== LISTAS =====
-imprimir_informacion("2. Trabajando con listas...")
-
-lista<cadena> hobbies = ["programar", "leer", "viajar", "cocinar"]
-lista<entero> numeros_favoritos = [7, 13, 21, 42]
-
-imprimir("Hobbies: " + hobbies.cadena())
-imprimir("Números favoritos: " + numeros_favoritos.cadena())
-
-// ===== FUNCIONES =====
-imprimir_informacion("3. Usando funciones...")
-
-// Función para calcular área de un círculo
-número calcular_area_circulo(número radio) {
-    número pi = 3.14159
-    retornar pi * radio * radio
+entero suma_total = 0
+para (entero var numero en numeros) {
+    suma_total += numero
 }
 
-// Función para crear saludo personalizado
-cadena crear_saludo(cadena nombre_persona, entero edad_persona) {
-    si (edad_persona >= 18) {
-        retornar "Hola " + nombre_persona + ", eres mayor de edad"
-    } sino {
-        retornar "Hola " + nombre_persona + ", eres menor de edad"
-    }
-}
-
-// Usar las funciones
-número area = calcular_area_circulo(5.0)
-cadena saludo = crear_saludo(nombre, edad)
-
-imprimir("Área del círculo (radio 5): " + area.cadena())
-imprimir(saludo)
-
-// ===== CONDICIONALES =====
-imprimir_informacion("4. Usando condicionales...")
-
-entero puntuacion = 85
-
-si (puntuacion >= 90) {
-    imprimir("Calificación: Excelente")
-} sino si (puntuacion >= 80) {
-    imprimir("Calificación: Muy bueno")
-} sino si (puntuacion >= 70) {
-    imprimir("Calificación: Bueno")
-} sino {
-    imprimir("Calificación: Necesita mejorar")
-}
-
-// ===== BUCLES =====
-imprimir_informacion("5. Usando bucles...")
-
-imprimir("Contando del 1 al 5:")
-para (entero i = 1; i <= 5; i++) {
-    imprimir("Número: " + i.cadena())
-}
-
-imprimir("Recorriendo hobbies:")
-para (cadena hobby en hobbies) {
-    imprimir("- " + hobby)
-}
-
-// ===== OBJETOS JSON =====
-imprimir_informacion("6. Trabajando con JSON...")
-
-jsn persona = {
-    nombre: nombre,
-    edad: edad,
-    salario: salario,
-    hobbies: hobbies,
-    contacto: {
-        email: "ana@ejemplo.com",
-        telefono: "+502 1234-5678"
-    },
-    activo: verdadero
-}
-
-imprimir("Datos de la persona:")
-imprimir(persona.cadena())
-
-// ===== OPERACIONES MATEMÁTICAS =====
-imprimir_informacion("7. Operaciones matemáticas...")
-
-entero a = 15
-entero b = 4
-
-imprimir("Operaciones con " + a.cadena() + " y " + b.cadena() + ":")
-imprimir("Suma: " + (a + b).cadena())
-imprimir("Resta: " + (a - b).cadena())
-imprimir("Multiplicación: " + (a * b).cadena())
-imprimir("División: " + (a / b).cadena())
-imprimir("Módulo: " + (a % b).cadena())
-
-// ===== VARIABLES MUTABLES =====
-imprimir_informacion("8. Variables mutables...")
-
-entero mut contador = 0
-imprimir("Contador inicial: " + contador.cadena())
-
-contador = contador + 10
-imprimir("Contador después de sumar 10: " + contador.cadena())
-
-contador += 5
-imprimir("Contador después de += 5: " + contador.cadena())
-
-// ===== FINAL =====
-imprimir_exito("¡Programa completado exitosamente!")
-imprimir("Has aprendido los conceptos básicos de Lenguaje Quetzal:")
-imprimir("✓ Variables y tipos de datos")
-imprimir("✓ Funciones")
-imprimir("✓ Condicionales")
-imprimir("✓ Bucles")
-imprimir("✓ Listas")
-imprimir("✓ Objetos JSON")
-imprimir("✓ Operaciones matemáticas")
-imprimir("✓ Variables mutables")
+consola.mostrar(t"Suma: {suma_total}")
 ```
 
-### Ejecutar el programa
+El ejemplo utiliza listas, bucles y cadenas interpoladas (`t"..."`) para mostrar valores calculados.
 
-```cmd
-quetzal mi_primer_programa.qz
+## 3. Compilar el intérprete (una sola vez)
+
+Desde la carpeta clonada del proyecto `lenguaje-quetzal` ejecuta:
+
+```bash
+cargo build --release
 ```
 
-### Salida esperada
+## 4. Ejecutar el programa
 
-```cmd
-=== MI PRIMER PROGRAMA EN QUETZAL ===
-1. Trabajando con variables...
-Nombre: Ana García
-Edad: 25 años
-Salario: $2500.5
-Empleado: Sí
-2. Trabajando con listas...
-Hobbies: [programar, leer, viajar, cocinar]
-Números favoritos: [7, 13, 21, 42]
-3. Usando funciones...
-Área del círculo (radio 5): 78.53975
-Hola Ana García, eres mayor de edad
-4. Usando condicionales...
-Calificación: Muy bueno
-5. Usando bucles...
-Contando del 1 al 5:
-Número: 1
-Número: 2
-Número: 3
-Número: 4
-Número: 5
-Recorriendo hobbies:
-- programar
-- leer
-- viajar
-- cocinar
-6. Trabajando con JSON...
-{
-    "nombre": "Ana García",
-    "edad": 25,
-    "salario": 2500.5,
-    "hobbies": ["programar", "leer", "viajar", "cocinar"],
-    "contacto": {
-        "email": "ana@ejemplo.com",
-        "telefono": "+502 12
-34-5678"
-    },
-    "activo": true
-}
-7. Operaciones matemáticas...
-Suma: 19
-Resta: 11
-División: 3
-Multiplicación: 60
-Módulo: 3
+Invoca el intérprete indicando la ruta absoluta o relativa del archivo:
 
-8. Variables mutables...
-Contador inicial: 0
-Contador después de sumar 10: 10
-Contador después de += 5: 15
-9. Final...
-¡Programa completado exitosamente!
-Has aprendido los conceptos básicos de Lenguaje Quetzal:
-✓ Variables y tipos de datos
-✓ Funciones
-✓ Condicionales
-✓ Bucles
-✓ Listas
-✓ Objetos JSON
-✓ Operaciones matemáticas
-✓ Variables mutables
+```bash
+/path/al/repositorio/target/release/quetzal /ruta/al/proyecto/hola.qz
+```
+
+El resultado esperado es:
 
 ```
+Hola desde Lenguaje Quetzal
+Suma: 15
+```
+
+Los colores dependen del soporte de tu terminal.
+
+## 5. Explorar más ejemplos
+
+Prueba otros archivos de la carpeta `ejemplos` del repositorio, por ejemplo:
+
+```bash
+/path/al/repositorio/target/release/quetzal /path/al/repositorio/ejemplos/modulo_matematicas.qz
+```
+
+Esto imprime operaciones de la biblioteca `Matemática` incluida en la distribución.
+
+Con estos pasos ya puedes experimentar y modificar el código para aprender la sintaxis del lenguaje.

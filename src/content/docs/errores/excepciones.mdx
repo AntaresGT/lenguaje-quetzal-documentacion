@@ -1,16 +1,55 @@
 ---
 title: Excepciones
-description: Sistema de excepciones en el Lenguaje Quetzal
+description: Manejo de errores en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+Las excepciones permiten reaccionar ante situaciones inesperadas en tiempo de ejecución.
 
-Esta sección necesita ser completada con información sobre el sistema de excepciones en el Lenguaje Quetzal.
+## Lanzar excepciones
 
-## Contenido pendiente:
-- Tipos de excepciones
-- Lanzar excepciones
-- Excepciones personalizadas
-- Jerarquía de excepciones
-- Propagación de errores
-- Ejemplos de uso
+Usa `lanzar` con un texto descriptivo o un objeto personalizado.
+
+```qz
+vacio validar_correo(texto correo) {
+    si (!correo.contiene("@")) {
+        lanzar "El correo no es válido"
+    }
+}
+```
+
+## Capturar excepciones
+
+El bloque `intentar` encapsula el código a vigilar. `capturar` recibe una variable de tipo `excepcion` con información sobre el error y la pila de llamadas.
+
+```qz
+intentar {
+    validar_correo("usuario")
+} capturar (excepcion error) {
+    consola.mostrar_error(error.mensaje)
+    consola.mostrar(t"Pila: {error.llamadas.texto()}")
+}
+```
+
+## Bloque `finalmente`
+
+Se ejecuta siempre, ocurra o no una excepción. Es útil para liberar recursos o mostrar mensajes finales.
+
+```qz
+intentar {
+    // Código que puede fallar
+} capturar (excepcion error) {
+    consola.mostrar_error(error.mensaje)
+} finalmente {
+    consola.mostrar("Fin del proceso")
+}
+```
+
+## Propagación
+
+Si no existe un bloque `capturar`, la excepción se propaga hasta el punto de entrada y el intérprete muestra un mensaje con la línea y sugerencias.
+
+## Buenas prácticas
+
+- Usa mensajes claros que indiquen cómo corregir el problema.
+- Evita capturar excepciones genéricas sin actuar sobre ellas.
+- Valida argumentos y estados antes de realizar operaciones que puedan fallar (divisiones, acceso a índices, conversiones de tipos).

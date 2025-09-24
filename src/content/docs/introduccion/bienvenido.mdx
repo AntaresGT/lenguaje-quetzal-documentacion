@@ -1,154 +1,70 @@
 ---
 title: Bienvenido a Lenguaje Quetzal
-description: Introducción al lenguaje de programación Quetzal v0.0.1, un lenguaje interpretado moderno desarrollado en Rust con sintaxis en español.
+description: Introducción general al Lenguaje Quetzal v0.0.12, sus metas y características principales.
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-**Lenguaje Quetzal** es un lenguaje de programación interpretado moderno, diseñado con sintaxis completamente en español para hacer la programación más accesible a la comunidad hispanohablante.
+**Lenguaje Quetzal** es un intérprete moderno escrito en Rust con sintaxis íntegramente en español. La versión v0.0.12 mantiene un enfoque en tipado fuerte, estructuras de datos de alto nivel y herramientas para el desarrollo diario como módulos reutilizables y una extensión oficial para VS Code.
 
-## ¿Qué es Lenguaje Quetzal?
-
-Quetzal es un lenguaje interpretado en tiempo de ejecución, implementado en **Rust** para garantizar alto rendimiento y seguridad. Su diseño se enfoca en:
-
-- **Sintaxis en español**: Todas las palabras clave están en español
-- **Tipado fuerte**: Previene errores comunes en tiempo de compilación
-- **Soporte nativo de JSON**: Interoperabilidad directa con estructuras JSON
-- **Rendimiento optimizado**: Implementado en Rust para máxima eficiencia
-
-## Características principales
+## Objetivos del proyecto
 
 <CardGrid>
-  <Card title="Sintaxis Natural" icon="document">
-    Palabras clave en español como `si`, `sino`, `mientras`, `para`, haciendo el código más legible para hispanohablantes.
+  <Card title="Accesible para hispanohablantes" icon="document">
+    Todas las palabras clave usan español: `si`, `sino`, `lista`, `consola`, `retornar`, entre otras. Esta decisión reduce la curva de aprendizaje para quienes piensan y trabajan en español.
   </Card>
-  
-  <Card title="Tipado Fuerte" icon="setting">
-    Sistema de tipos robusto que detecta errores en tiempo de compilación, con tipos como `entero`, `cadena`, `número`, `bool`.
+  <Card title="Productividad inmediata" icon="rocket">
+    El intérprete ofrece listas, JSON y objetos orientados a la creación de aplicaciones reales. Los métodos integrados permiten manipular datos sin dependencias adicionales.
   </Card>
-  
-  <Card title="JSON Nativo" icon="open-book">
-    Soporte directo para objetos JSON con el tipo `jsn`, sin necesidad de conversiones externas.
+  <Card title="Robustez" icon="shield">
+    El análisis léxico y sintáctico detecta errores de forma temprana. Los mensajes incluyen sugerencias y resaltan la línea con el problema para depurar con rapidez.
   </Card>
-  
-  <Card title="Alto Rendimiento" icon="rocket">
-    Implementado en Rust para garantizar velocidad y seguridad en la ejecución.
-  </Card>
-
-  <Card title="Objetivo y Funcional" icon="star">
-      No es un lenguaje para únicamente para aprender, sino para construir aplicaciones reales. Combinando paradigmas de programación orientada a objetos y funcional.
-  </Card>
-  <Card title="Extendible" icon="github">
-    Diseñado para ser extensible y fácil de integrar con otras tecnologías. Puedes crear tus propias bibliotecas y módulos.
+  <Card title="Extensibilidad" icon="layers">
+    Los módulos permiten organizar código en archivos separados y compartir definiciones mediante `exportar` e `importar`. Además, la versión incluye módulos nativos como `quetzal/matemática`.
   </Card>
 </CardGrid>
 
-## Tu primer programa
+## Qué incluye la versión v0.0.12
 
-Aquí tienes un ejemplo básico de código Quetzal:
+- Tipos primitivos (`entero`, `número`, `texto`, `log`, `vacio`), listas tipadas y no tipadas, y valores `jsn` con métodos de acceso avanzados.
+- Objetos con bloques `privado` y `publico`, constructores, atributos libres y soporte para miembros estáticos.
+- Importaciones y exportaciones entre archivos `.qz`, alias de símbolos y permisos controlados mediante `quetzal.json` para acceder al sistema de archivos.
+- Manejo de excepciones con bloques `intentar`, `capturar`, `finalmente` y lanzamiento explícito de errores mediante `lanzar`.
+- Consola con métodos para mensajes de éxito, advertencia, error, información y solicitudes de entrada o contraseñas.
+
+## Primer vistazo al lenguaje
 
 ```qz
-// Mi primer programa en Quetzal
-imprimir_exito("¡Hola, mundo desde Lenguaje Quetzal!")
+importar {
+    Matemática
+} desde "quetzal/matemática"
 
-// Variables con tipos
-entero edad = 25
-cadena nombre = "María García"
-bool esta_activo = verdadero
+objeto Usuario {
+    privado:
+        texto nombre
+        entero edad
+    publico:
+        Usuario(texto nombre, entero edad) {
+            ambiente.nombre = nombre
+            ambiente.edad = edad
+        }
 
-// Función simple
-cadena saludar(cadena nombre_usuario) {
-    retornar "¡Hola, " + nombre_usuario + "!"
+        texto saludo() {
+            retornar t"Hola, {ambiente.nombre}. Tienes {ambiente.edad} años."
+        }
 }
 
-// Llamada a función
-cadena saludo = saludar(nombre)
-imprimir(saludo)
+Usuario persona = nuevo Usuario("María", 29)
+número suma = Matemática.sumar(7, 3)
 
-// Condicional
-si (edad >= 18) {
-    imprimir("Es mayor de edad")
-} sino {
-    imprimir("Es menor de edad")
-}
-
-// Lista de datos
-lista<cadena> frutas = ["manzana", "banana", "naranja"]
-para (cadena fruta en frutas) {
-    imprimir("Fruta: " + fruta)
-}
-
-// Objeto JSON
-jsn persona = {
-    nombre: "Ana López",
-    edad: 30,
-    ciudad: "Guatemala",
-    activo: verdadero
-}
-
-imprimir("Persona: " + persona.cadena())
+consola.mostrar_exito(persona.saludo())
+consola.mostrar(t"Resultado de 7 + 3: {suma}")
 ```
 
-## ¿Por qué Quetzal?
+## Recursos disponibles
 
-### 1. **Accesibilidad lingüística**
-Quetzal elimina la barrera del idioma en la programación, permitiendo que los desarrolladores hispanohablantes trabajen con conceptos familiares en su idioma nativo.
+- **Repositorio principal** con el intérprete y la carpeta `ejemplos` utilizada en esta documentación: [github.com/AntaresGT/lenguaje-quetzal/tree/v0.0.12](https://github.com/AntaresGT/lenguaje-quetzal/tree/v0.0.12)
+- **Extensión oficial de VS Code** para resaltado y ejecución rápida de archivos `.qz`.
+- **Canal comunitario** en el repositorio para reportar problemas y proponer mejoras.
 
-### 2. **Diseño moderno**
-Incorpora características de lenguajes modernos como:
-- Inferencia de tipos
-- Programación asíncrona con `asincrono` y `esperar`
-- Manejo de errores con `intentar`, `atrapar`, `finalmente`
-- Sistema de módulos con `importar` y `exportar`
-
-### 3. **Comunidad hispanohablante**
-Diseñado específicamente para fomentar el crecimiento de la programación en la comunidad de habla hispana.
-
-## Próximos pasos
-
-<CardGrid>
-  <Card title="Instalación" icon="setting">
-    Aprende cómo instalar y configurar el intérprete de Quetzal en tu sistema.
-    
-    [Ver guía de instalación →](/introduccion/instalacion)
-  </Card>
-  
-  <Card title="Tu primer programa" icon="rocket">
-    Crea y ejecuta tu primer programa en Lenguaje Quetzal paso a paso.
-    
-    [Crear primer programa →](/introduccion/primer-programa)
-  </Card>
-  
-  <Card title="Fundamentos" icon="document">
-    Explora los conceptos básicos del lenguaje: tipos, variables y sintaxis.
-    
-    [Aprender fundamentos →](/fundamentos/sintaxis-basica)
-  </Card>
-  
-  <Card title="Ejemplos" icon="open-book">
-    Revisa ejemplos prácticos y proyectos de muestra para inspirarte.
-    
-    [Ver ejemplos →](/ejemplos/basicos)
-  </Card>
-</CardGrid>
-
-## Filosofía del proyecto
-
-> *"La programación no debería requerir que abandones tu idioma nativo. Quetzal trae la programación moderna al español, manteniendo la potencia y elegancia de los lenguajes contemporáneos."*
-
-No veas a Quetzal solo como un lenguaje de aprendizaje, sino como una herramienta poderosa para desarrollar aplicaciones modernas y eficientes, todo en idioma Español.
-
----
-
-## Hecho en Guatemala
-
-El nombre "Quetzal" rinde homenaje al ave nacional de Guatemala, simbolizando libertad y belleza.
-El lenguaje fue creado por un equipo muy pequeño de desarrolladores guatemaltecos apasionados por la tecnología sin fronteras.
-
-## Contribuciones
-Quetzal es un proyecto de código abierto. Puedes contribuir al desarrollo, reportar errores o sugerir mejoras en nuestro repositorio de GitHub:
-[Contribuir en GitHub](https://github.com/AntaresGT/lenguaje-quetzal/discussions)
-
----
-
-¿Listo para comenzar? Continúa con la [guía de instalación](/introduccion/instalacion) para configurar tu entorno de desarrollo.
+Con estos materiales puedes seguir el resto de la documentación y comenzar a construir aplicaciones con Lenguaje Quetzal.

@@ -1,16 +1,54 @@
 ---
-title: Funciones Integradas
-description: Funciones integradas del Lenguaje Quetzal
+title: Funciones integradas
+description: Funciones proporcionadas por el intérprete de Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+Estas funciones están disponibles sin necesidad de importarlas.
 
-Esta sección necesita ser completada con información sobre las funciones integradas en el Lenguaje Quetzal.
+## Alias de consola
 
-## Contenido pendiente:
-- Lista de funciones integradas
-- Funciones matemáticas
-- Funciones de cadena
-- Funciones de tipo
-- Funciones de entrada/salida
-- API de referencia completa
+| Función | Equivalente en `consola` | Descripción |
+|---------|--------------------------|-------------|
+| `imprimir(texto)` | `consola.mostrar` | Muestra texto con el color por defecto. |
+| `imprimir_error(texto)` | `consola.mostrar_error` | Muestra mensajes de error. |
+| `imprimir_advertencia(texto)` | `consola.mostrar_advertencia` | Mensajes de advertencia. |
+| `imprimir_informacion(texto)` | `consola.mostrar_informacion` | Mensajes informativos. |
+| `imprimir_exito(texto)` | `consola.mostrar_exito` | Mensajes de éxito. |
+| `imprimir_alerta(texto)` | `consola.mostrar_alerta` | Mensajes que requieren atención. |
+| `imprimir_confirmacion(texto)` | `consola.mostrar_confirmacion` | Mensajes de confirmación. |
+| `imprimir_depurar(texto)` | `consola.mostrar_depurar` | Salida destinada a depuración. |
+
+Todas aceptan una única cadena (`texto`). Si necesitas mostrar otros tipos, conviértelos mediante `.texto()` o utiliza cadenas interpoladas `t"..."`.
+
+## `rango`
+
+Genera listas de enteros consecutivos.
+
+```qz
+lista<entero> del_cero_al_cinco = rango(5)        // [0, 1, 2, 3, 4]
+lista<entero> de_dos_a_cinco = rango(2, 5)       // [2, 3, 4]
+```
+
+- Con un argumento (`rango(fin)`) crea una lista desde `0` hasta `fin - 1`.
+- Con dos argumentos (`rango(inicio, fin)`) crea una lista desde `inicio` hasta `fin - 1`.
+- Los argumentos deben ser enteros no negativos y `inicio` no puede ser mayor que `fin`.
+
+## Métodos de conversión
+
+Aunque se invocan como métodos (`valor.texto()`, `cadena.entero()`), forman parte del conjunto estándar del lenguaje y están disponibles para todos los valores. Revisa la sección de **Conversión de tipos** para conocerlos a detalle.
+
+## Módulos nativos
+
+El intérprete distribuye el módulo `quetzal/matemática` con funciones adicionales:
+
+- `Matemática.sumar`, `Matemática.restar`, `Matemática.multiplicar`, `Matemática.dividir`
+- Operaciones avanzadas: `potencia`, `promedio`, `maximo`, `minimo`, `hipotenusa`, `logaritmo_base`, entre otras.
+- Constantes: `Matemática.PI`, `Matemática.TAU`, `Matemática.E`.
+
+Para usarlo, importa el módulo antes de llamar a sus funciones.
+
+```qz
+importar { Matemática } desde "quetzal/matemática"
+```
+
+La documentación de cada módulo nativo se amplía conforme se publiquen nuevas versiones.

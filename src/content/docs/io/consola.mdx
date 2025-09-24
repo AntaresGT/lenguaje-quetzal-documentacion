@@ -1,16 +1,47 @@
 ---
-title: Entrada y Salida por Consola
-description: Entrada y salida por consola en el Lenguaje Quetzal
+title: Consola
+description: Operaciones de entrada y salida disponibles mediante `consola`.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+El objeto global `consola` ofrece métodos para mostrar mensajes con formato y solicitar datos al usuario.
 
-Esta sección necesita ser completada con información sobre entrada y salida por consola en el Lenguaje Quetzal.
+## Mostrar mensajes
 
-## Contenido pendiente:
-- Imprimir en consola
-- Leer desde consola
-- Formateo de salida
-- Colores en consola
-- Entrada de diferentes tipos
-- Ejemplos de uso
+| Método | Descripción |
+|--------|-------------|
+| `consola.mostrar(texto)` | Imprime texto con el color por defecto. |
+| `consola.mostrar_error(texto)` | Imprime en rojo. |
+| `consola.mostrar_advertencia(texto)` | Imprime en amarillo. |
+| `consola.mostrar_exito(texto)` | Imprime en verde. |
+| `consola.mostrar_informacion(texto)` | Imprime en azul. |
+
+```qz
+consola.mostrar("Inicio del programa")
+consola.mostrar_exito("Operación completada")
+consola.mostrar_error("No se pudo cargar el archivo")
+```
+
+## Solicitar datos
+
+```qz
+texto nombre = consola.pedir("Ingresa tu nombre:")
+texto clave = consola.pedir_secreto("Contraseña:")
+```
+
+- `pedir` muestra un mensaje y devuelve el texto introducido por el usuario.
+- `pedir_secreto` oculta la entrada (útil para contraseñas).
+
+## Interpolación con `consola`
+
+Aprovecha cadenas interpoladas (`t"..."`) para incluir valores calculados.
+
+```qz
+número resultado = 5 + 3
+consola.mostrar(t"Resultado: {resultado}")
+```
+
+## Consideraciones
+
+- Las funciones de `consola` están disponibles en todo el programa sin necesidad de importarlas.
+- El color de salida depende del soporte de tu terminal.
+- Cuando ejecutes el intérprete dentro de scripts automatizados, evita solicitar entradas interactivas.

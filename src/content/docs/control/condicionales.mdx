@@ -1,16 +1,69 @@
 ---
 title: Condicionales
-description: Estructuras condicionales en el Lenguaje Quetzal
+description: Uso de las estructuras condicionales en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## `si`
 
-Esta sección necesita ser completada con información sobre las estructuras condicionales en el Lenguaje Quetzal.
+Evalúa una condición y ejecuta el bloque asociado cuando es `verdadero`.
 
-## Contenido pendiente:
-- Sentencia if
-- Sentencia if-else
-- Sentencia else if
-- Operador ternario
-- Switch/match
-- Ejemplos de uso
+```qz
+entero edad = 20
+
+si (edad >= 18) {
+    consola.mostrar("Es mayor de edad")
+}
+```
+
+## `sino`
+
+Opcionalmente se añade un bloque `sino` para manejar el caso contrario.
+
+```qz
+si (edad >= 18) {
+    consola.mostrar("Es mayor de edad")
+} sino {
+    consola.mostrar("Es menor de edad")
+}
+```
+
+## `sino si`
+
+Permite encadenar condiciones adicionales.
+
+```qz
+si (edad > 60) {
+    consola.mostrar("Tercera edad")
+} sino si (edad >= 18) {
+    consola.mostrar("Mayor de edad")
+} sino {
+    consola.mostrar("Menor de edad")
+}
+```
+
+## Condicionales en expresiones
+
+Puedes usar el operador ternario para condicionales simples.
+
+```qz
+texto estado = edad >= 18 ? "Mayor" : "Menor"
+```
+
+## Comparaciones estrictas
+
+- Usa `==` para comparar valores.
+- Para JSON y listas se compara la estructura completa.
+- Evita comparar diferentes tipos sin conversión previa; de lo contrario se generará un error.
+
+```qz
+jsn usuario = { nombre: "Ana", activo: verdadero }
+si (usuario.activo == verdadero) {
+    consola.mostrar("Usuario activo")
+}
+```
+
+## Buenas prácticas
+
+- Agrupa condiciones complejas con paréntesis para mejorar la lectura.
+- Aprovecha métodos como `contiene_clave` o `longitud()` antes de evaluar condiciones sobre JSON o listas.
+- Extrae condiciones a funciones descriptivas cuando se repiten en varios lugares.

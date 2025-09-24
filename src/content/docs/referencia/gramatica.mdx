@@ -1,16 +1,118 @@
 ---
-title: Gramática Formal del Lenguaje Quetzal
-description: Gramática formal del Lenguaje Quetzal
+title: Gramática
+description: Visión general de la gramática de Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+La siguiente descripción resume las construcciones más importantes del lenguaje. No es una especificación formal completa, pero sirve como referencia rápida.
 
-Esta sección necesita ser completada con la gramática formal completa del Lenguaje Quetzal.
+## Programas
 
-## Contenido pendiente:
-- Gramática BNF/EBNF
-- Reglas de sintaxis
-- Precedencia de operadores
-- Tokens y lexemas
-- Diagramas de sintaxis
-- Especificación formal
+Un archivo `.qz` contiene una secuencia de declaraciones separadas por saltos de línea:
+
+```
+programa      -> declaracion*
+declaracion   -> declaracion_variable
+               | declaracion_funcion
+               | declaracion_objeto
+               | declaracion_importacion
+               | declaracion_exportacion
+               | sentencia
+```
+
+## Declaraciones
+
+```
+declaracion_variable -> tipo identificador ('var')? ('=' expresion)?
+tipo -> 'vacio' | 'entero' | 'número' | 'texto' | 'log' | 'lista' '<' tipo '>' | 'lista' | 'jsn'
+
+declaracion_funcion  -> tipo identificador '(' parametros? ')' bloque
+parametros           -> parametro (',' parametro)*
+parametro            -> tipo ('var')? identificador
+
+Declaracion_objeto   -> 'objeto' identificador '{' miembros_objeto '}'
+miembros_objeto      -> (bloque_publico | bloque_privado | miembro_publico)*
+bloque_publico       -> 'publico:' miembro_publico*
+bloque_privado       -> 'privado:' miembro_privado*
+miembro_publico      -> declaracion_variable | declaracion_funcion | constructor | miembro_libre
+miembro_privado      -> igual que miembro_publico pero accesible solo dentro del objeto
+constructor          -> identificador '(' parametros? ')' bloque (sin `retornar`)
+miembro_libre        -> 'libre' declaracion_variable | 'libre' declaracion_funcion
+```
+
+## Sentencias
+
+```
+sentencia -> bloque
+           | sentencia_expr
+           | sentencia_si
+           | sentencia_mientras
+           | sentencia_para
+           | sentencia_hacer
+           | sentencia_intentar
+           | sentencia_romper
+           | sentencia_continuar
+           | sentencia_retornar
+           | sentencia_lanzar
+
+bloque -> '{' declaracion* '}'
+```
+
+### Condicionales y bucles
+
+```
+sentencia_si        -> 'si' '(' expresion ')' bloque ('sino' bloque)? ('sino' 'si' '(' expresion ')' bloque)*
+sentencia_mientras  -> 'mientras' '(' expresion ')' bloque
+sentencia_hacer     -> 'hacer' bloque 'mientras' '(' expresion ')'
+
+sentencia_para      -> 'para' '(' inicio_para condicion_para actualizacion_para ')' bloque
+inicio_para         -> declaracion_variable | sentencia_expr | ε
+condicion_para      -> expresion | ε
+actualizacion_para  -> expresion | ε
+
+// Iteración sobre colecciones
+sentencia_para      -> 'para' '(' tipo 'var' identificador ('en' | 'cada') expresion ')' bloque
+```
+
+### Manejo de errores
+
+```
+sentencia_intentar  -> 'intentar' bloque bloque_capturar+ bloque_finalmente?
+bloque_capturar     -> 'capturar' '(' 'excepcion' identificador ')' bloque
+bloque_finalmente   -> 'finalmente' bloque
+
+sentencia_lanzar    -> 'lanzar' expresion
+sentencia_retornar  -> 'retornar' expresion?
+```
+
+## Expresiones
+
+```
+expresion           -> expresion_asignacion
+expresion_asignacion-> expresion_logica (operador_asignacion expresion_asignacion)?
+operador_asignacion -> '=' | '+=' | '-=' | '*=' | '/=' | '%='
+
+expresion_logica    -> expresion_igualdad (('y' | 'o' | '&&' | '||') expresion_igualdad)*
+expresion_igualdad  -> expresion_comparacion (('==' | '!=') expresion_comparacion)*
+expresion_comparacion -> expresion_term (( '>' | '>=' | '<' | '<=' ) expresion_term)*
+expresion_term      -> expresion_factor (( '+' | '-' ) expresion_factor)*
+expresion_factor    -> expresion_unaria (( '*' | '/' | '%' ) expresion_unaria)*
+expresion_unaria    -> ( '!' | 'no' | '-' | '++' | '--' ) expresion_unaria | expresion_postfija
+expresion_postfija  -> expresion_primaria (postfijo)*
+postfijo            -> llamada | acceso_lista | acceso_propiedad | incremento | decremento
+llamada             -> '(' argumentos? ')'
+argumentos          -> expresion (',' expresion)*
+acceso_lista        -> '[' expresion ']'
+acceso_propiedad    -> '.' identificador
+incremento          -> '++'
+decremento          -> '--'
+
+expresion_primaria  -> literal
+                    | identificador
+                    | '(' expresion ')'
+                    | 'nuevo' identificador '(' argumentos? ')'
+                    | interpolacion_texto
+```
+
+Los literales incluyen números, texto entre comillas dobles, listas `[ ... ]`, objetos JSON `{ ... }`, valores `verdadero`, `falso` y `nulo`.
+
+Esta gramática resumida refleja el estado del lenguaje en v0.0.12. A medida que se agreguen características (como funciones asincrónicas o más módulos nativos) se actualizará este apartado.

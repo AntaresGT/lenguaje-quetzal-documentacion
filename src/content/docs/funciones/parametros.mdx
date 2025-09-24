@@ -1,16 +1,86 @@
 ---
-title: Parámetros y Argumentos
-description: Manejo de parámetros y argumentos en funciones de Quetzal
+title: Parámetros
+description: Cómo definir y utilizar parámetros en las funciones de Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## Tipos explícitos
 
-Esta sección necesita ser completada con información sobre parámetros y argumentos en el Lenguaje Quetzal.
+Cada parámetro declara su tipo antes del nombre.
 
-## Contenido pendiente:
-- Parámetros posicionales
-- Parámetros con nombre
-- Parámetros por defecto
-- Parámetros variables
-- Paso por valor vs referencia
-- Ejemplos de uso
+```qz
+número sumar(número a, número b) {
+    retornar a + b
+}
+```
+
+## Parámetros modificables
+
+Usa `var` para permitir que el parámetro sea modificado dentro de la función. El cambio no afecta al argumento original porque Quetzal evalúa los argumentos por valor.
+
+```qz
+texto formatear(texto var mensaje) {
+    mensaje = mensaje.recortar()
+    mensaje = mensaje.titulo()
+    retornar mensaje
+}
+```
+
+## Listas y JSON como parámetros
+
+Puedes recibir listas tipadas, listas genéricas o valores `jsn`.
+
+```qz
+número promedio_lista(lista<número> valores) {
+    retornar valores.promedio()
+}
+
+texto obtener_nombre(jsn datos) {
+    retornar datos.nombre
+}
+```
+
+## Parámetros de objeto
+
+Para utilizar objetos definidos con `objeto`, declara el tipo correspondiente.
+
+```qz
+objeto Usuario {
+    publico:
+        Usuario(texto nombre) {
+            ambiente.nombre = nombre
+        }
+
+        texto saludo() {
+            retornar t"Hola {ambiente.nombre}"
+        }
+}
+
+texto presentar(Usuario usuario) {
+    retornar usuario.saludo()
+}
+```
+
+## Número variable de argumentos
+
+La versión v0.0.12 no incluye argumentos opcionales ni listas de parámetros variables. Para casos similares, acepta una lista y procesa los elementos manualmente.
+
+```qz
+número sumar_lista(lista<número> valores) {
+    retornar valores.sumar()
+}
+```
+
+## Validación de parámetros
+
+Aplica validaciones al inicio de la función y lanza excepciones cuando no se cumplan los requisitos.
+
+```qz
+número dividir(número a, número b) {
+    si (b == 0) {
+        lanzar "No es posible dividir entre cero"
+    }
+    retornar a / b
+}
+```
+
+Documenta el significado de cada parámetro mediante comentarios o nombres autoexplicativos para mantener el código legible.

@@ -1,14 +1,82 @@
 ---
 title: Tipos de datos
-description: Tipos de datos disponibles en el Lenguaje Quetzal
+description: Tipos disponibles en Lenguaje Quetzal, métodos de conversión y operaciones comunes.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## Tipos primitivos
 
-Esta sección necesita ser completada con información sobre los tipos de datos disponibles en el Lenguaje Quetzal.
+| Tipo    | Descripción | Ejemplo |
+|---------|-------------|---------|
+| `vacio` | Ausencia de valor. Se utiliza para variables sin inicializar explícitamente o funciones sin retorno. | `vacio resultado`
+| `entero` | Números enteros con signo de 64 bits. | `entero edad = 32`
+| `número` | Valores decimales de doble precisión. | `número temperatura = 21.5`
+| `texto` | Cadenas Unicode. | `texto saludo = "Hola"`
+| `log` | Valores lógicos `verdadero` o `falso`. | `log habilitado = verdadero`
 
-## Contenido pendiente:
-- Tipos primitivos
-- Tipos complejos
-- Conversiones de tipos
-- Ejemplos de uso
+## Listas
+
+Las listas pueden ser tipadas o genéricas.
+
+```qz
+lista<texto> nombres = ["Ana", "Luis", "María"]
+lista valores = [1, "dos", verdadero]
+```
+
+Las listas mutables (`lista<tipo> var`) aceptan métodos como `agregar`, `insertar`, `quitar_en`, `ordenar` o `sumar`.
+
+```qz
+lista<entero> var numeros = [3, 1, 4]
+numeros.ordenar()
+consola.mostrar(numeros.texto())   // [1, 3, 4]
+```
+
+## JSON (`jsn`)
+
+Los objetos JSON son de primer nivel y admiten acceso por punto, por clave o mediante métodos auxiliares.
+
+```qz
+jsn var persona = {
+    nombre: "Ana",
+    datos: {
+        edad: 28,
+        ciudad: "Guatemala"
+    },
+    telefonos: ["555-1234", "555-5678"],
+    activo: verdadero
+}
+
+texto ciudad = persona.datos.ciudad
+persona.establecer("activo", falso)
+lista<texto> claves = persona.claves()
+```
+
+## Conversión de tipos
+
+Los valores ofrecen métodos de conversión explícitos. Si la operación no es posible, el intérprete genera un error de ejecución.
+
+```qz
+entero numero_entero = "123".entero()
+número numero_decimal = "123.45".número()
+log valor_logico = "verdadero".log()
+texto como_texto = numero_entero.texto()
+lista<entero> desde_texto = "1,2,3".lista()
+```
+
+Para convertir listas o JSON a texto legible:
+
+```qz
+lista<texto> palabras = ["Hola", "Quetzal"]
+texto representacion = palabras.texto()    // "[Hola, Quetzal]"
+texto json_pretty = persona.texto_formateado()
+```
+
+## Valores nulos
+
+El intérprete reconoce el literal `nulo`. Su uso es excepcional; se prefiere trabajar con estructuras que indiquen la ausencia de datos mediante listas vacías o JSON sin claves. Cuando se accede a una propiedad inexistente en un `jsn`, el resultado es `nulo`.
+
+```qz
+jsn datos = { nombre: "Ana" }
+log es_activo = datos.activo.logico()   // Lanza error si no se valida que la clave exista
+```
+
+Comprueba la presencia de claves usando `contiene_clave` antes de convertir valores.

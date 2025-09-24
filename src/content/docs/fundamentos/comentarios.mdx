@@ -1,15 +1,40 @@
 ---
 title: Comentarios
-description: Sintaxis y uso de comentarios en Quetzal
+description: Formas de documentar código en Lenguaje Quetzal y recomendaciones de uso.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+Lenguaje Quetzal admite dos estilos de comentarios.
 
-Esta sección necesita ser completada con información sobre los comentarios en el Lenguaje Quetzal.
+## Comentarios de una línea
 
-## Contenido pendiente:
-- Comentarios de línea simple
-- Comentarios de múltiples líneas
-- Comentarios de documentación
-- Buenas prácticas
-- Ejemplos de uso
+Empiezan con `//` y abarcan hasta el final de la línea.
+
+```qz
+// Inicia el programa
+consola.mostrar("Hola")
+```
+
+## Comentarios de varias líneas
+
+Se delimitan con `/*` y `*/`. El contenido puede abarcar múltiples líneas.
+
+```qz
+/*
+ Documentación del módulo de usuarios.
+ Incluye constructores y funciones auxiliares.
+*/
+objeto Usuario { ... }
+```
+
+### Comentarios anidados
+
+Los comentarios anidados no están soportados. Evita patrones como `/* ... /* ... */ ... */` porque el intérprete los considera un error de sintaxis.
+
+## Buenas prácticas
+
+- Describe el propósito de bloques complejos en lugar de repetir el código.
+- Mantén los comentarios sincronizados con el comportamiento real del programa.
+- En objetos y módulos, documenta la intención de los miembros `privado` y `publico` para facilitar el mantenimiento.
+- Usa comentarios para indicar requisitos de permisos definidos en `quetzal.json` cuando tu módulo dependa del sistema de archivos.
+
+Los comentarios se eliminan durante la interpretación y no afectan el rendimiento del programa.

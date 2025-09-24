@@ -1,16 +1,40 @@
 ---
-title: Manejo de Archivos
-description: Manejo de archivos en el Lenguaje Quetzal
+title: Manejo de archivos
+description: Estado del acceso a archivos y configuración mediante `quetzal.json`.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+La versión v0.0.12 del intérprete no expone todavía un API de lectura o escritura de archivos desde el código Quetzal. No existen funciones nativas como `consola` para interactuar directamente con el sistema de archivos.
 
-Esta sección necesita ser completada con información sobre el manejo de archivos en el Lenguaje Quetzal.
+## Uso actual: módulos externos
 
-## Contenido pendiente:
-- Leer archivos
-- Escribir archivos
-- Modos de apertura
-- Rutas de archivos
-- Manejo de errores de E/S
-- Ejemplos de uso
+Los permisos a archivos se gestionan desde `quetzal.json`. Este archivo se coloca junto al programa principal y define qué directorios pueden explorarse al importar módulos.
+
+```json
+{
+  "versión": "1.0.0",
+  "aplicación": "mi-proyecto",
+  "permisos": [
+    {
+      "nombre": "sistema-archivos",
+      "alcance": "directorios",
+      "directorios": ["./modulos", "./datos"]
+    }
+  ]
+}
+```
+
+Cuando importas un módulo:
+
+```qz
+importar { utilidades } desde "./modulos/utilidades.qz"
+```
+
+El intérprete verifica que la ruta esté permitida. Si no, mostrará un error indicando que el acceso al sistema de archivos está restringido.
+
+## Buenas prácticas mientras llega el API de archivos
+
+- Mantén tus módulos dentro de los directorios autorizados para evitar errores de permisos.
+- No expongas rutas absolutas sensibles; utiliza rutas relativas desde el archivo principal.
+- Documenta en tus proyectos qué carpetas deben agregarse al arreglo `directorios` para que otras personas puedan ejecutarlos sin modificar el código.
+
+Esta sección se actualizará cuando el lenguaje incluya funciones para leer o escribir archivos directamente.

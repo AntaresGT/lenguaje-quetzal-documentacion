@@ -1,16 +1,78 @@
 ---
 title: Bucles
-description: Estructuras de repetición en el Lenguaje Quetzal
+description: Estructuras repetitivas disponibles en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## `mientras`
 
-Esta sección necesita ser completada con información sobre los bucles en el Lenguaje Quetzal.
+Ejecuta el bloque mientras la condición sea verdadera.
 
-## Contenido pendiente:
-- Bucle for
-- Bucle while
-- Bucle do-while
-- Bucles anidados
-- Control de bucles (break, continue)
-- Ejemplos de uso
+```qz
+entero var i = 0
+mientras (i < 3) {
+    consola.mostrar(t"Iteración {i}")
+    i++
+}
+```
+
+## `hacer ... mientras`
+
+Evalúa la condición al final del bloque, garantizando al menos una ejecución.
+
+```qz
+entero var numero = 0
+hacer {
+    consola.mostrar("Este mensaje se imprime al menos una vez")
+    numero++
+} mientras (numero < 2)
+```
+
+## `para`
+
+Existe en dos variantes:
+
+1. **Clásica** con inicialización, condición e incremento.
+
+    ```qz
+    para (entero var j = 0; j < 5; j++) {
+        consola.mostrar(j.texto())
+    }
+    ```
+
+2. **Iteración sobre colecciones** usando `en` o `cada`.
+
+    ```qz
+    lista<entero> numeros = [10, 20, 30]
+    para (entero var valor en numeros) {
+        consola.mostrar(valor.texto())
+    }
+
+    para (entero var valor cada numeros) {
+        consola.mostrar(valor.texto())
+    }
+    ```
+
+Ambas formas crean un nuevo ámbito para las variables del bucle.
+
+## Control del ciclo
+
+- `romper`: finaliza el bucle actual.
+- `continuar`: omite la iteración en curso y evalúa la siguiente.
+
+```qz
+para (entero var k = 0; k < 5; k++) {
+    si (k == 2) {
+        continuar
+    }
+    si (k == 4) {
+        romper
+    }
+    consola.mostrar(k.texto())
+}
+```
+
+## Recomendaciones
+
+- Evita bucles infinitos verificando que la condición cambie en cada iteración.
+- Usa métodos de listas (`sumar`, `promedio`, `buscar`) cuando simplifiquen el código en lugar de iteraciones manuales.
+- Si necesitas acumular resultados, inicializa las variables fuera del bucle y documenta la intención con comentarios breves.

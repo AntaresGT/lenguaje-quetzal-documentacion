@@ -1,16 +1,87 @@
 ---
 title: Listas
-description: Manejo de listas en el Lenguaje Quetzal
+description: Operaciones con listas en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+Las listas representan colecciones ordenadas de valores. Pueden declararse con tipo específico (`lista<entero>`) o sin tipo (`lista`).
 
-Esta sección necesita ser completada con información sobre las listas en el Lenguaje Quetzal.
+## Declaración
 
-## Contenido pendiente:
-- Declaración de listas
-- Acceso a elementos
-- Métodos de listas
-- Iteración sobre listas
-- Listas multidimensionales
-- Ejemplos de uso
+```qz
+lista<texto> nombres = ["Ana", "Carlos", "María"]
+lista mixta = [1, "dos", verdadero]
+lista<entero> vacia = []
+```
+
+Las listas son inmutables a menos que se indiquen como variables con `var`.
+
+```qz
+lista<entero> var numeros = [3, 1, 4]
+numeros.agregar(2)
+```
+
+## Acceso a elementos
+
+- Índices positivos comienzan en 0.
+- Índices negativos acceden desde el final (`-1` es el último elemento).
+
+```qz
+texto segundo = nombres[1]
+texto ultimo = nombres[-1]
+```
+
+## Métodos principales
+
+| Método | Descripción |
+|--------|-------------|
+| `longitud()` | Número de elementos. |
+| `esta_vacia()` | Devuelve `verdadero` si la lista no tiene elementos. |
+| `agregar(valor)` | Inserta al final (lista mutable). |
+| `insertar(indice, valor)` | Inserta en una posición específica. |
+| `remover(valor)` | Elimina la primera coincidencia. |
+| `quitar_en(indice)` | Elimina y devuelve el elemento de la posición indicada. |
+| `limpiar()` | Vacía la lista. |
+| `contiene(valor)` | Verifica la presencia de un valor. |
+| `buscar(valor)` / `buscar_ultimo(valor)` | Devuelve la posición de la coincidencia. |
+| `contar(valor)` | Número de veces que aparece un valor. |
+| `ordenar()` / `ordenar_descendente()` | Ordena elementos comparables. |
+| `ordenado()` | Devuelve una copia ordenada. |
+| `invertir()` | Invierte el orden de la lista mutable. |
+| `primero()` / `ultimo()` | Obtiene el primer o último elemento. |
+| `tomar(n)` | Crea una sublista con los primeros `n` elementos. |
+| `saltar(n)` | Omite los primeros `n` elementos. |
+| `sublista(inicio, fin)` | Extrae un rango (sin incluir `fin`). |
+| `sumar()` / `promedio()` / `maximo()` / `minimo()` | Operaciones numéricas. |
+| `unir(delimitador)` | Concatena elementos como texto. |
+| `concatenar(otra_lista)` | Devuelve una nueva lista con los elementos combinados. |
+| `extender(otra_lista)` | Añade todos los elementos de otra lista (mutable). |
+| `texto()` | Representación textual. |
+| `json()` | Convierte la lista a JSON. |
+
+## Ejemplos prácticos
+
+```qz
+lista<entero> var numeros = [3, 1, 4]
+numeros.ordenar()                     // [1, 3, 4]
+
+lista<texto> palabras = ["Hola", "Quetzal"]
+texto frase = palabras.unir(" ")      // "Hola Quetzal"
+
+lista rango = rango(1, 5)              // [1, 2, 3, 4, 5]
+```
+
+## Validaciones
+
+- Para usar métodos mutadores (`agregar`, `ordenar`, etc.) la lista debe declararse con `var`.
+- Los métodos de ordenación requieren elementos comparables; mezclar tipos incompatibles genera un error.
+- Cuando un índice no existe, el intérprete lanza una excepción que puede manejarse con `intentar` y `capturar`.
+
+```qz
+intentar {
+    texto elemento = nombres[10]
+} capturar (excepcion error) {
+    consola.mostrar_advertencia(error.mensaje)
+}
+```
+
+Las listas son fundamentales para procesar colecciones de datos y trabajar con módulos nativos como `Matemática`.

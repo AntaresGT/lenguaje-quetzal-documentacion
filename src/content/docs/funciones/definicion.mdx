@@ -1,16 +1,77 @@
 ---
-title: Definición de Funciones
-description: Cómo definir funciones en el Lenguaje Quetzal
+title: Definición de funciones
+description: Sintaxis y características de las funciones en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## Declaración básica
 
-Esta sección necesita ser completada con información sobre la definición de funciones en el Lenguaje Quetzal.
+```qz
+texto saludar(texto nombre) {
+    retornar "Hola " + nombre
+}
+```
 
-## Contenido pendiente:
-- Sintaxis básica de funciones
-- Tipos de retorno
-- Funciones sin retorno
-- Funciones con múltiples parámetros
-- Funciones recursivas
-- Ejemplos de uso
+- Las funciones requieren tipo de retorno explícito (`vacio` cuando no devuelven valor).
+- El cuerpo se define entre llaves.
+- `retornar` finaliza la ejecución y devuelve el valor indicado.
+
+## Funciones sin retorno
+
+```qz
+vacio mostrar_mensaje(texto mensaje) {
+    consola.mostrar(mensaje)
+}
+```
+
+## Funciones mutando parámetros
+
+Los parámetros son inmutables por defecto. Para permitir modificación se usa la palabra `var` dentro de la firma.
+
+```qz
+texto agregar_sufijo(texto var base) {
+    base += " agregado"
+    retornar base
+}
+```
+
+## Funciones recursivas
+
+```qz
+entero factorial(entero n) {
+    si (n == 0) {
+        retornar 1
+    }
+    retornar n * factorial(n - 1)
+}
+```
+
+## Retornar objetos
+
+Las funciones pueden devolver instancias de objetos o listas.
+
+```qz
+objeto Usuario {
+    privado:
+        texto nombre
+        entero edad
+    publico:
+        Usuario(texto nombre, entero edad) {
+            ambiente.nombre = nombre
+            ambiente.edad = edad
+        }
+}
+
+Usuario crear_usuario(texto nombre, entero edad) {
+    retornar nuevo Usuario(nombre, edad)
+}
+```
+
+## Sobrecarga y nombres
+
+Actualmente Quetzal no admite sobrecarga de funciones; cada nombre debe ser único en el mismo ámbito. Puedes agrupar comportamientos relacionados en módulos u objetos.
+
+## Buenas prácticas
+
+- Usa nombres descriptivos en español siguiendo `camelCase` o `snake_case`.
+- Valida parámetros al inicio de la función y usa `lanzar` para notificar errores.
+- Mantén funciones cortas; extrae lógica en funciones auxiliares cuando sea necesario.
