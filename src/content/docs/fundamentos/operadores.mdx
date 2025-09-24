@@ -1,16 +1,223 @@
 ---
 title: Operadores
-description: Operadores disponibles en el Lenguaje Quetzal
+description: Operadores disponibles en Lenguaje Quetzal y ejemplos prácticos de uso.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## Aritméticos
 
-Esta sección necesita ser completada con información sobre los operadores en el Lenguaje Quetzal.
+| Operador | Descripción | Ejemplo |
+|----------|-------------|---------|
+| `+` | Suma dos valores numéricos o concatena texto. | `número total = a + b`
+| `-` | Resta el segundo operando del primero. | `entero diferencia = a - b`
+| `*` | Multiplicación. | `entero producto = a * b`
+| `/` | División. Para enteros la división es entera. | `entero cociente = a / b`
+| `%` | Residuo o módulo. | `entero residuo = a % b`
 
-## Contenido pendiente:
-- Operadores aritméticos
-- Operadores de comparación
-- Operadores lógicos
-- Operadores de asignación
-- Precedencia de operadores
-- Ejemplos de uso
+```qz
+entero suma = 5 + 3
+texto combinado = "Hola" + " Quetzal"
+```
+
+## Relacionales
+
+| Operador | Descripción |
+|----------|-------------|
+| `==` | Igualdad.
+| `!=` | Desigualdad.
+| `>`  | Mayor que.
+| `<`  | Menor que.
+| `>=` | Mayor o igual que.
+| `<=` | Menor o igual que.
+
+```qz
+log es_mayor = 10 > 5
+log es_igual = "texto" == "texto"
+```
+
+## Lógicos
+
+Quetzal admite tanto los operadores simbólicos (`&&`, `||`, `!`) como sus equivalentes en español (`y`, `o`, `no`).
+
+```qz
+log acceso = (usuario.autenticado y !usuario.bloqueado)
+log disponible = (stock > 0) o (pedido_en_camino == verdadero)
+log negado = no acceso
+```
+
+Los valores no booleanos se convierten automáticamente a `log` siguiendo las reglas del intérprete (por ejemplo, listas vacías son `falso`).
+
+## Asignación
+
+| Operador | Descripción |
+|----------|-------------|
+| `=` | Asignación simple.
+| `+=` | Suma y asigna.
+| `-=` | Resta y asigna.
+| `*=` | Multiplica y asigna.
+| `/=` | Divide y asigna.
+| `%=` | Calcula el residuo y asigna.
+
+```qz
+entero var acumulado = 0
+acumulado += 5
+acumulado -= 2
+```
+
+## Incremento y decremento
+
+Los operadores `++` y `--` están disponibles en forma postfija.
+
+```qz
+entero var contador = 0
+contador++
+contador--
+```
+
+## Operador ternario
+
+La forma `condicion ? valor_si_verdadero : valor_si_falso` está disponible para evaluaciones rápidas.
+
+```qz
+entero numero = -10
+entero absoluto = numero < 0 ? -numero : numero
+```
+
+## Operadores en listas y JSON
+
+Las listas y los valores `jsn` proveen métodos en lugar de operadores específicos. Por ejemplo, `lista.concatenar(otra_lista)` o `json.fusionar(otro_json)`. Consulta las secciones de tipos de datos para más información.
+
+## Precedencia
+
+- Llamadas a función y acceso a miembros.
+- Operadores unarios (`no`, `!`, `++`, `--`).
+- Multiplicación y división.
+- Suma y resta.
+- Comparaciones.
+- Operadores lógicos (`y`, `o`).
+- Asignaciones (`=`, `+=`, etc.).
+
+Usa paréntesis para aclarar la intención cuando combines varios operadores.
+
+## Ejemplos completos
+
+```qz
+// Operadores aritméticos
+entero suma(entero a, entero b) {
+	retornar a + b
+}
+
+entero resta(entero a, entero b) {
+	retornar a - b
+}
+
+// Operadores lógicos
+log es_verdadero(log valor) {
+	retornar valor
+}
+
+log es_falso(log valor) {
+	retornar !valor
+}
+
+// Operadores de comparación
+log es_igual(entero a, entero b) {
+	retornar a == b
+}
+
+log es_diferente(entero a, entero b) {
+	retornar a != b
+}
+
+log es_mayor(entero a, entero b) {
+	retornar a > b
+}
+
+log es_menor(entero a, entero b) {
+	retornar a < b
+}
+
+log es_mayor_igual(entero a, entero b) {
+	retornar a >= b
+}
+
+log es_menor_igual(entero a, entero b) {
+	retornar a <= b
+}
+
+// Operadores de asignación
+entero asignacion(entero valor) {
+	entero resultado = valor
+	retornar resultado
+}
+
+// Operadores de concatenación
+texto concatenacion(texto var palabra) {
+	palabra += " concatenado"
+	retornar palabra
+}
+
+// Operadores de incremento y decremento
+entero incremento(entero var valor) {
+	valor++
+	retornar valor
+}
+
+entero decremento(entero var valor) {
+	valor--
+	retornar valor
+}
+
+// Operadores compuestos
+entero suma_compuesta(entero var valor, entero incremento) {
+	valor += incremento
+	retornar valor
+}
+
+entero resta_compuesta(entero var valor, entero decremento) {
+	valor -= decremento
+	retornar valor
+}
+
+entero multiplicacion_compuesta(entero var valor, entero factor) {
+	valor *= factor
+	retornar valor
+}
+
+entero division_compuesta(entero var valor, entero divisor) {
+	valor /= divisor
+	retornar valor
+}
+
+entero modulo_compuesta(entero var valor, entero divisor) {
+	valor %= divisor
+	retornar valor
+}
+
+// Operadores de cadena
+texto agregar_texto(texto var palabra, texto agregado) {
+	palabra += agregado
+	retornar palabra
+}
+
+// Ejecutar funciones para comprobar operadores
+entero resultado_suma = suma(5, 10)
+entero resultado_resta = resta(10, 5)
+log resultado_es_verdadero = es_verdadero(verdadero)
+log resultado_es_falso = es_falso(falso)
+log resultado_es_igual = es_igual(5, 5)
+log resultado_es_diferente = es_diferente(5, 10)
+log resultado_es_mayor = es_mayor(10, 5)
+log resultado_es_menor = es_menor(5, 10)
+log resultado_es_mayor_igual = es_mayor_igual(5, 5)
+log resultado_es_menor_igual = es_menor_igual(5, 5)
+entero resultado_asignacion = asignacion(10)
+texto resultado_concatenacion = concatenacion("Hola")
+entero resultado_incremento = incremento(5)
+entero resultado_decremento = decremento(5)
+entero resultado_suma_compuesta = suma_compuesta(5, 10)
+entero resultado_resta_compuesta = resta_compuesta(10, 5)
+entero resultado_multiplicacion_compuesta = multiplicacion_compuesta(5, 10)
+entero resultado_division_compuesta = division_compuesta(10, 5)
+entero resultado_modulo_compuesta = modulo_compuesta(10, 5)
+texto resultado_agregar_texto = agregar_texto("Hola", " Mundo")
+```

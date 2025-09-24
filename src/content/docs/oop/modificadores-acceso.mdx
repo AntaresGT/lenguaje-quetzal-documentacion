@@ -1,16 +1,64 @@
 ---
-title: Modificadores de Acceso
-description: Control de acceso en clases del Lenguaje Quetzal
+title: Modificadores de acceso
+description: Control de visibilidad en objetos de Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+Los objetos utilizan bloques para agrupar miembros con la misma visibilidad.
 
-Esta sección necesita ser completada con información sobre los modificadores de acceso en el Lenguaje Quetzal.
+## `publico`
 
-## Contenido pendiente:
-- Público (public)
-- Privado (private)
-- Protegido (protected)
-- Encapsulación
-- Getters y setters
-- Ejemplos de uso
+Los miembros definidos en el bloque `publico` están disponibles fuera del objeto.
+
+```qz
+objeto Usuario {
+    publico:
+        texto nombre
+
+        Usuario(texto nombre) {
+            ambiente.nombre = nombre
+        }
+}
+
+Usuario persona = nuevo Usuario("Ana")
+consola.mostrar(persona.nombre)
+```
+
+## `privado`
+
+Los miembros privados solo pueden usarse dentro del objeto. Son útiles para encapsular detalles internos.
+
+```qz
+objeto Tokenizador {
+    privado:
+        lista<texto> palabras_reservadas = ["si", "sino", "para"]
+    publico:
+        log es_reservada(texto palabra) {
+            retornar ambiente.palabras_reservadas.contiene(palabra)
+        }
+}
+```
+
+Intentar acceder a `palabras_reservadas` desde fuera del objeto produce un error.
+
+## Miembros libres
+
+Dentro de `publico` o `privado` puedes marcar miembros como `libre`. Estos actúan como miembros estáticos que no requieren instancias y no acceden a `ambiente`.
+
+```qz
+objeto UtilidadesTexto {
+    publico:
+        libre texto unir(texto a, texto b) {
+            retornar a + b
+        }
+}
+
+texto combinado = UtilidadesTexto.unir("Hola", " Quetzal")
+```
+
+## Reglas adicionales
+
+- Los atributos y métodos declarados antes de cualquier bloque son públicos.
+- Un objeto puede mezclar bloques `privado` y `publico`. Cada bloque puede aparecer varias veces si lo necesitas para organizar el código.
+- Los miembros privados pueden llamar a métodos públicos del mismo objeto mediante `ambiente`.
+
+El uso adecuado de los modificadores facilita mantener invariantes y separar la API pública de los detalles internos.

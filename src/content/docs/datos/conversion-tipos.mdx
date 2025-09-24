@@ -1,16 +1,67 @@
 ---
-title: Conversión de Tipos
-description: Conversión entre diferentes tipos de datos en Quetzal
+title: Conversión de tipos
+description: Métodos disponibles para convertir valores en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+La conversión de tipos se realiza mediante métodos definidos sobre cada valor. Si la conversión no es posible se lanza una excepción.
 
-Esta sección necesita ser completada con información sobre la conversión de tipos en el Lenguaje Quetzal.
+## De texto a otros tipos
 
-## Contenido pendiente:
-- Conversión implícita
-- Conversión explícita
-- Funciones de conversión
-- Validación de tipos
-- Manejo de errores en conversiones
-- Ejemplos de uso
+```qz
+// Textos a los otros tipos
+entero valor_entero = "1234".entero()
+número valor_numero = "1234.56".número()
+log valor_logico = "verdadero".log()
+jsn valor_json = "{\"clave\": \"valor\"}".jsn()
+lista<entero> lista_desde_texto = "1,2,3".lista()
+```
+
+Los métodos aceptan valores en español (`"verdadero"`, `"falso"`) y números en formato decimal.
+
+## De números a texto y otros formatos
+
+```qz
+// Todas las conversiones a texto
+texto desde_entero = 1234.texto()
+texto desde_numero = 1234.56.texto()
+texto desde_logico = falso.texto()
+jsn valor_json2 = {
+    clave: "valor"
+}
+texto desde_json = valor_json2.texto()
+lista<entero> lista_enteros = [1, 2, 3]
+texto desde_lista = lista_enteros.texto()
+```
+
+## De listas y JSON
+
+```qz
+lista<entero> numeros = [1, 2, 3]
+texto lista_a_texto = numeros.texto()
+texto lista_a_json = numeros.jsn()
+
+jsn persona = {
+    nombre: "Ana",
+    edad: 30
+}
+texto json_a_texto = persona.texto()
+texto json_formateado = persona.texto_formateado()
+```
+
+## Manejo de errores
+
+Cuando una conversión falla, se genera una excepción que puedes capturar.
+
+```qz
+intentar {
+    entero valor = "abc".entero()
+} capturar (excepcion error) {
+    consola.mostrar_error(error.mensaje)
+}
+```
+
+## Reglas generales
+
+- Las conversiones no modifican el valor original; devuelven una nueva instancia.
+- Para listas tipadas, los elementos deben ser compatibles con el tipo de destino.
+- Al convertir a `lista` desde texto se espera una cadena separada por comas; ajusta el formato según tus necesidades.

@@ -1,16 +1,62 @@
 ---
-title: Ejemplos Básicos
-description: Ejemplos básicos de código en el Lenguaje Quetzal
+title: Ejemplos básicos
+description: Fragmentos sencillos para familiarizarse con Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## Hola mundo
 
-Esta sección necesita ser completada con ejemplos básicos de código en el Lenguaje Quetzal.
+```qz
+consola.mostrar_exito("Hola desde Lenguaje Quetzal")
+```
 
-## Contenido pendiente:
-- Hola mundo
-- Variables y tipos
-- Operaciones matemáticas
-- Condicionales simples
-- Bucles básicos
-- Funciones simples
+## Variables y tipos
+
+```qz
+entero edad = 25
+número salario = 1250.50
+texto nombre = "Ana"
+log activo = verdadero
+lista<texto> habilidades = ["Quetzal", "Rust", "JSON"]
+```
+
+## Operaciones matemáticas
+
+```qz
+número resultado = 10.5 + 5.25
+número diferencia = resultado - 3
+número producto = resultado * 2
+número division = resultado / 3
+consola.mostrar(t"Resultado final: {division}")
+```
+
+## Condicionales simples
+
+```qz
+entero edad = 20
+
+si (edad >= 18) {
+    consola.mostrar("Es mayor de edad")
+} sino {
+    consola.mostrar("Es menor de edad")
+}
+```
+
+## Bucles básicos
+
+```qz
+para (entero var i = 0; i < 3; i++) {
+    consola.mostrar(t"Iteración {i}")
+}
+```
+
+## Funciones
+
+```qz
+texto saludar(texto nombre) {
+    retornar "Hola " + nombre
+}
+
+consola.mostrar(saludar("María"))
+```
+
+Estos ejemplos están basados en la carpeta `ejemplos` incluida con el intérprete y sirven como punto de partida para explorar el lenguaje.

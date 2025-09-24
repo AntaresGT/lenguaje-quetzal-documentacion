@@ -1,15 +1,81 @@
 ---
 title: Variables y constantes
-description: Declaración y uso de variables y constantes en Quetzal
+description: Declaración, mutabilidad y alcance de las variables en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## Declaración básica
 
-Esta sección necesita ser completada con información sobre variables y constantes en el Lenguaje Quetzal.
+Cada variable requiere un tipo explícito seguido del nombre y, opcionalmente, un valor inicial.
 
-## Contenido pendiente:
-- Declaración de variables
-- Declaración de constantes
-- Ámbito de variables
-- Buenas prácticas
-- Ejemplos de uso
+```qz
+entero contador = 0
+texto saludo = "Hola"
+log activo = verdadero
+```
+
+Si no se proporciona un valor, Quetzal asigna uno por defecto acorde al tipo (`0` para `entero`, `0.0` para `número`, cadena vacía para `texto`, `falso` para `log`).
+
+## Mutabilidad
+
+Las variables son inmutables por defecto. Usa la palabra clave `var` para permitir reasignaciones o métodos que mutan el valor.
+
+```qz
+entero var total = 10
+total += 5
+
+lista<texto> var elementos = ["a", "b"]
+elementos.agregar("c")
+```
+
+## Nombres válidos
+
+- Inician con una letra o guion bajo y pueden contener números.
+- Admiten `camelCase` o `snake_case`.
+- No pueden coincidir con palabras reservadas como `si`, `lista`, `importar`, `nuevo`, `ambiente`, `verdadero`, `falso`, `nulo`, `y`, `o`, `no` y otras listadas en la sección de referencia.
+
+## Alcance
+
+- Las variables declaradas en el cuerpo principal tienen alcance global en el archivo.
+- Dentro de funciones u objetos, el alcance se limita al bloque correspondiente.
+- Cada bucle crea su propio ámbito, por lo que las variables definidas en el encabezado o dentro del bloque no son visibles fuera de él.
+
+```qz
+entero var acumulado = 0
+para (entero var numero en [1, 2, 3]) {
+    acumulado += numero
+}
+// numero ya no está disponible aquí
+```
+
+## Uso de `ambiente`
+
+En objetos, la palabra reservada `ambiente` permite acceder a los atributos y métodos internos.
+
+```qz
+objeto Contador {
+    entero var valor = 0
+
+    Contador(entero inicial) {
+        ambiente.valor = inicial
+    }
+
+    vacio incrementar() {
+        ambiente.valor++
+    }
+}
+```
+
+## Constantes simbólicas
+
+Actualmente no existe una palabra clave específica para constantes globales. Para simular una constante declara la variable sin `var` y evita reasignarla. Si necesitas compartirla en múltiples archivos, expórtala desde un módulo dedicado.
+
+```qz
+texto MENSAJE_BIENVENIDA = "Bienvenido"
+exportar { MENSAJE_BIENVENIDA }
+```
+
+## Buenas prácticas
+
+- Prefiere nombres descriptivos y consistentes.
+- Declara variables lo más cerca posible de su uso.
+- Evita usar mutabilidad salvo cuando sea estrictamente necesaria (por ejemplo, acumuladores o estructuras que cambian).

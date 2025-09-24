@@ -1,16 +1,73 @@
 ---
-title: Organización de Código
-description: Mejores prácticas para organizar código en Quetzal
+title: Organización de módulos
+description: Cómo estructurar proyectos de Lenguaje Quetzal con múltiples archivos.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## Estructura recomendada
 
-Esta sección necesita ser completada con información sobre la organización de código en el Lenguaje Quetzal.
+```
+mi-proyecto/
+├── quetzal.json
+├── principal.qz
+├── modulos/
+│   ├── usuarios.qz
+│   └── utilidades.qz
+└── datos/
+    └── ejemplos.json
+```
 
-## Contenido pendiente:
-- Estructura de proyectos
-- Convenciones de nombres
-- Separación de responsabilidades
-- Modularización
-- Documentación de código
-- Ejemplos de uso
+- `principal.qz` contiene el punto de entrada.
+- La carpeta `modulos` agrupa código reutilizable.
+- `quetzal.json` declara permisos de acceso a recursos del sistema operativo (p. ej., sistema de archivos).
+
+## Archivo `quetzal.json`
+
+```json
+{
+  "versión": "1.0.0",
+  "aplicación": "mi-proyecto",
+  "permisos": [
+    {
+      "nombre": "sistema-archivos",
+      "alcance": "directorios",
+      "directorios": ["./modulos", "./datos"]
+    }
+  ]
+}
+```
+
+Este archivo es opcional, pero recomendado si tu proyecto requiere acceso al sistema de archivos (por ejemplo, importar módulos ubicados en el disco o leer recursos). Sin permisos, el intérprete restringe el acceso al sistema del SO y solo permite módulos internos al ejecutable.
+
+## Nomenclatura de archivos
+
+- Los archivos de código usan la extensión `.qz`.
+- Emplea nombres en minúsculas con guiones medios o bajos (`usuarios.qz`, `procesamiento_texto.qz`).
+- Evita espacios o caracteres especiales.
+
+## Exportaciones claras
+
+Cada módulo puede terminar con un bloque `exportar` que indique qué símbolos estarán disponibles para otros archivos.
+
+```qz
+exportar {
+    sumar_entero,
+    Usuario,
+    instancia_usuario,
+    saludo
+}
+```
+
+## Importaciones relativas
+
+Las rutas son relativas al archivo principal que invoca al intérprete. Usa `./` para rutas locales dentro de carpetas autorizadas en `quetzal.json`.
+
+```qz
+importar { Usuario } desde "./modulos/usuarios.qz"
+```
+
+## Buenas prácticas
+
+- Mantén funciones relacionadas en el mismo archivo para facilitar su descubrimiento.
+- Separa la lógica de dominio y la infraestructura en módulos diferentes.
+- Documenta en comentarios cualquier dependencia entre módulos.
+- Al compartir proyectos, incluye instrucciones para copiar `quetzal.json` y las carpetas permitidas.

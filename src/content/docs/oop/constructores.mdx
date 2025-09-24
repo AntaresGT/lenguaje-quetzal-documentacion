@@ -1,16 +1,91 @@
 ---
-title: Constructores de Clases
-description: Constructores de clases en el Lenguaje Quetzal
+title: Constructores
+description: Cómo inicializar objetos en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+Los constructores comparten el nombre del objeto y no declaran tipo de retorno. Se ejecutan cuando usas la palabra clave `nuevo`.
 
-Esta sección necesita ser completada con información sobre los constructores en el Lenguaje Quetzal.
+## Estructura general
 
-## Contenido pendiente:
-- Definición de constructores
-- Constructores con parámetros
-- Constructores por defecto
-- Sobrecarga de constructores
-- Inicialización de propiedades
-- Ejemplos de uso
+```qz
+objeto Punto {
+    número x
+    número y
+
+    Punto(número x, número y) {
+        ambiente.x = x
+        ambiente.y = y
+    }
+}
+```
+
+## Inicialización de atributos
+
+Dentro del constructor utiliza `ambiente` para asignar valores a los atributos.
+
+```qz
+objeto Usuario {
+    privado:
+        texto nombre
+        entero edad
+    publico:
+        Usuario(texto nombre, entero edad) {
+            ambiente.nombre = nombre
+            ambiente.edad = edad
+        }
+}
+```
+
+## Validaciones en el constructor
+
+Puedes incluir lógica para validar los argumentos y lanzar excepciones si algo no es válido.
+
+```qz
+objeto CuentaBancaria {
+    privado:
+        número var saldo
+    publico:
+        CuentaBancaria(número saldo_inicial) {
+            si (saldo_inicial < 0) {
+                lanzar "El saldo inicial no puede ser negativo"
+            }
+            ambiente.saldo = saldo_inicial
+        }
+}
+```
+
+## Constructores y `var`
+
+- Declara atributos mutables con `var` dentro del objeto.
+- Las listas y valores `jsn` creados dentro del constructor pueden modificarse posteriormente desde métodos públicos.
+
+```qz
+objeto Inventario {
+    privado:
+        lista<texto> var articulos
+    publico:
+        Inventario() {
+            ambiente.articulos = []
+        }
+
+        vacio agregar(texto articulo) {
+            ambiente.articulos.agregar(articulo)
+        }
+}
+```
+
+## Constructores sin parámetros
+
+Puedes omitir parámetros si el objeto tiene valores predeterminados.
+
+```qz
+objeto Configuracion {
+    log var modo_debug = falso
+
+    Configuracion() {
+        // Valores por defecto ya asignados
+    }
+}
+```
+
+Recuerda que los constructores no pueden usar `retornar`; cualquier intento generará un error de análisis.

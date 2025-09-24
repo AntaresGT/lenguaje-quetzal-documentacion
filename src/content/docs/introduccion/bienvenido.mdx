@@ -1,6 +1,6 @@
 ---
 title: Bienvenido a Lenguaje Quetzal
-description: Introducción al lenguaje de programación Quetzal v0.0.1, un lenguaje interpretado moderno desarrollado en Rust con sintaxis en español.
+description: Introducción general al Lenguaje Quetzal v0.0.12, sus metas y características principales.
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
@@ -16,92 +16,66 @@ Quetzal es un lenguaje interpretado en tiempo de ejecución, implementado en **R
 - **Soporte nativo de JSON**: Interoperabilidad directa con estructuras JSON
 - **Rendimiento optimizado**: Implementado en Rust para máxima eficiencia
 
-## Características principales
+## Objetivos del proyecto
 
 <CardGrid>
-  <Card title="Sintaxis Natural" icon="document">
-    Palabras clave en español como `si`, `sino`, `mientras`, `para`, haciendo el código más legible para hispanohablantes.
+  <Card title="Accesible para hispanohablantes" icon="document">
+    Todas las palabras clave usan español: `si`, `sino`, `lista`, `consola`, `retornar`, entre otras. Esta decisión reduce la curva de aprendizaje para quienes piensan y trabajan en español.
   </Card>
-  
-  <Card title="Tipado Fuerte" icon="setting">
-    Sistema de tipos robusto que detecta errores en tiempo de compilación, con tipos como `entero`, `cadena`, `número`, `bool`.
+  <Card title="Productividad inmediata" icon="rocket">
+    El intérprete ofrece listas, JSON y objetos orientados a la creación de aplicaciones reales. Los métodos integrados permiten manipular datos sin dependencias adicionales.
   </Card>
-  
-  <Card title="JSON Nativo" icon="open-book">
-    Soporte directo para objetos JSON con el tipo `jsn`, sin necesidad de conversiones externas.
+  <Card title="Robustez" icon="seti:csv">
+    El análisis léxico y sintáctico detecta errores de forma temprana. Los mensajes incluyen sugerencias y resaltan la línea con el problema para depurar con rapidez.
   </Card>
-  
-  <Card title="Alto Rendimiento" icon="rocket">
-    Implementado en Rust para garantizar velocidad y seguridad en la ejecución.
-  </Card>
-
-  <Card title="Objetivo y Funcional" icon="star">
-      No es un lenguaje para únicamente para aprender, sino para construir aplicaciones reales. Combinando paradigmas de programación orientada a objetos y funcional.
-  </Card>
-  <Card title="Extendible" icon="github">
-    Diseñado para ser extensible y fácil de integrar con otras tecnologías. Puedes crear tus propias bibliotecas y módulos.
+  <Card title="Extensibilidad" icon="sourcehut">
+    Los módulos permiten organizar código en archivos separados y compartir definiciones mediante `exportar` e `importar`. Además, la versión incluye módulos nativos como `quetzal/matemática`.
   </Card>
 </CardGrid>
 
-## Tu primer programa
-
-Aquí tienes un ejemplo básico de código Quetzal:
-
-```qz
-// Mi primer programa en Quetzal
-imprimir_exito("¡Hola, mundo desde Lenguaje Quetzal!")
-
-// Variables con tipos
-entero edad = 25
-cadena nombre = "María García"
-bool esta_activo = verdadero
-
-// Función simple
-cadena saludar(cadena nombre_usuario) {
-    retornar "¡Hola, " + nombre_usuario + "!"
-}
-
-// Llamada a función
-cadena saludo = saludar(nombre)
-imprimir(saludo)
-
-// Condicional
-si (edad >= 18) {
-    imprimir("Es mayor de edad")
-} sino {
-    imprimir("Es menor de edad")
-}
-
-// Lista de datos
-lista<cadena> frutas = ["manzana", "banana", "naranja"]
-para (cadena fruta en frutas) {
-    imprimir("Fruta: " + fruta)
-}
-
-// Objeto JSON
-jsn persona = {
-    nombre: "Ana López",
-    edad: 30,
-    ciudad: "Guatemala",
-    activo: verdadero
-}
-
-imprimir("Persona: " + persona.cadena())
-```
-
 ## ¿Por qué Quetzal?
 
-### 1. **Accesibilidad lingüística**
+### **Accesibilidad lingüística**
 Quetzal elimina la barrera del idioma en la programación, permitiendo que los desarrolladores hispanohablantes trabajen con conceptos familiares en su idioma nativo.
 
-### 2. **Diseño moderno**
-Incorpora características de lenguajes modernos como:
-- Inferencia de tipos
-- Programación asíncrona con `asincrono` y `esperar`
-- Manejo de errores con `intentar`, `atrapar`, `finalmente`
-- Sistema de módulos con `importar` y `exportar`
+## Qué incluye la versión v0.0.2
 
-### 3. **Comunidad hispanohablante**
+- Tipos primitivos (`entero`, `número`, `texto`, `log`, `vacio`), listas tipadas y no tipadas, y valores `jsn` con métodos de acceso avanzados.
+- Objetos con bloques `privado` y `publico`, constructores, atributos libres y soporte para miembros estáticos.
+- Importaciones y exportaciones entre archivos `.qz`, alias de símbolos y permisos controlados mediante `quetzal.json` para acceder al sistema de archivos.
+- Manejo de excepciones con bloques `intentar`, `capturar`, `finalmente` y lanzamiento explícito de errores mediante `lanzar`.
+- Consola con métodos para mensajes de éxito, advertencia, error, información y solicitudes de entrada o contraseñas.
+
+## Primer vistazo al lenguaje
+
+```qz
+importar {
+    Matemática
+} desde "quetzal/matemática"
+
+objeto Usuario {
+    privado:
+        texto nombre
+        entero edad
+    publico:
+        Usuario(texto nombre, entero edad) {
+            ambiente.nombre = nombre
+            ambiente.edad = edad
+        }
+
+        texto saludo() {
+            retornar t"Hola, {ambiente.nombre}. Tienes {ambiente.edad} años."
+        }
+}
+
+Usuario persona = nuevo Usuario("María", 29)
+número suma = Matemática.sumar(7, 3)
+
+consola.mostrar_exito(persona.saludo())
+consola.mostrar(t"Resultado de 7 + 3: {suma}")
+```
+
+### **Comunidad hispanohablante**
 Diseñado específicamente para fomentar el crecimiento de la programación en la comunidad de habla hispana.
 
 ## Próximos pasos

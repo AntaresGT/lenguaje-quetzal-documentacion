@@ -1,16 +1,41 @@
 ---
-title: Mejores Prácticas
-description: Mejores prácticas de programación en el Lenguaje Quetzal
+title: Mejores prácticas
+description: Recomendaciones para escribir código mantenible en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## Estilo general
 
-Esta sección necesita ser completada con las mejores prácticas de programación en el Lenguaje Quetzal.
+- Usa nombres en español y descriptivos (`obtener_usuario`, `calcular_promedio`).
+- Prefiere `camelCase` para funciones y `snake_case` para variables largas; mantén la consistencia en todo el archivo.
+- Añade comentarios solo cuando aclaren la intención del código.
 
-## Contenido pendiente:
-- Convenciones de código
-- Patrones de diseño
-- Optimización de rendimiento
-- Seguridad
-- Testing
-- Documentación de código
+## Organización de archivos
+
+- Agrupa funciones relacionadas en módulos y expórtalas explícitamente.
+- Coloca los módulos en carpetas permitidas por `quetzal.json` y documenta los permisos requeridos.
+- Mantén un archivo principal breve que importe la funcionalidad necesaria.
+
+## Tipos y mutabilidad
+
+- Declara siempre el tipo de las variables y evita la mutabilidad a menos que sea imprescindible.
+- Para listas y JSON mutables utiliza `var` y valida los datos antes de modificarlos.
+- Usa métodos de conversión (`.entero()`, `.texto()`) en lugar de concatenar o parsear manualmente.
+
+## Manejo de errores
+
+- Valida entradas con condicionales antes de ejecutar operaciones críticas.
+- Utiliza `intentar`/`capturar` en bloques pequeños para localizar fácilmente la causa del error.
+- Proporciona mensajes de excepción concretos con instrucciones de solución.
+
+## Uso de objetos
+
+- Define atributos privados para mantener invariantes internos y expón métodos públicos bien documentados.
+- Emplea miembros `libre` para utilidades que no dependen del estado del objeto.
+- Evita herencias complejas; prefiere composición y módulos reutilizables.
+
+## Pruebas manuales
+
+- Reproduce los ejemplos oficiales en una carpeta `pruebas-ia` para validar que el intérprete se ejecute correctamente.
+- Ejecuta los programas con el binario compilado (`target/release/quetzal archivo.qz`) después de cada cambio importante.
+
+Seguir estas prácticas ayuda a aprovechar las características del lenguaje y facilita la colaboración con otros desarrolladores.

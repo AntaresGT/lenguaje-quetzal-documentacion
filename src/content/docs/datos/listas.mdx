@@ -1,16 +1,137 @@
 ---
 title: Listas
-description: Manejo de listas en el Lenguaje Quetzal
+description: Operaciones con listas en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+Las listas representan colecciones ordenadas de valores. Pueden declararse con tipo específico (`lista<entero>`) o sin tipo (`lista`).
 
-Esta sección necesita ser completada con información sobre las listas en el Lenguaje Quetzal.
+## Declaración
 
-## Contenido pendiente:
-- Declaración de listas
-- Acceso a elementos
-- Métodos de listas
-- Iteración sobre listas
-- Listas multidimensionales
-- Ejemplos de uso
+```qz
+lista<texto> nombres = ["Ana", "Carlos", "María"]
+lista mixta = [1, "dos", verdadero]
+lista<entero> vacia = []
+```
+
+Las listas son inmutables a menos que se indiquen como variables con `var`.
+
+```qz
+lista<entero> var numeros = [3, 1, 4]
+numeros.agregar(2)
+```
+
+## Acceso a elementos
+
+- Índices positivos comienzan en 0.
+- Índices negativos acceden desde el final (`-1` es el último elemento).
+
+```qz
+texto segundo = nombres[1]
+texto ultimo = nombres[-1]
+```
+
+## Métodos principales
+
+| Método | Descripción |
+|--------|-------------|
+| `longitud()` | Número de elementos. |
+| `esta_vacia()` | Devuelve `verdadero` si la lista no tiene elementos. |
+| `agregar(valor)` | Inserta al final (lista mutable). |
+| `insertar(indice, valor)` | Inserta en una posición específica. |
+| `remover(valor)` | Elimina la primera coincidencia. |
+| `quitar_en(indice)` | Elimina y devuelve el elemento de la posición indicada. |
+| `limpiar()` | Vacía la lista. |
+| `contiene(valor)` | Verifica la presencia de un valor. |
+| `buscar(valor)` / `buscar_ultimo(valor)` | Devuelve la posición de la coincidencia. |
+| `contar(valor)` | Número de veces que aparece un valor. |
+| `ordenar()` / `ordenar_descendente()` | Ordena elementos comparables. |
+| `ordenado()` | Devuelve una copia ordenada. |
+| `invertir()` | Invierte el orden de la lista mutable. |
+| `primero()` / `ultimo()` | Obtiene el primer o último elemento. |
+| `tomar(n)` | Crea una sublista con los primeros `n` elementos. |
+| `saltar(n)` | Omite los primeros `n` elementos. |
+| `sublista(inicio, fin)` | Extrae un rango (sin incluir `fin`). |
+| `sumar()` / `promedio()` / `maximo()` / `minimo()` | Operaciones numéricas. |
+| `unir(delimitador)` | Concatena elementos como texto. |
+| `concatenar(otra_lista)` | Devuelve una nueva lista con los elementos combinados. |
+| `extender(otra_lista)` | Añade todos los elementos de otra lista (mutable). |
+| `texto()` | Representación textual. |
+| `jsn()` | Convierte la lista a JSON. |
+
+## Ejemplos prácticos
+
+```qz
+lista<entero> var numeros = [3, 1, 4]
+numeros.ordenar()                     // [1, 3, 4]
+
+lista<texto> palabras = ["Hola", "Quetzal"]
+texto frase = palabras.unir(" ")      // "Hola Quetzal"
+
+lista rango = rango(1, 5)              // [1, 2, 3, 4, 5]
+ 
+// Acceso seguro con manejo de errores
+intentar {
+    texto elemento_seguro = palabras[5]  // Error
+} capturar(excepcion ex){
+    consola.mostrar("Error al acceder a la lista: " + ex.mensaje)
+}
+
+// Índices negativos
+texto ultimo = palabras[-1]             // "Quetzal"
+
+// Búsquedas y conteos
+log contiene_elemento = palabras.contiene("Hola")   // verdadero
+entero posicion_elemento = palabras.buscar("Quetzal")
+entero posicion_ultimo = palabras.buscar_ultimo("Hola")
+entero ocurrencias = palabras.contar("Hola")
+
+// Ordenar descendente y producir copia ordenada
+numeros.ordenar_descendente()           // [4, 3, 1]
+lista<entero> numeros_ordenados = numeros.ordenado()
+
+// Invertir
+numeros.invertir()
+
+// Primeros/últimos y sublistas
+texto primero = palabras.primero()      // "Hola"
+texto ult = palabras.ultimo()           // "Quetzal"
+lista<texto> primeros_n = palabras.tomar(1)
+lista<texto> omitidos_n = palabras.saltar(1)
+lista<texto> sub = palabras.sublista(0, 1)
+
+// Sumas, promedio, máximos y mínimos
+lista<entero> numeros_lista = [1, 2, 3, 4, 5]
+entero suma = numeros_lista.sumar()     // 15
+lista<número> numeros_flotantes = [1.5, 2.5, 3.0]
+número promedio = numeros_lista.promedio()  // 3.0
+entero maximo = numeros_lista.maximo()
+entero minimo = numeros_lista.minimo()
+
+// Concatenar y extender
+lista<texto> lista1 = ["A", "B"]
+lista<texto> lista2 = ["C", "D"]
+lista<texto> concatenada = lista1.concatenar(lista2)
+lista<texto> var lista_base = ["A", "B"]
+lista_base.extender(lista2)
+
+// Conversión a texto, jsn y log
+texto como_texto = palabras.texto()     // "[Hola, Quetzal]"
+texto como_json = lista1.jsn()
+log lista_no_vacia = palabras.log()  // verdadero
+```
+
+## Validaciones
+
+- Para usar métodos mutadores (`agregar`, `ordenar`, etc.) la lista debe declararse con `var`.
+- Los métodos de ordenación requieren elementos comparables; mezclar tipos incompatibles genera un error.
+- Cuando un índice no existe, el intérprete lanza una excepción que puede manejarse con `intentar` y `capturar`.
+
+```qz
+intentar {
+    texto elemento = nombres[10]
+} capturar (excepcion error) {
+    consola.mostrar_advertencia(error.mensaje)
+}
+```
+
+Las listas son fundamentales para procesar colecciones de datos y trabajar con módulos nativos como `Matemática`.

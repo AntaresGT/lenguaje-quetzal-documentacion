@@ -1,16 +1,43 @@
 ---
-title: Manejo de Archivos
-description: Manejo de archivos en el Lenguaje Quetzal
+title: Manejo de archivos
+description: Estado del acceso a archivos y configuración mediante `quetzal.json`.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+La versión v0.0.2 del intérprete no expone todavía un API de lectura o escritura de archivos desde el código Quetzal. No existen funciones nativas como `consola` para interactuar directamente con el sistema de archivos.
 
-Esta sección necesita ser completada con información sobre el manejo de archivos en el Lenguaje Quetzal.
+## Uso actual: permisos del sistema (archivos)
 
-## Contenido pendiente:
-- Leer archivos
-- Escribir archivos
-- Modos de apertura
-- Rutas de archivos
-- Manejo de errores de E/S
-- Ejemplos de uso
+Los permisos de acceso a recursos del sistema operativo (por ejemplo, el sistema de archivos) se configuran en `quetzal.json`, ubicado junto al programa principal. Este archivo delimita qué rutas del sistema están autorizadas para que el intérprete pueda accederlas. Si importas módulos desde el sistema de archivos, esa operación también queda sujeta a estas restricciones; los permisos no pertenecen al sistema de módulos, sino al entorno del SO donde se ejecuta Quetzal.
+
+```json
+{
+  "versión": "1.0.0",
+  "aplicación": "mi-proyecto",
+  "permisos": [
+    {
+      "nombre": "sistema-archivos",
+      "alcance": "directorios",
+      "directorios": ["./modulos", "./datos"]
+    }
+  ]
+}
+```
+
+Ejemplo: importación desde el sistema de archivos
+
+```qz
+importar { utilidades } desde "./modulos/utilidades.qz"
+
+utilidades.leer_archivo("datos/ejemplo.txt")
+
+```
+
+Si el archivo `quetzal.json` no existe o no contiene permisos para el sistema de archivos, el intérprete restringe el acceso al sistema del SO.
+
+## Buenas prácticas mientras llega el API de archivos
+
+- Mantén tus módulos dentro de los directorios autorizados para evitar errores de permisos.
+- No expongas rutas absolutas sensibles; utiliza rutas relativas desde el archivo principal.
+- Documenta en tus proyectos qué carpetas deben agregarse al arreglo `directorios` para que otras personas puedan ejecutarlos sin modificar el código.
+
+Esta sección se actualizará cuando el lenguaje incluya funciones para leer o escribir archivos directamente.

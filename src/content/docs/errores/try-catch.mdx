@@ -1,16 +1,87 @@
 ---
-title: Manejo de Errores con Try-Catch-Finally
-description: Manejo de errores con try-catch-finally en Quetzal
+title: Bloques intentar/capturar
+description: Uso detallado de `intentar`, `capturar` y `finalmente` en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## Sintaxis general
 
-Esta sección necesita ser completada con información sobre try-catch-finally en el Lenguaje Quetzal.
+```qz
+intentar {
+    // Código que podría lanzar una excepción
+} capturar (excepcion error) {
+    // Manejo de la excepción
+} finalmente {
+    // Código opcional que siempre se ejecuta
+}
+```
 
-## Contenido pendiente:
-- Sintaxis de try-catch
-- Múltiples catch
-- Bloque finally
-- Captura de excepciones específicas
-- Re-lanzar excepciones
-- Ejemplos de uso
+- El bloque `capturar` es obligatorio cuando utilizas `intentar`.
+- `finalmente` es opcional, pero recomendado cuando debes liberar recursos.
+
+## Acceder a la información de la excepción
+
+El objeto `excepcion` incluye:
+
+- `mensaje`: texto descriptivo.
+- `linea`: número de línea donde ocurrió el error.
+- `llamadas`: lista con la pila de llamadas.
+
+```qz
+intentar {
+    número resultado = dividir(10, 0)
+} capturar (excepcion error) {
+    consola.mostrar_error(t"Mensaje: {error.mensaje}")
+    consola.mostrar(t"Línea: {error.linea}")
+    consola.mostrar(t"Pila: {error.llamadas.texto()}")
+}
+```
+
+## Ejemplo completo
+
+```qz
+// Definimos una función que puede lanzar una excepción
+número dividir(número numerador, número denominador){
+    si (denominador == 0) {
+        lanzar "Error: División por cero no permitida"
+    }
+
+    retornar numerador / denominador
+}
+
+// Tratar la excepción al llamar a la función
+intentar {
+    número resultado = dividir(10, 0)
+    consola.mostrar("Resultado: " + resultado)
+} capturar (excepcion e){
+    // Obtenemos el mensaje de la excepción y lo imprimimos en la consola
+    consola.mostrar(e.mensaje)
+    // También podemos mostrar la pila de llamadas para ver dónde ocurrió la excepción
+    consola.mostrar("Pila de llamadas:" + e.llamadas.texto())
+}
+finalmente {
+    // Este bloque se ejecuta siempre, independientemente de si ocurrió una excepción o no
+    // No es obligatorio, pero es útil para limpiar recursos o mostrar mensajes finales
+    consola.mostrar("Fin del manejo de excepciones.")
+}
+```
+
+## Múltiples excepciones
+
+Actualmente no existe clasificación jerárquica de excepciones. Todas las excepciones capturadas exponen al menos el mensaje y una lista de llamadas (actualmente vacía). Si necesitas categorizar errores, agrega información al texto del mensaje.
+
+## Re-lanzar excepciones
+
+Puedes propagar una excepción después de procesarla.
+
+```qz
+} capturar (excepcion error) {
+    consola.mostrar_advertencia("Reintentando")
+    lanzar error.mensaje
+}
+```
+
+## Consejos
+
+- Limita el tamaño del bloque `intentar` para identificar con precisión dónde ocurre el problema.
+- Registra información adicional antes de lanzar excepciones críticas.
+- Aprovecha el bloque `finalmente` para cerrar conexiones o limpiar estructuras temporales.

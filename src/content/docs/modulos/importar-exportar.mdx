@@ -1,16 +1,87 @@
 ---
-title: Importar y Exportar Módulos
-description: Sistema de módulos en el Lenguaje Quetzal
+title: Importar y exportar
+description: Compartir código entre archivos en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## Exportar símbolos
 
-Esta sección necesita ser completada con información sobre el sistema de importación y exportación en el Lenguaje Quetzal.
+Al final de un archivo declara qué elementos estarán disponibles para otros módulos.
 
-## Contenido pendiente:
-- Sintaxis de import
-- Sintaxis de export
-- Importaciones nombradas
-- Importaciones por defecto
-- Alias de importación
-- Ejemplos de uso
+```qz
+entero sumar_entero(entero a, entero b) {
+    retornar a + b
+}
+
+objeto Usuario {
+    privado:
+        texto nombre
+        entero edad
+        libre número var saldo = 0
+    publico:
+        Usuario(texto nombre, entero edad) {
+            ambiente.nombre = nombre
+            ambiente.edad = edad
+        }
+
+        texto obtener_nombre() {
+            retornar ambiente.nombre
+        }
+
+        entero obtener_edad() {
+            retornar ambiente.edad
+        }
+}
+
+// Instancia de objeto
+Usuario instancia_usuario = nuevo Usuario("Juan", 30)
+
+// Declaración variable
+texto saludo = "Hola, Quetzal!"
+
+exportar {
+    // Exportar función
+    sumar_entero,
+    // Exportar definición de objeto
+    Usuario,
+    // Exportar instancia de objeto
+    instancia_usuario,
+    // Exportar variable
+    saludo
+}
+```
+
+Puedes exportar funciones, objetos, instancias y variables.
+
+## Importar símbolos
+
+```qz
+importar {
+    sumar_entero,
+    Usuario,
+    instancia_usuario,
+    saludo como texto_saludo
+} desde "exportar.qz"
+```
+
+- Las llaves listan los símbolos que deseas usar.
+- `como` permite asignar un alias local.
+- La ruta puede ser relativa (`./modulos/exportar.qz`) o un módulo nativo como `"quetzal/matemática"`.
+
+## Importar todo un módulo nativo
+
+```qz
+importar {
+    Matemática
+} desde "quetzal/matemática"
+
+número resultado = Matemática.sumar(2, 3)
+```
+
+Los módulos nativos se distribuyen con el intérprete y no requieren permisos adicionales.
+
+## Consideraciones
+
+- Si intentas importar un símbolo no exportado, el intérprete mostrará un error indicando que el elemento no está disponible.
+- Las rutas deben terminar en `.qz` cuando se trata de archivos del sistema.
+- El intérprete mantiene un caché de módulos; los cambios en un archivo requieren volver a ejecutar el programa.
+- Evita importaciones circulares. Organiza el código en capas o utiliza módulos intermedios para compartir dependencias comunes.

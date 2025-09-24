@@ -1,16 +1,83 @@
 ---
-title: Control de Flujo
-description: Instrucciones de control de flujo en Quetzal
+title: Control de flujo
+description: Herramientas para modificar el flujo de ejecución en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+## `retornar`
 
-Esta sección necesita ser completada con información sobre el control de flujo en el Lenguaje Quetzal.
+Finaliza una función y devuelve un valor. En funciones de tipo `vacio` se puede omitir.
 
-## Contenido pendiente:
-- Break y continue
-- Return
-- Exit/quit
-- Goto (si está disponible)
-- Manejo de excepciones básico
-- Ejemplos de uso
+```qz
+texto saludar(texto nombre) {
+    retornar t"Hola, {nombre}"
+}
+```
+
+Los constructores de objetos no permiten `retornar`; el valor implícito siempre es `vacio`.
+
+## `romper`
+
+Sale inmediatamente del bucle actual (`para`, `mientras`, `hacer ... mientras` o iteraciones con `en`/`cada`).
+
+```qz
+entero var contador = 0
+mientras (contador < 10) {
+    si (contador == 5) {
+        romper
+    }
+    contador++
+}
+```
+
+## `continuar`
+
+Omite el resto del bloque actual y evalúa la siguiente iteración del bucle.
+
+```qz
+// Palabra reservada 'continuar', continua con la siguiente iteración del ciclo
+para (entero var i = 0; i < 10; i++) {
+    si (i % 2 == 0) {
+        // Si el número es par, se salta la impresión y se continua con la siguiente iteración
+        continuar
+    }
+    consola.mostrar(i)
+}
+```
+
+## `lanzar`
+
+Genera una excepción que puede ser capturada más arriba en la pila de llamadas.
+
+```qz
+número dividir(número a, número b) {
+    si (b == 0) {
+        lanzar "División por cero"
+    }
+    retornar a / b
+}
+```
+
+## `intentar`, `capturar`, `finalmente`
+
+Manejan excepciones generadas dentro del bloque `intentar`. El parámetro de `capturar` debe usar el tipo `excepcion`.
+
+```qz
+intentar {
+    número resultado = dividir(10, 0)
+    consola.mostrar(resultado.texto())
+} capturar (excepcion error) {
+    consola.mostrar_error(error.mensaje)
+} finalmente {
+    consola.mostrar("Operación finalizada")
+}
+```
+
+## `esperar` (reservado)
+
+La palabra clave `esperar` está reservada para la futura ejecución de funciones asincrónicas. En v0.0.12 aún no está habilitada.
+
+## Flujo de salida del programa
+
+El intérprete no incluye instrucciones explícitas como `exit` o `quit`. Para finalizar basta con permitir que el programa alcance el final del archivo o usar `retornar` en el punto de entrada si tu aplicación está organizada dentro de una función principal.
+
+Estas herramientas, combinadas con condicionales y bucles, permiten controlar el comportamiento de tus programas.

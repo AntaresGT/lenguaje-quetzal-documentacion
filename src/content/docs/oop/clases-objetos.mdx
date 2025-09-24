@@ -1,16 +1,107 @@
 ---
-title: Clases y Objetos
-description: Programación orientada a objetos en el Lenguaje Quetzal
+title: Objetos
+description: Definición y uso de objetos en Lenguaje Quetzal.
 ---
 
-🚧 **Esta documentación está en construcción** 🚧
+Los objetos en Quetzal permiten agrupar datos y comportamientos. Se definen con la palabra clave `objeto` seguida del nombre y un bloque de miembros.
 
-Esta sección necesita ser completada con información sobre clases y objetos en el Lenguaje Quetzal.
+## Declaración básica
 
-## Contenido pendiente:
-- Definición de clases
-- Instanciación de objetos
-- Propiedades y métodos
-- Herencia
-- Polimorfismo
-- Ejemplos de uso
+```qz
+objeto Usuario {
+    texto nombre
+    entero edad
+
+    Usuario(texto nombre, entero edad) {
+        ambiente.nombre = nombre
+        ambiente.edad = edad
+    }
+
+    texto obtener_nombre() {
+        retornar ambiente.nombre
+    }
+}
+```
+
+- Los atributos declarados fuera de `privado` o `publico` son públicos por defecto.
+- Los constructores usan el mismo nombre del objeto y no retornan valor explícito.
+
+## Instanciación
+
+```qz
+Usuario persona = nuevo Usuario("María", 30)
+texto nombre = persona.obtener_nombre()
+```
+
+## Bloques `privado` y `publico`
+
+```qz
+objeto Banco {
+    privado:
+        número var saldo = 0
+
+        número obtener_saldo_privado() {
+            retornar ambiente.saldo
+        }
+
+    publico:
+        Banco(número inicial) {
+            ambiente.saldo = inicial
+        }
+
+        número obtener_saldo() {
+            retornar ambiente.obtener_saldo_privado()
+        }
+}
+```
+
+- Los miembros dentro de `privado` solo están disponibles dentro del objeto.
+- Los miembros en `publico` pueden usarse desde cualquier parte.
+
+## Miembros libres
+
+Los miembros declarados con la palabra `libre` actúan como miembros estáticos: pueden invocarse sin crear una instancia y no acceden al estado del objeto instanciado.
+
+```qz
+objeto MatematicaBasica {
+    libre número PI = 3.14159
+
+    libre número sumar(número a, número b) {
+        retornar a + b
+    }
+}
+
+número resultado = MatematicaBasica.sumar(2, 3)
+```
+
+## Mutabilidad de atributos
+
+- Los atributos son inmutables a menos que se declaren con `var` dentro del objeto.
+- Para modificar desde métodos públicos usa `ambiente`.
+
+```qz
+objeto Contador {
+    entero var valor = 0
+
+    vacio incrementar() {
+        ambiente.valor++
+    }
+}
+```
+
+## Herencia
+
+Lenguaje Quetzal no incluye herencia clásica. Recomienda composición: crea objetos que utilicen a otros internamente o expón funciones libres reutilizables.
+
+## Exportar objetos
+
+Los objetos pueden exportarse desde un módulo y reutilizarse en otros archivos.
+
+```qz
+exportar {
+    Usuario,
+    Banco
+}
+```
+
+Consulta las secciones de constructores y modificadores de acceso para profundizar en cada característica.

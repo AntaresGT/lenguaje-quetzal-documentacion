@@ -21,7 +21,7 @@ Comencemos con el clásico programa "Hola, mundo":
    
    ```qz
    // Mi primer programa en Lenguaje Quetzal
-   imprimir("¡Hola, mundo desde Quetzal!")
+   consola.mostrar("¡Hola, mundo desde Quetzal!")
    ```
 
 3. **Ejecutar el programa**
@@ -57,34 +57,34 @@ Crea un archivo llamado `mi_primer_programa.qz`:
  Fecha: Hoy
 */
 
-imprimir_exito("=== MI PRIMER PROGRAMA EN QUETZAL ===")
+consola.mostrar_exito("=== MI PRIMER PROGRAMA EN QUETZAL ===")
 
 // ===== VARIABLES Y TIPOS =====
-imprimir_informacion("1. Trabajando con variables...")
+consola.mostrar_informacion("1. Trabajando con variables...")
 
 // Tipos básicos
 entero edad = 25
-cadena nombre = "Ana García"
+texto nombre = "Ana García"
 número salario = 2500.50
-bool esta_empleado = verdadero
+log esta_empleado = verdadero
 
 // Mostrar variables
-imprimir("Nombre: " + nombre)
-imprimir("Edad: " + edad.cadena() + " años")
-imprimir("Salario: $" + salario.cadena())
-imprimir("Empleado: " + esta_empleado.cadena())
+consola.mostrar("Nombre: " + nombre)
+consola.mostrar("Edad: " + edad.texto() + " años")
+consola.mostrar("Salario: $" + salario.texto())
+consola.mostrar("Empleado: " + esta_empleado.texto())
 
 // ===== LISTAS =====
-imprimir_informacion("2. Trabajando con listas...")
+consola.mostrar_informacion("2. Trabajando con listas...")
 
-lista<cadena> hobbies = ["programar", "leer", "viajar", "cocinar"]
+lista<texto> hobbies = ["programar", "leer", "viajar", "cocinar"]
 lista<entero> numeros_favoritos = [7, 13, 21, 42]
 
-imprimir("Hobbies: " + hobbies.cadena())
-imprimir("Números favoritos: " + numeros_favoritos.cadena())
+consola.mostrar("Hobbies: " + hobbies.texto())
+consola.mostrar("Números favoritos: " + numeros_favoritos.texto())
 
 // ===== FUNCIONES =====
-imprimir_informacion("3. Usando funciones...")
+consola.mostrar_informacion("3. Usando funciones...")
 
 // Función para calcular área de un círculo
 número calcular_area_circulo(número radio) {
@@ -93,7 +93,7 @@ número calcular_area_circulo(número radio) {
 }
 
 // Función para crear saludo personalizado
-cadena crear_saludo(cadena nombre_persona, entero edad_persona) {
+texto crear_saludo(texto nombre_persona, entero edad_persona) {
     si (edad_persona >= 18) {
         retornar "Hola " + nombre_persona + ", eres mayor de edad"
     } sino {
@@ -103,41 +103,41 @@ cadena crear_saludo(cadena nombre_persona, entero edad_persona) {
 
 // Usar las funciones
 número area = calcular_area_circulo(5.0)
-cadena saludo = crear_saludo(nombre, edad)
+texto saludo = crear_saludo(nombre, edad)
 
-imprimir("Área del círculo (radio 5): " + area.cadena())
-imprimir(saludo)
+consola.mostrar("Área del círculo (radio 5): " + area.texto())
+consola.mostrar(saludo)
 
 // ===== CONDICIONALES =====
-imprimir_informacion("4. Usando condicionales...")
+consola.mostrar_informacion("4. Usando condicionales...")
 
 entero puntuacion = 85
 
 si (puntuacion >= 90) {
-    imprimir("Calificación: Excelente")
+    consola.mostrar("Calificación: Excelente")
 } sino si (puntuacion >= 80) {
-    imprimir("Calificación: Muy bueno")
+    consola.mostrar("Calificación: Muy bueno")
 } sino si (puntuacion >= 70) {
-    imprimir("Calificación: Bueno")
+    consola.mostrar("Calificación: Bueno")
 } sino {
-    imprimir("Calificación: Necesita mejorar")
+    consola.mostrar("Calificación: Necesita mejorar")
 }
 
 // ===== BUCLES =====
-imprimir_informacion("5. Usando bucles...")
+consola.mostrar_informacion("5. Usando bucles...")
 
-imprimir("Contando del 1 al 5:")
+consola.mostrar("Contando del 1 al 5:")
 para (entero i = 1; i <= 5; i++) {
-    imprimir("Número: " + i.cadena())
+    consola.mostrar("Número: " + i.texto())
 }
 
-imprimir("Recorriendo hobbies:")
-para (cadena hobby en hobbies) {
-    imprimir("- " + hobby)
+consola.mostrar("Recorriendo hobbies:")
+para (texto hobby en hobbies) {
+    consola.mostrar("- " + hobby)
 }
 
 // ===== OBJETOS JSON =====
-imprimir_informacion("6. Trabajando con JSON...")
+consola.mostrar_informacion("6. Trabajando con JSON...")
 
 jsn persona = {
     nombre: nombre,
@@ -151,45 +151,45 @@ jsn persona = {
     activo: verdadero
 }
 
-imprimir("Datos de la persona:")
-imprimir(persona.cadena())
+consola.mostrar("Datos de la persona:")
+consola.mostrar(persona.texto())
 
 // ===== OPERACIONES MATEMÁTICAS =====
-imprimir_informacion("7. Operaciones matemáticas...")
+consola.mostrar_informacion("7. Operaciones matemáticas...")
 
 entero a = 15
 entero b = 4
 
-imprimir("Operaciones con " + a.cadena() + " y " + b.cadena() + ":")
-imprimir("Suma: " + (a + b).cadena())
-imprimir("Resta: " + (a - b).cadena())
-imprimir("Multiplicación: " + (a * b).cadena())
-imprimir("División: " + (a / b).cadena())
-imprimir("Módulo: " + (a % b).cadena())
+consola.mostrar("Operaciones con " + a.texto() + " y " + b.texto() + ":")
+consola.mostrar("Suma: " + (a + b).texto())
+consola.mostrar("Resta: " + (a - b).texto())
+consola.mostrar("Multiplicación: " + (a * b).texto())
+consola.mostrar("División: " + (a / b).texto())
+consola.mostrar("Módulo: " + (a % b).texto())
 
 // ===== VARIABLES MUTABLES =====
-imprimir_informacion("8. Variables mutables...")
+consola.mostrar_informacion("8. Variables mutables...")
 
 entero mut contador = 0
-imprimir("Contador inicial: " + contador.cadena())
+consola.mostrar("Contador inicial: " + contador.texto())
 
 contador = contador + 10
-imprimir("Contador después de sumar 10: " + contador.cadena())
+consola.mostrar("Contador después de sumar 10: " + contador.texto())
 
 contador += 5
-imprimir("Contador después de += 5: " + contador.cadena())
+consola.mostrar("Contador después de += 5: " + contador.texto())
 
 // ===== FINAL =====
-imprimir_exito("¡Programa completado exitosamente!")
-imprimir("Has aprendido los conceptos básicos de Lenguaje Quetzal:")
-imprimir("✓ Variables y tipos de datos")
-imprimir("✓ Funciones")
-imprimir("✓ Condicionales")
-imprimir("✓ Bucles")
-imprimir("✓ Listas")
-imprimir("✓ Objetos JSON")
-imprimir("✓ Operaciones matemáticas")
-imprimir("✓ Variables mutables")
+consola.mostrar_exito("¡Programa completado exitosamente!")
+consola.mostrar("Has aprendido los conceptos básicos de Lenguaje Quetzal:")
+consola.mostrar("✓ Variables y tipos de datos")
+consola.mostrar("✓ Funciones")
+consola.mostrar("✓ Condicionales")
+consola.mostrar("✓ Bucles")
+consola.mostrar("✓ Listas")
+consola.mostrar("✓ Objetos JSON")
+consola.mostrar("✓ Operaciones matemáticas")
+consola.mostrar("✓ Variables mutables")
 ```
 
 ### Ejecutar el programa

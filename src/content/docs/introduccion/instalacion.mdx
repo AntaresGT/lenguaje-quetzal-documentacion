@@ -18,7 +18,7 @@ Esta guía te llevará paso a paso por el proceso de instalación del intérpret
   </Card>
   
   <Card title="Hardware Mínimo" icon="setting">
-    - RAM: 2 GB mínimo (4 GB recomendado)
+    - RAM: 512 MB mínimo (1 GB recomendado)
     - Almacenamiento: 100 MB libres
     - Procesador: x64 compatible
   </Card>
@@ -65,7 +65,7 @@ Esta guía te llevará paso a paso por el proceso de instalación del intérpret
    
    Deberías ver algo como:
    ```
-   Lenguaje Quetzal v0.0.1
+   Lenguaje Quetzal v0.0.2
    ```
 
 </Steps>
@@ -89,17 +89,17 @@ quetzal --ayuda
 Crea un archivo llamado `prueba.qz` con el siguiente contenido:
 
 ```qz
-imprimir_exito("¡Lenguaje Quetzal instalado correctamente!")
+consola.mostrar_exito("¡Lenguaje Quetzal instalado correctamente!")
 
 entero edad = 25
-cadena nombre = "María"
+texto nombre = "María"
 
-imprimir("Hola " + nombre + ", tienes " + edad.cadena() + " años")
+consola.mostrar("Hola " + nombre + ", tienes " + edad.texto() + " años")
 
 si (edad >= 18) {
-    imprimir("Eres mayor de edad")
+    consola.mostrar("Eres mayor de edad")
 } sino {
-    imprimir("Eres menor de edad")
+    consola.mostrar("Eres menor de edad")
 }
 ```
 
@@ -132,7 +132,7 @@ Si ves la salida correcta, ¡la instalación fue exitosa!
     - Asegúrate de que Windows no está bloqueando el archivo (clic derecho > Propiedades > Desbloquear)
   </Card>
   
-  <Card title="Antivirus bloquea el archivo" icon="shield">
+  <Card title="Antivirus bloquea el archivo" icon="sourcehut">
     **Error**: El antivirus detecta el archivo como amenaza
     
     **Solución**:
