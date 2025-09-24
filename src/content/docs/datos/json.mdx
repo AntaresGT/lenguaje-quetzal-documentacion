@@ -49,6 +49,20 @@ Los métodos mutadores requieren que el `jsn` se declare con `var`.
 ```qz
 jsn var persona = {
     nombre: "Ana",
+    datos_personales: {
+        fecha_nacimiento: "1998-05-15",
+        dpi: "1234567890101",
+        peso: 65.5,
+        altura: 1.70,
+        genero: "Femenino",
+        nacionalidad: "Guatemalteca",
+        estado_civil: "Soltera"
+    },
+    direcciones: [
+        { tipo: "casa", direccion: "123 Calle Principal, Ciudad" },
+        { tipo: "trabajo", direccion: "456 Avenida Secundaria, Ciudad" }
+    ],
+    telefonos: ["555-1234", "555-5678"],
     activo: verdadero
 }
 
@@ -59,8 +73,21 @@ si (no tiene_dpi) {
     persona.establecer("dpi", "0000000000000")
 }
 
-texto como_texto = persona.texto_formateado()
-consola.mostrar(como_texto)
+// Eliminar propiedad
+persona.eliminar("activo")
+
+// Fusionar con otro JSON
+jsn var otra_persona = {
+    apellido: "Gómez",
+    edad: 30,
+    activo: falso
+}
+persona.fusionar(otra_persona)
+
+// Serializar
+texto persona_a_texto = persona.texto()
+texto persona_a_texto_formateado = persona.texto_formateado()
+consola.mostrar(persona_a_texto_formateado)
 ```
 
 ## Conversión desde texto

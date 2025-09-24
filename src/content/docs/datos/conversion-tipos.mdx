@@ -8,11 +8,12 @@ La conversión de tipos se realiza mediante métodos definidos sobre cada valor.
 ## De texto a otros tipos
 
 ```qz
-entero numero = "123".entero()
-número decimal = "123.45".número()
-log booleano = "verdadero".log()
-jsn objeto = "{\"nombre\":\"Ana\"}".jsn()
-lista<entero> desde_texto = "1,2,3".lista()
+// Textos a los otros tipos
+entero valor_entero = "1234".entero()
+número valor_numero = "1234.56".número()
+log valor_logico = "verdadero".log()
+jsn valor_json = "{\"clave\": \"valor\"}".jsn()
+lista<entero> lista_desde_texto = "1,2,3".lista()
 ```
 
 Los métodos aceptan valores en español (`"verdadero"`, `"falso"`) y números en formato decimal.
@@ -20,8 +21,16 @@ Los métodos aceptan valores en español (`"verdadero"`, `"falso"`) y números e
 ## De números a texto y otros formatos
 
 ```qz
-texto como_texto = 42.texto()
-texto numero_decimal = 3.14.texto()
+// Todas las conversiones a texto
+texto desde_entero = 1234.texto()
+texto desde_numero = 1234.56.texto()
+texto desde_logico = falso.texto()
+jsn valor_json2 = {
+    clave: "valor"
+}
+texto desde_json = valor_json2.texto()
+lista<entero> lista_enteros = [1, 2, 3]
+texto desde_lista = lista_enteros.texto()
 ```
 
 ## De listas y JSON
@@ -29,7 +38,7 @@ texto numero_decimal = 3.14.texto()
 ```qz
 lista<entero> numeros = [1, 2, 3]
 texto lista_a_texto = numeros.texto()
-texto lista_a_json = numeros.json()
+texto lista_a_json = numeros.jsn()
 
 jsn persona = {
     nombre: "Ana",

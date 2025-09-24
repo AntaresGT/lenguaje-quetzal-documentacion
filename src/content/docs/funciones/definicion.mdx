@@ -50,19 +50,68 @@ entero factorial(entero n) {
 Las funciones pueden devolver instancias de objetos o listas.
 
 ```qz
-objeto Usuario {
+// Función que devuelve un número
+número sumar(número a, número b) {
+    retornar a + b
+}
+
+// Función que devuelve un entero
+entero multiplicar(entero a, entero b) {
+    retornar a * b
+}
+
+// Función que devuelve un texto
+texto concatenar(texto a, texto b) {
+    retornar a + b
+}
+
+// Función que devuelve un valor lógico
+log es_par(entero valor) {
+    retornar valor % 2 == 0
+}
+
+// Función que devuelve un JSON
+jsn obtener_datos() {
+    retornar {
+        nombre: "Quetzal",
+        version: "0.0.2",
+        tipos_soportados: ["entero", "número", "texto", "log", "lista", "jsn"]
+    }
+}
+
+// Función que devuelve una lista tipada de enteros
+lista<entero> obtener_numeros() {
+    retornar [1, 2, 3, 4, 5]
+}
+
+// Función que devuelve una lista no tipada de diferentes tipos
+lista obtener_datos_lista_no_tipada() {
+    retornar [1, "texto", verdadero, 3.14, [1, 2, 3]]
+}
+
+// Definir un objeto
+objeto DefinicionUsuario {
     privado:
         texto nombre
         entero edad
     publico:
-        Usuario(texto nombre, entero edad) {
+        DefinicionUsuario(texto nombre, entero edad){
             ambiente.nombre = nombre
             ambiente.edad = edad
         }
+
+        texto obtener_nombre() {
+            retornar ambiente.nombre
+        }
+
+        entero obtener_edad() {
+            retornar ambiente.edad
+        }
 }
 
-Usuario crear_usuario(texto nombre, entero edad) {
-    retornar nuevo Usuario(nombre, edad)
+// Función que retorna un objeto de tipo DefinicionUsuario
+DefinicionUsuario crear_usuario(texto nombre, entero edad) {
+    retornar nuevo DefinicionUsuario(nombre, edad)
 }
 ```
 

@@ -1,77 +1,266 @@
 ---
-title: Tu primer programa
-description: Guía paso a paso para crear y ejecutar un archivo de Lenguaje Quetzal desde cero.
+title: Tu primer programa en Quetzal
+description: Tutorial paso a paso para crear y ejecutar tu primer programa completo en Lenguaje Quetzal.
 ---
 
-## 1. Crear la carpeta del proyecto
+import { Card, CardGrid, Steps, Code, Tabs, TabItem, Badge } from '@astrojs/starlight/components';
 
-En un directorio de trabajo crea una carpeta para tus experimentos y agrega la configuración opcional de permisos:
+En este tutorial crearás y ejecutarás tu primer programa completo en Lenguaje Quetzal, explorando las características básicas del lenguaje.
 
-```bash
-mkdir -p proyectos/mi-primer-quetzal
-cd proyectos/mi-primer-quetzal
-cat <<'JSON' > quetzal.json
-{
-  "versión": "1.0.0",
-  "aplicación": "mi-primer-quetzal",
-  "permisos": []
-}
-JSON
-```
+## ¡Hola, mundo!
 
-## 2. Escribir el programa
+Comencemos con el clásico programa "Hola, mundo":
 
-Crea un archivo `hola.qz` con el siguiente contenido:
+<Steps>
+
+1. **Crear el archivo**
+   
+   Crea un nuevo archivo llamado `hola_mundo.qz` en tu carpeta preferida.
+
+2. **Escribir el código**
+   
+   ```qz
+   // Mi primer programa en Lenguaje Quetzal
+   consola.mostrar("¡Hola, mundo desde Quetzal!")
+   ```
+
+3. **Ejecutar el programa**
+   
+   Abre Command Prompt o PowerShell en la carpeta donde guardaste el archivo y ejecuta:
+   
+   ```cmd
+   quetzal hola_mundo.qz
+   ```
+
+4. **Resultado esperado**
+   
+   ```
+   ¡Hola, mundo desde Quetzal!
+   ```
+
+</Steps>
+
+¡Felicidades! Acabas de ejecutar tu primer programa en Quetzal.
+
+## Programa completo paso a paso
+
+Ahora crearemos un programa más completo que demuestre varias características del lenguaje:
+
+### Código completo
+
+Crea un archivo llamado `mi_primer_programa.qz`:
 
 ```qz
-// hola.qz
-consola.mostrar_exito("Hola desde Lenguaje Quetzal")
+/*
+ Mi primer programa completo en Lenguaje Quetzal
+ Autor: Tu nombre
+ Fecha: Hoy
+*/
 
-lista<entero> numeros = [1, 2, 3, 4, 5]
+consola.mostrar_exito("=== MI PRIMER PROGRAMA EN QUETZAL ===")
 
-entero suma_total = 0
-para (entero var numero en numeros) {
-    suma_total += numero
+// ===== VARIABLES Y TIPOS =====
+consola.mostrar_informacion("1. Trabajando con variables...")
+
+// Tipos básicos
+entero edad = 25
+texto nombre = "Ana García"
+número salario = 2500.50
+log esta_empleado = verdadero
+
+// Mostrar variables
+consola.mostrar("Nombre: " + nombre)
+consola.mostrar("Edad: " + edad.texto() + " años")
+consola.mostrar("Salario: $" + salario.texto())
+consola.mostrar("Empleado: " + esta_empleado.texto())
+
+// ===== LISTAS =====
+consola.mostrar_informacion("2. Trabajando con listas...")
+
+lista<texto> hobbies = ["programar", "leer", "viajar", "cocinar"]
+lista<entero> numeros_favoritos = [7, 13, 21, 42]
+
+consola.mostrar("Hobbies: " + hobbies.texto())
+consola.mostrar("Números favoritos: " + numeros_favoritos.texto())
+
+// ===== FUNCIONES =====
+consola.mostrar_informacion("3. Usando funciones...")
+
+// Función para calcular área de un círculo
+número calcular_area_circulo(número radio) {
+    número pi = 3.14159
+    retornar pi * radio * radio
 }
 
-consola.mostrar(t"Suma: {suma_total}")
+// Función para crear saludo personalizado
+texto crear_saludo(texto nombre_persona, entero edad_persona) {
+    si (edad_persona >= 18) {
+        retornar "Hola " + nombre_persona + ", eres mayor de edad"
+    } sino {
+        retornar "Hola " + nombre_persona + ", eres menor de edad"
+    }
+}
+
+// Usar las funciones
+número area = calcular_area_circulo(5.0)
+texto saludo = crear_saludo(nombre, edad)
+
+consola.mostrar("Área del círculo (radio 5): " + area.texto())
+consola.mostrar(saludo)
+
+// ===== CONDICIONALES =====
+consola.mostrar_informacion("4. Usando condicionales...")
+
+entero puntuacion = 85
+
+si (puntuacion >= 90) {
+    consola.mostrar("Calificación: Excelente")
+} sino si (puntuacion >= 80) {
+    consola.mostrar("Calificación: Muy bueno")
+} sino si (puntuacion >= 70) {
+    consola.mostrar("Calificación: Bueno")
+} sino {
+    consola.mostrar("Calificación: Necesita mejorar")
+}
+
+// ===== BUCLES =====
+consola.mostrar_informacion("5. Usando bucles...")
+
+consola.mostrar("Contando del 1 al 5:")
+para (entero i = 1; i <= 5; i++) {
+    consola.mostrar("Número: " + i.texto())
+}
+
+consola.mostrar("Recorriendo hobbies:")
+para (texto hobby en hobbies) {
+    consola.mostrar("- " + hobby)
+}
+
+// ===== OBJETOS JSON =====
+consola.mostrar_informacion("6. Trabajando con JSON...")
+
+jsn persona = {
+    nombre: nombre,
+    edad: edad,
+    salario: salario,
+    hobbies: hobbies,
+    contacto: {
+        email: "ana@ejemplo.com",
+        telefono: "+502 1234-5678"
+    },
+    activo: verdadero
+}
+
+consola.mostrar("Datos de la persona:")
+consola.mostrar(persona.texto())
+
+// ===== OPERACIONES MATEMÁTICAS =====
+consola.mostrar_informacion("7. Operaciones matemáticas...")
+
+entero a = 15
+entero b = 4
+
+consola.mostrar("Operaciones con " + a.texto() + " y " + b.texto() + ":")
+consola.mostrar("Suma: " + (a + b).texto())
+consola.mostrar("Resta: " + (a - b).texto())
+consola.mostrar("Multiplicación: " + (a * b).texto())
+consola.mostrar("División: " + (a / b).texto())
+consola.mostrar("Módulo: " + (a % b).texto())
+
+// ===== VARIABLES MUTABLES =====
+consola.mostrar_informacion("8. Variables mutables...")
+
+entero mut contador = 0
+consola.mostrar("Contador inicial: " + contador.texto())
+
+contador = contador + 10
+consola.mostrar("Contador después de sumar 10: " + contador.texto())
+
+contador += 5
+consola.mostrar("Contador después de += 5: " + contador.texto())
+
+// ===== FINAL =====
+consola.mostrar_exito("¡Programa completado exitosamente!")
+consola.mostrar("Has aprendido los conceptos básicos de Lenguaje Quetzal:")
+consola.mostrar("✓ Variables y tipos de datos")
+consola.mostrar("✓ Funciones")
+consola.mostrar("✓ Condicionales")
+consola.mostrar("✓ Bucles")
+consola.mostrar("✓ Listas")
+consola.mostrar("✓ Objetos JSON")
+consola.mostrar("✓ Operaciones matemáticas")
+consola.mostrar("✓ Variables mutables")
 ```
 
-El ejemplo utiliza listas, bucles y cadenas interpoladas (`t"..."`) para mostrar valores calculados.
+### Ejecutar el programa
 
-## 3. Compilar el intérprete (una sola vez)
-
-Desde la carpeta clonada del proyecto `lenguaje-quetzal` ejecuta:
-
-```bash
-cargo build --release
+```cmd
+quetzal mi_primer_programa.qz
 ```
 
-## 4. Ejecutar el programa
+### Salida esperada
 
-Invoca el intérprete indicando la ruta absoluta o relativa del archivo:
+```cmd
+=== MI PRIMER PROGRAMA EN QUETZAL ===
+1. Trabajando con variables...
+Nombre: Ana García
+Edad: 25 años
+Salario: $2500.5
+Empleado: Sí
+2. Trabajando con listas...
+Hobbies: [programar, leer, viajar, cocinar]
+Números favoritos: [7, 13, 21, 42]
+3. Usando funciones...
+Área del círculo (radio 5): 78.53975
+Hola Ana García, eres mayor de edad
+4. Usando condicionales...
+Calificación: Muy bueno
+5. Usando bucles...
+Contando del 1 al 5:
+Número: 1
+Número: 2
+Número: 3
+Número: 4
+Número: 5
+Recorriendo hobbies:
+- programar
+- leer
+- viajar
+- cocinar
+6. Trabajando con JSON...
+{
+    "nombre": "Ana García",
+    "edad": 25,
+    "salario": 2500.5,
+    "hobbies": ["programar", "leer", "viajar", "cocinar"],
+    "contacto": {
+        "email": "ana@ejemplo.com",
+        "telefono": "+502 12
+34-5678"
+    },
+    "activo": true
+}
+7. Operaciones matemáticas...
+Suma: 19
+Resta: 11
+División: 3
+Multiplicación: 60
+Módulo: 3
 
-```bash
-/path/al/repositorio/target/release/quetzal /ruta/al/proyecto/hola.qz
+8. Variables mutables...
+Contador inicial: 0
+Contador después de sumar 10: 10
+Contador después de += 5: 15
+9. Final...
+¡Programa completado exitosamente!
+Has aprendido los conceptos básicos de Lenguaje Quetzal:
+✓ Variables y tipos de datos
+✓ Funciones
+✓ Condicionales
+✓ Bucles
+✓ Listas
+✓ Objetos JSON
+✓ Operaciones matemáticas
+✓ Variables mutables
+
 ```
-
-El resultado esperado es:
-
-```
-Hola desde Lenguaje Quetzal
-Suma: 15
-```
-
-Los colores dependen del soporte de tu terminal.
-
-## 5. Explorar más ejemplos
-
-Prueba otros archivos de la carpeta `ejemplos` del repositorio, por ejemplo:
-
-```bash
-/path/al/repositorio/target/release/quetzal /path/al/repositorio/ejemplos/modulo_matematicas.qz
-```
-
-Esto imprime operaciones de la biblioteca `Matemática` incluida en la distribución.
-
-Con estos pasos ya puedes experimentar y modificar el código para aprender la sintaxis del lenguaje.

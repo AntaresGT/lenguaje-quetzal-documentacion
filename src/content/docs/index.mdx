@@ -1,6 +1,6 @@
 ---
 title: Lenguaje Quetzal
-description: Documentación oficial del Lenguaje de Programación Quetzal v0.0.12
+description: Documentación oficial del Lenguaje de Programación Quetzal v0.0.2
 template: splash
 head:
   - tag: meta
@@ -11,7 +11,7 @@ head:
   - tag: meta
     attrs: {
       property: 'og:description',
-      content: 'Documentación del Lenguaje Quetzal v0.0.12 con guías, ejemplos y referencias en español'
+      content: 'Documentación del Lenguaje Quetzal v0.0.2 con guías, ejemplos y referencias en español'
     }
   - tag: meta
     attrs: {
@@ -41,7 +41,7 @@ head:
   - tag: meta
     attrs: {
       name: 'twitter:description',
-      content: 'Documentación del Lenguaje Quetzal v0.0.12 con guías, ejemplos y referencias en español'
+      content: 'Documentación del Lenguaje Quetzal v0.0.2 con guías, ejemplos y referencias en español'
     }
   - tag: meta
     attrs: {
@@ -71,7 +71,7 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
   <div class="floating-code">
     <pre class="code-snippet">
       <code class="language-qz">
-{`// Lenguaje Quetzal v0.0.12
+{`// Lenguaje Quetzal v0.0.2
 texto saludo = "Hola, Quetzal"
 log es_activo = verdadero
 lista<entero> valores = [1, 2, 3]
@@ -96,11 +96,11 @@ consola.mostrar(t"Valores: {valores.texto()}")`}
     <Card title="Listas y JSON nativos" icon="open-book">
       Las estructuras `lista` y `jsn` son de primera clase, con métodos integrados para acceder, convertir y manipular datos anidados.
     </Card>
-    <Card title="Orientado a objetos" icon="layers">
+    <Card title="Orientado a objetos" icon="sourcehut">
       Define objetos con bloques `privado` y `publico`, constructores y miembros libres reutilizables sin instanciar.
     </Card>
-    <Card title="Módulos con permisos" icon="shield">
-      Importa código desde archivos `.qz` y módulos nativos controlando el acceso mediante `quetzal.json`.
+    <Card title="Módulos con permisos" icon="seti:csv">
+      Control de acceso a los recursos del sistema mediante `quetzal.json`.
     </Card>
     <Card title="Implementación en Rust" icon="rocket">
       El intérprete escrito en Rust ofrece ejecución rápida, manejo detallado de errores y herramientas como la extensión oficial para VS Code.
@@ -128,16 +128,93 @@ para (texto tecnologia en tecnologias) {
 }
 ```
 
-## Cómo está organizada la documentación
+## Características Destacadas
 
-- **Introducción**: recorrido inicial, instalación y primer programa.
-- **Fundamentos**: sintaxis, tipos, variables, operadores y comentarios.
-- **Control de flujo**: condicionales, bucles y sentencias de control.
-- **Tipos de datos**: listas, JSON y conversiones.
-- **Funciones y objetos**: definición, parámetros, asincronía reservada y programación orientada a objetos.
-- **Entrada y salida**: operaciones de consola y lineamientos actuales sobre archivos.
-- **Módulos y errores**: importaciones, exportaciones y manejo de excepciones.
-- **Referencia**: palabras reservadas, gramática y funciones integradas.
-- **Ejemplos**: casos básicos, proyectos sugeridos y recomendaciones de estilo.
+<div class="highlights-section">
+  <CardGrid>
+    <Card title="Fácil de Aprender" icon="approve-check">
+      Sintaxis intuitiva diseñada para que cualquier persona pueda comenzar a programar sin barreras del idioma.
+      
+      **Perfecto para:**
+      - Estudiantes principiantes
+      - Programadores experimentados
+      - Educación en español
+    </Card>
+    
+    <Card title="Desarrollo Moderno" icon="laptop">
+      Todas las características que esperas de un lenguaje contemporáneo, pero en español.
+      
+      **Incluye:**
+      - Programación orientada a objetos
+      - Funciones asíncronas
+      - Manejo de excepciones
+      - Sistema de módulos
+    </Card>
+    
+    <Card title="Interoperabilidad" icon="setting">
+      Diseñado para integrarse perfectamente con el ecosistema de desarrollo actual.
+      
+      **Compatible con:**
+      - APIs REST
+      - Bases de datos
+      - Servicios web
+      - Herramientas modernas
+    </Card>
+    
+    <Card title="Expresivo y Elegante" icon="star">
+      Código limpio y legible que expresa tus ideas de manera natural.
+      
+      **Beneficios:**
+      - Menos errores de sintaxis
+      - Código autodocumentado
+      - Fácil mantenimiento
+      - Mejor colaboración en equipos
+    </Card>
+  </CardGrid>
+</div>
 
-Cada sección utiliza fragmentos probados de la carpeta `ejemplos` de la versión v0.0.12 del intérprete para que puedas experimentar con confianza.
+## Comienza tu Viaje
+
+<div class="journey-section">
+  <CardGrid>
+    <Card title="1. Aprende lo Básico" icon="document">
+      Domina los fundamentos del lenguaje con nuestra guía paso a paso.
+      
+      [Sintaxis Básica →](/fundamentos/sintaxis-basica/)
+    </Card>
+    
+    <Card title="2. Instala Quetzal" icon="setting">
+      Configura tu entorno de desarrollo en minutos.
+      
+      [Guía de Instalación →](/introduccion/instalacion/)
+    </Card>
+    
+    <Card title="3. Practica con Ejemplos" icon="laptop">
+      Explora proyectos reales y casos de uso prácticos.
+      
+      [Ejemplos Prácticos →](/ejemplos/basicos/)
+    </Card>
+    
+    <Card title="4. Únete a la Comunidad" icon="github">
+      Contribuye al desarrollo y conecta con otros desarrolladores.
+      
+      [Contribuir en GitHub →](https://github.com/AntaresGT/lenguaje-quetzal)
+    </Card>
+  </CardGrid>
+</div>
+
+---
+
+<div class="cta-section">
+  <h2>¿Listo para Programar en Español?</h2>
+  <p>Únete a la revolución de la programación en español y descubre lo poderoso que puede ser Lenguaje Quetzal.</p>
+  
+  <div class="cta-buttons">
+    <a href="/introduccion/instalacion/" class="cta-primary">
+      Instalar Ahora
+    </a>
+    <a href="/introduccion/primer-programa/" class="cta-secondary">
+      Tutorial Rápido
+    </a>
+  </div>
+</div>

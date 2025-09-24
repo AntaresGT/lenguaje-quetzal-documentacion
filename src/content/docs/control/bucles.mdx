@@ -8,10 +8,12 @@ description: Estructuras repetitivas disponibles en Lenguaje Quetzal.
 Ejecuta el bloque mientras la condición sea verdadera.
 
 ```qz
-entero var i = 0
-mientras (i < 3) {
-    consola.mostrar(t"Iteración {i}")
-    i++
+// Bucle mientras
+entero var iterador_mientras = 0
+mientras (iterador_mientras < 10){
+    consola.mostrar("Iteración: " + iterador_mientras.texto())
+
+    iterador_mientras++
 }
 ```
 
@@ -20,11 +22,13 @@ mientras (i < 3) {
 Evalúa la condición al final del bloque, garantizando al menos una ejecución.
 
 ```qz
-entero var numero = 0
+// Hacer
+entero var iterador_hacer = 0
 hacer {
-    consola.mostrar("Este mensaje se imprime al menos una vez")
-    numero++
-} mientras (numero < 2)
+    consola.mostrar("Este mensaje se imprime al menos una vez.")
+    consola.mostrar("Iteración: " + iterador_hacer.texto())
+    iterador_hacer++
+} mientras (iterador_hacer < 3)
 ```
 
 ## `para`
@@ -34,21 +38,24 @@ Existe en dos variantes:
 1. **Clásica** con inicialización, condición e incremento.
 
     ```qz
-    para (entero var j = 0; j < 5; j++) {
-        consola.mostrar(j.texto())
+    // Bucle para
+    para (entero var i = 0; i < 5; i++) {
+        consola.mostrar("Bucle para, iteración: " + i.texto())
     }
     ```
 
 2. **Iteración sobre colecciones** usando `en` o `cada`.
 
     ```qz
-    lista<entero> numeros = [10, 20, 30]
-    para (entero var valor en numeros) {
-        consola.mostrar(valor.texto())
+    // Bucle en
+    lista<entero> lista_numeros = [10, 20, 30, 40, 50]
+    para (entero var valor_numero en lista_numeros) {
+        consola.mostrar("Valor actual: " + valor_numero.texto())
     }
 
-    para (entero var valor cada numeros) {
-        consola.mostrar(valor.texto())
+    // Bucle cada
+    para (entero var valor_numero cada lista_numeros) {
+        consola.mostrar("Valor actual: " + valor_numero.texto())
     }
     ```
 
@@ -60,14 +67,17 @@ Ambas formas crean un nuevo ámbito para las variables del bucle.
 - `continuar`: omite la iteración en curso y evalúa la siguiente.
 
 ```qz
-para (entero var k = 0; k < 5; k++) {
-    si (k == 2) {
-        continuar
-    }
-    si (k == 4) {
+// Salir de cualquier bucle con 'romper'
+entero var contador = 0
+mientras (contador < 10) {
+    consola.mostrar("Contador: " + contador.texto())
+
+    si (contador == 5) {
+        consola.mostrar("¡Contador alcanzó 5, saliendo del bucle!")
         romper
     }
-    consola.mostrar(k.texto())
+
+    contador++
 }
 ```
 

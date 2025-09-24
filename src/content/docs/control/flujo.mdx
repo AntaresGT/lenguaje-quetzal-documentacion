@@ -34,11 +34,13 @@ mientras (contador < 10) {
 Omite el resto del bloque actual y evalúa la siguiente iteración del bucle.
 
 ```qz
-para (entero var i = 0; i < 5; i++) {
+// Palabra reservada 'continuar', continua con la siguiente iteración del ciclo
+para (entero var i = 0; i < 10; i++) {
     si (i % 2 == 0) {
+        // Si el número es par, se salta la impresión y se continua con la siguiente iteración
         continuar
     }
-    consola.mostrar(i.texto())
+    consola.mostrar(i)
 }
 ```
 

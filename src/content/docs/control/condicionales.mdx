@@ -8,10 +8,15 @@ description: Uso de las estructuras condicionales en Lenguaje Quetzal.
 Evalúa una condición y ejecuta el bloque asociado cuando es `verdadero`.
 
 ```qz
-entero edad = 20
+entero edad = 41
 
-si (edad >= 18) {
-    consola.mostrar("Es mayor de edad")
+// Condicionales
+si (edad > 60) {
+    consola.mostrar("La persona es de la tercera edad")
+} sino si (edad > 18) {
+    consola.mostrar("La persona es mayor de edad")
+} sino {
+    consola.mostrar("La persona es menor de edad")
 }
 ```
 
@@ -33,11 +38,11 @@ Permite encadenar condiciones adicionales.
 
 ```qz
 si (edad > 60) {
-    consola.mostrar("Tercera edad")
-} sino si (edad >= 18) {
-    consola.mostrar("Mayor de edad")
+    consola.mostrar("La persona es de la tercera edad")
+} sino si (edad > 18) {
+    consola.mostrar("La persona es mayor de edad")
 } sino {
-    consola.mostrar("Menor de edad")
+    consola.mostrar("La persona es menor de edad")
 }
 ```
 

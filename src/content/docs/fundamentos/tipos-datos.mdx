@@ -7,7 +7,7 @@ description: Tipos disponibles en Lenguaje Quetzal, métodos de conversión y op
 
 | Tipo    | Descripción | Ejemplo |
 |---------|-------------|---------|
-| `vacio` | Ausencia de valor. Se utiliza para variables sin inicializar explícitamente o funciones sin retorno. | `vacio resultado`
+| `vacio` | Ausencia de valor. Se utiliza como tipo de retorno para funciones que no devuelven valor. No puede usarse para declarar variables. |
 | `entero` | Números enteros con signo de 64 bits. | `entero edad = 32`
 | `número` | Valores decimales de doble precisión. | `número temperatura = 21.5`
 | `texto` | Cadenas Unicode. | `texto saludo = "Hola"`
@@ -21,7 +21,6 @@ Las listas pueden ser tipadas o genéricas.
 lista<texto> nombres = ["Ana", "Luis", "María"]
 lista valores = [1, "dos", verdadero]
 ```
-
 Las listas mutables (`lista<tipo> var`) aceptan métodos como `agregar`, `insertar`, `quitar_en`, `ordenar` o `sumar`.
 
 ```qz
@@ -72,11 +71,24 @@ texto json_pretty = persona.texto_formateado()
 
 ## Valores nulos
 
-El intérprete reconoce el literal `nulo`. Su uso es excepcional; se prefiere trabajar con estructuras que indiquen la ausencia de datos mediante listas vacías o JSON sin claves. Cuando se accede a una propiedad inexistente en un `jsn`, el resultado es `nulo`.
+El intérprete reconoce el literal `nulo`, que puede asignarse a cualquier tipo.
+
+```qz
+entero valor_entero_nulo = nulo
+número valor_numero_nulo = nulo
+texto valor_texto_nulo = nulo
+log valor_logico_nulo = nulo
+lista valores_lista_nula = nulo
+lista<entero> valores_lista_tipada_nula = nulo
+jsn valor_json_nulo = nulo
+```
+
+Cuando se accede a una propiedad inexistente en un `jsn`, el resultado es `nulo`. Comprueba la presencia de claves usando `contiene_clave` antes de convertir valores o llamar métodos sobre ellos.
 
 ```qz
 jsn datos = { nombre: "Ana" }
-log es_activo = datos.activo.logico()   // Lanza error si no se valida que la clave exista
+log tiene_activo = datos.contiene_clave("activo")
+log es_activo = tiene_activo y (datos.activo == verdadero)
 ```
 
-Comprueba la presencia de claves usando `contiene_clave` antes de convertir valores.
+Comprueba la presencia de claves usando `contiene_clave` antes de operar con valores potencialmente nulos.

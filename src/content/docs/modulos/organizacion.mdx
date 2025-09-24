@@ -18,7 +18,7 @@ mi-proyecto/
 
 - `principal.qz` contiene el punto de entrada.
 - La carpeta `modulos` agrupa código reutilizable.
-- `quetzal.json` declara permisos (especialmente para el sistema de archivos).
+- `quetzal.json` declara permisos de acceso a recursos del sistema operativo (p. ej., sistema de archivos).
 
 ## Archivo `quetzal.json`
 
@@ -36,7 +36,7 @@ mi-proyecto/
 }
 ```
 
-Este archivo es opcional, pero recomendado si importarás módulos desde el sistema de archivos. Sin permisos, el intérprete solo permite módulos internos al ejecutable.
+Este archivo es opcional, pero recomendado si tu proyecto requiere acceso al sistema de archivos (por ejemplo, importar módulos ubicados en el disco o leer recursos). Sin permisos, el intérprete restringe el acceso al sistema del SO y solo permite módulos internos al ejecutable.
 
 ## Nomenclatura de archivos
 
@@ -59,7 +59,7 @@ exportar {
 
 ## Importaciones relativas
 
-Las rutas son relativas al archivo principal que invoca al intérprete. Usa `./` para rutas locales o carpetas autorizadas en `quetzal.json`.
+Las rutas son relativas al archivo principal que invoca al intérprete. Usa `./` para rutas locales dentro de carpetas autorizadas en `quetzal.json`.
 
 ```qz
 importar { Usuario } desde "./modulos/usuarios.qz"

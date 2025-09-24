@@ -3,11 +3,11 @@ title: Manejo de archivos
 description: Estado del acceso a archivos y configuración mediante `quetzal.json`.
 ---
 
-La versión v0.0.12 del intérprete no expone todavía un API de lectura o escritura de archivos desde el código Quetzal. No existen funciones nativas como `consola` para interactuar directamente con el sistema de archivos.
+La versión v0.0.2 del intérprete no expone todavía un API de lectura o escritura de archivos desde el código Quetzal. No existen funciones nativas como `consola` para interactuar directamente con el sistema de archivos.
 
-## Uso actual: módulos externos
+## Uso actual: permisos del sistema (archivos)
 
-Los permisos a archivos se gestionan desde `quetzal.json`. Este archivo se coloca junto al programa principal y define qué directorios pueden explorarse al importar módulos.
+Los permisos de acceso a recursos del sistema operativo (por ejemplo, el sistema de archivos) se configuran en `quetzal.json`, ubicado junto al programa principal. Este archivo delimita qué rutas del sistema están autorizadas para que el intérprete pueda accederlas. Si importas módulos desde el sistema de archivos, esa operación también queda sujeta a estas restricciones; los permisos no pertenecen al sistema de módulos, sino al entorno del SO donde se ejecuta Quetzal.
 
 ```json
 {
@@ -23,13 +23,16 @@ Los permisos a archivos se gestionan desde `quetzal.json`. Este archivo se coloc
 }
 ```
 
-Cuando importas un módulo:
+Ejemplo: importación desde el sistema de archivos
 
 ```qz
 importar { utilidades } desde "./modulos/utilidades.qz"
+
+utilidades.leer_archivo("datos/ejemplo.txt")
+
 ```
 
-El intérprete verifica que la ruta esté permitida. Si no, mostrará un error indicando que el acceso al sistema de archivos está restringido.
+Si el archivo `quetzal.json` no existe o no contiene permisos para el sistema de archivos, el intérprete restringe el acceso al sistema del SO.
 
 ## Buenas prácticas mientras llega el API de archivos
 

@@ -13,19 +13,39 @@ entero sumar_entero(entero a, entero b) {
 }
 
 objeto Usuario {
+    privado:
+        texto nombre
+        entero edad
+        libre número var saldo = 0
     publico:
-        Usuario(texto nombre) {
+        Usuario(texto nombre, entero edad) {
             ambiente.nombre = nombre
+            ambiente.edad = edad
+        }
+
+        texto obtener_nombre() {
+            retornar ambiente.nombre
+        }
+
+        entero obtener_edad() {
+            retornar ambiente.edad
         }
 }
 
-Usuario instancia_usuario = nuevo Usuario("Ana")
-texto saludo = "Hola"
+// Instancia de objeto
+Usuario instancia_usuario = nuevo Usuario("Juan", 30)
+
+// Declaración variable
+texto saludo = "Hola, Quetzal!"
 
 exportar {
+    // Exportar función
     sumar_entero,
+    // Exportar definición de objeto
     Usuario,
+    // Exportar instancia de objeto
     instancia_usuario,
+    // Exportar variable
     saludo
 }
 ```
@@ -39,8 +59,8 @@ importar {
     sumar_entero,
     Usuario,
     instancia_usuario,
-    saludo como saludo_texto
-} desde "./modulos/exportar.qz"
+    saludo como texto_saludo
+} desde "exportar.qz"
 ```
 
 - Las llaves listan los símbolos que deseas usar.

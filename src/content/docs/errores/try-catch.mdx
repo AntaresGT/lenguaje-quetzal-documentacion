@@ -36,6 +36,35 @@ intentar {
 }
 ```
 
+## Ejemplo completo
+
+```qz
+// Definimos una función que puede lanzar una excepción
+número dividir(número numerador, número denominador){
+    si (denominador == 0) {
+        lanzar "Error: División por cero no permitida"
+    }
+
+    retornar numerador / denominador
+}
+
+// Tratar la excepción al llamar a la función
+intentar {
+    número resultado = dividir(10, 0)
+    consola.mostrar("Resultado: " + resultado)
+} capturar (excepcion e){
+    // Obtenemos el mensaje de la excepción y lo imprimimos en la consola
+    consola.mostrar(e.mensaje)
+    // También podemos mostrar la pila de llamadas para ver dónde ocurrió la excepción
+    consola.mostrar("Pila de llamadas:" + e.llamadas.texto())
+}
+finalmente {
+    // Este bloque se ejecuta siempre, independientemente de si ocurrió una excepción o no
+    // No es obligatorio, pero es útil para limpiar recursos o mostrar mensajes finales
+    consola.mostrar("Fin del manejo de excepciones.")
+}
+```
+
 ## Múltiples excepciones
 
 Actualmente no existe clasificación jerárquica de excepciones. Todas las excepciones capturadas exponen al menos el mensaje y una lista de llamadas (actualmente vacía). Si necesitas categorizar errores, agrega información al texto del mensaje.

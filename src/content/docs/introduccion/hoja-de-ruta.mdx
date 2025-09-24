@@ -1,32 +1,48 @@
 ---
-title: Hoja de ruta
-description: Estado actual del Lenguaje Quetzal y próximos pasos planificados.
+title: Hoja de Ruta
+description: Descubre la hoja de ruta de Lenguaje Quetzal, desde sus inicios hasta el futuro. Aprende sobre su evolución, características clave y cómo puedes contribuir.
 ---
 
-## Estado actual (v0.0.12)
+## 🎯 Misión
+Crear un lenguaje de programación en español y que sea totalmente funcional para proposito general, no únicamente para enseñanza.
 
-- Intérprete estable capaz de ejecutar archivos `.qz` desde la línea de comandos.
-- Soporte completo para listas, JSON, objetos y módulos con permisos configurables.
-- Manejo de errores con mensajes descriptivos y pila de llamadas disponible en las excepciones.
-- Módulos nativos distribuidos con el intérprete (`quetzal/matemática`) y extensión oficial para VS Code.
+## 🚀 Visión a corto plazo
+Que Lenguaje Quetzal se convierta en una herramienta capaz de ejecutarse en un servidor para responder peticiones y ejecutar código en tiempo real, facilitando el desarrollo de aplicaciones web y servicios backend.
 
-## Prioridades confirmadas
+## 🌱 Motivación
+La programación no tiene fronteras, pero sí puede tener raíces. Quetzal busca ofrecer a la comunidad hispanohablante con un lenguaje moderno, seguro, eficiente y totalmente en español, permitiendo a los desarrolladores hispanohablantes crear aplicaciones de manera más intuitiva y natural. Además de facilitar la enseñanza de conceptos de programación a quienes tienen el español como lengua materna.
 
-1. **Ampliar módulos nativos**: nuevas utilidades de fecha y hora, manipulación de archivos y acceso a redes siguiendo el esquema de permisos de `quetzal.json`.
-2. **Funciones asincrónicas**: las palabras reservadas `asincrono` y `esperar` ya existen en la gramática y se documentan como características reservadas; la implementación de corrutinas está en progreso.
-3. **Herramientas de empaquetado**: comandos para crear proyectos desde plantillas y ejecutar pruebas automatizadas.
-4. **Documentación bilingüe**: la presente documentación se mantiene en español; una traducción oficial al inglés llegará después de consolidar la versión actual.
+## 🏭 Quetzal es para producción
+No veas Quetzal como un lenguaje de programación únicamente para aprender a programar, sino, como una herramienta poderosa que puede ser utilizada por desarrolladores experimentados para crear aplicaciones robustas y eficientes. Actualmente en su versión 0.0.1, Quetzal ya cuenta con un intérprete funcional y una extensión para Visual Studio Code que mejora la experiencia de desarrollo.
 
-## Buenas prácticas mientras llegan nuevas versiones
+## 🗺️ ¿En dónde se encuentra Quetzal?
 
-- Consulta regularmente la carpeta `ejemplos` para conocer cambios recientes y patrones sugeridos.
-- Usa `quetzal.json` para restringir el acceso a directorios cuando compartas proyectos.
-- Mantén tu intérprete actualizado ejecutando `git pull` sobre la rama `v0.0.12` y reconstruyendo con `cargo build --release`.
+### v0.0.1 (Actual) ✅
+- [x] Intérprete básico en Rust
+- [x] Tipos de datos fundamentales
+- [x] Funciones definidas por el usuario
+- [x] Control de flujo (si/sino, bucles)
+- [x] Soporte JSON nativo
+- [x] Sistema de tipos fuerte
+- [x] Extensión VS Code
 
-## Participa en el desarrollo
+### v0.0.2 (Próximamente)
+- [x] Sistema de módulos (`importar/exportar`)
+- [x] Manejo de excepciones (`intentar/atrapar/finalmente`)
+- [ ] Herencia multiple
+- [ ] Funciones asíncronas completas
+- [x] Operadores avanzados
+- [ ] REPL interactivo
 
-- Reporta problemas y abre propuestas en [github.com/AntaresGT/lenguaje-quetzal/issues](https://github.com/AntaresGT/lenguaje-quetzal/issues).
-- Comparte módulos o plantillas en la comunidad para ayudar a validar nuevas características.
-- Contribuye a esta documentación proponiendo ejemplos adicionales o corrigiendo descripciones.
+### v0.1.0 (Futuro)
+- [ ] Librerías estándar
+- [ ] Gestión de paquetes
+- [ ] Debugger integrado
+- [ ] Facilidad para crear aplicaciones de servidor como API REST
+- [ ] Conexión a bases de datos
+- [ ] Herramientas de desarrollo
 
-La hoja de ruta se revisa en cada iteración del intérprete. Revisa esta sección con frecuencia para conocer las novedades.
+### v0.2.0 (Futuro lejano)
+- [ ] Soporte con Floem para crear aplicaciones de escritorio y móviles (en duda XD)
+- [ ] Soporte para crear aplicaciones web con Quetzal
+- [ ] Computación gráfica avanzada con Quetzal
