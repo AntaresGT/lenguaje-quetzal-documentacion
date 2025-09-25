@@ -1,0 +1,66 @@
+---
+title: ケツァル語
+description: ケツァルプログラミング言語 v0.0.2 の公式ドキュメント
+template: splash
+head:
+  - tag: meta
+    attrs:
+      property: 'og:title'
+      content: 'ケツァル語 - 公式ドキュメント'
+  - tag: meta
+    attrs:
+      property: 'og:description'
+      content: 'ケツァル言語 v0.0.2 のドキュメント。ガイド、サンプル、リファレンスをスペイン語で提供'
+  - tag: meta
+    attrs:
+      property: 'og:image'
+      content: 'https://github.com/AntaresGT/lenguaje-quetzal/raw/main/imagenes/logo_lenguaje_quetzal.png'
+  - tag: meta
+    attrs:
+      property: 'og:url'
+      content: 'https://lenguaje-quetzal.antaresgt.com/ja/'
+  - tag: meta
+    attrs:
+      property: 'og:type'
+      content: 'website'
+  - tag: meta
+    attrs:
+      name: 'twitter:card'
+      content: 'summary_large_image'
+  - tag: meta
+    attrs:
+      name: 'twitter:title'
+      content: 'ケツァル語 - 公式ドキュメント'
+  - tag: meta
+    attrs:
+      name: 'twitter:description'
+      content: 'ケツァル言語 v0.0.2 のドキュメント。ガイド、サンプル、リファレンスをスペイン語で提供'
+  - tag: meta
+    attrs:
+      name: 'twitter:image'
+      content: 'https://github.com/AntaresGT/lenguaje-quetzal/raw/main/imagenes/logo_lenguaje_quetzal.png'
+hero:
+  tagline: スペイン語の構文を備えたモダンなプログラミング言語
+  image:
+    alt: ケツァル語のロゴ
+    light: ../../../assets/logo_lenguaje_quetzal.png
+    dark: ../../../assets/logo_lenguaje_quetzal_blanc.png
+  actions:
+    - text: ガイドを開始
+      link: /ja/introduccion/bienvenido/
+      icon: right-arrow
+      variant: primary
+    - text: GitHub リポジトリ
+      link: https://github.com/AntaresGT/lenguaje-quetzal
+      icon: external
+      variant: secondary
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import ContenidoOriginal from '../index.mdx';
+
+<Aside type="note">
+  <p>翻訳は進行中です。完成までの間、以下のコンテンツはスペイン語版を表示しています。</p>
+</Aside>
+
+<ContenidoOriginal />
