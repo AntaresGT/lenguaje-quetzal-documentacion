@@ -1,0 +1,66 @@
+---
+title: Bahasa Quetzal
+description: Dokumentasi resmi Bahasa Pemrograman Quetzal v0.0.2
+template: splash
+head:
+  - tag: meta
+    attrs:
+      property: 'og:title'
+      content: 'Bahasa Quetzal - Dokumentasi Resmi'
+  - tag: meta
+    attrs:
+      property: 'og:description'
+      content: 'Dokumentasi Bahasa Quetzal v0.0.2 dengan panduan, contoh, dan referensi dalam bahasa Spanyol'
+  - tag: meta
+    attrs:
+      property: 'og:image'
+      content: 'https://github.com/AntaresGT/lenguaje-quetzal/raw/main/imagenes/logo_lenguaje_quetzal.png'
+  - tag: meta
+    attrs:
+      property: 'og:url'
+      content: 'https://lenguaje-quetzal.antaresgt.com/id/'
+  - tag: meta
+    attrs:
+      property: 'og:type'
+      content: 'website'
+  - tag: meta
+    attrs:
+      name: 'twitter:card'
+      content: 'summary_large_image'
+  - tag: meta
+    attrs:
+      name: 'twitter:title'
+      content: 'Bahasa Quetzal - Dokumentasi Resmi'
+  - tag: meta
+    attrs:
+      name: 'twitter:description'
+      content: 'Dokumentasi Bahasa Quetzal v0.0.2 dengan panduan, contoh, dan referensi dalam bahasa Spanyol'
+  - tag: meta
+    attrs:
+      name: 'twitter:image'
+      content: 'https://github.com/AntaresGT/lenguaje-quetzal/raw/main/imagenes/logo_lenguaje_quetzal.png'
+hero:
+  tagline: Bahasa pemrograman modern dengan sintaks dalam bahasa Spanyol
+  image:
+    alt: Logo Bahasa Quetzal
+    light: ../../../assets/logo_lenguaje_quetzal.png
+    dark: ../../../assets/logo_lenguaje_quetzal_blanc.png
+  actions:
+    - text: Mulai tur
+      link: /id/introduccion/bienvenido/
+      icon: right-arrow
+      variant: primary
+    - text: Repositori di GitHub
+      link: https://github.com/AntaresGT/lenguaje-quetzal
+      icon: external
+      variant: secondary
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import ContenidoOriginal from '../index.mdx';
+
+<Aside type="note">
+  <p>Terjemahan sedang dalam proses. Konten berikut ditampilkan sementara dalam bahasa Spanyol.</p>
+</Aside>
+
+<ContenidoOriginal />

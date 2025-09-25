@@ -1,0 +1,66 @@
+---
+title: Quetzal Language
+description: Official documentation for the Quetzal Programming Language v0.0.2
+template: splash
+head:
+  - tag: meta
+    attrs:
+      property: 'og:title'
+      content: 'Quetzal Language - Official Documentation'
+  - tag: meta
+    attrs:
+      property: 'og:description'
+      content: 'Documentation for the Quetzal Language v0.0.2 with guides, examples, and references in Spanish'
+  - tag: meta
+    attrs:
+      property: 'og:image'
+      content: 'https://github.com/AntaresGT/lenguaje-quetzal/raw/main/imagenes/logo_lenguaje_quetzal.png'
+  - tag: meta
+    attrs:
+      property: 'og:url'
+      content: 'https://lenguaje-quetzal.antaresgt.com/en/'
+  - tag: meta
+    attrs:
+      property: 'og:type'
+      content: 'website'
+  - tag: meta
+    attrs:
+      name: 'twitter:card'
+      content: 'summary_large_image'
+  - tag: meta
+    attrs:
+      name: 'twitter:title'
+      content: 'Quetzal Language - Official Documentation'
+  - tag: meta
+    attrs:
+      name: 'twitter:description'
+      content: 'Documentation for the Quetzal Language v0.0.2 with guides, examples, and references in Spanish'
+  - tag: meta
+    attrs:
+      name: 'twitter:image'
+      content: 'https://github.com/AntaresGT/lenguaje-quetzal/raw/main/imagenes/logo_lenguaje_quetzal.png'
+hero:
+  tagline: A modern programming language with Spanish syntax
+  image:
+    alt: Quetzal Language logo
+    light: ../../../assets/logo_lenguaje_quetzal.png
+    dark: ../../../assets/logo_lenguaje_quetzal_blanc.png
+  actions:
+    - text: Start tour
+      link: /en/introduccion/bienvenido/
+      icon: right-arrow
+      variant: primary
+    - text: GitHub repository
+      link: https://github.com/AntaresGT/lenguaje-quetzal
+      icon: external
+      variant: secondary
+---
+
+import { Aside } from '@astrojs/starlight/components';
+import ContenidoOriginal from '../index.mdx';
+
+<Aside type="note">
+  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
+</Aside>
+
+<ContenidoOriginal />
