@@ -56,11 +56,156 @@ hero:
       variant: secondary
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../index.mdx';
+import { Card, CardGrid } from '@astrojs/starlight/components';
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+<div class="hero-section">
+  <div class="floating-code">
+    <pre class="code-snippet">
+      <code class="language-qz">
+{`// Lenguaje Quetzal v0.0.2
+texto saludo = "Hola, Quetzal"
+log es_activo = verdadero
+lista<entero> valores = [1, 2, 3]
 
-<ContenidoOriginal />
+consola.mostrar_exito(saludo)
+consola.mostrar(t"Valores: {valores.texto()}")`}
+      </code>
+    </pre>
+  </div>
+</div>
+
+## Reasons to choose Quetzal
+
+<div class="features-grid">
+  <CardGrid>
+    <Card title="Spanish syntax" icon="document">
+      All keywords, types, and interpreter messages are written in Spanish, making the learning curve smoother and your code easier to read.
+    </Card>
+    <Card title="Strong typing" icon="setting">
+      The interpreter validates types during analysis and at runtime. Explicit conversions use methods such as `.entero()` or `.texto()` when they are safe.
+    </Card>
+    <Card title="Native lists and JSON" icon="open-book">
+      The `lista` and `jsn` structures are first-class citizens with built-in methods to access, convert, and manipulate nested data.
+    </Card>
+    <Card title="Object-oriented" icon="sourcehut">
+      Define objects with `privado` and `publico` blocks, constructors, and reusable free members without instantiating them.
+    </Card>
+    <Card title="Modules with permissions" icon="seti:csv">
+      Control access to system resources through `quetzal.json`.
+    </Card>
+    <Card title="Rust implementation" icon="rocket">
+      The interpreter written in Rust provides fast execution, detailed error handling, and tools such as the official VS Code extension.
+    </Card>
+  </CardGrid>
+</div>
+
+## Quick example
+
+```qz
+// Archivo ejemplo.qz
+importar {
+    Matemática
+} desde "quetzal/matemática"
+
+texto var mensaje = "Bienvenido"
+lista<texto> tecnologias = ["Quetzal", "Rust", "JSON"]
+
+número resultado = Matemática.sumar(2, 3)
+consola.mostrar_exito(mensaje + " a Lenguaje Quetzal")
+consola.mostrar(t"Resultado: {resultado}")
+
+para (texto tecnologia en tecnologias) {
+    consola.mostrar(t"Tecnología: {tecnologia}")
+}
+```
+
+## Highlights
+
+<div class="highlights-section">
+  <CardGrid>
+    <Card title="Easy to learn" icon="approve-check">
+      Intuitive syntax designed so that anyone can start programming without the language barrier.
+
+      **Perfect for:**
+      - Beginner students
+      - Experienced developers
+      - Spanish-speaking education
+    </Card>
+
+    <Card title="Modern development" icon="laptop">
+      Everything you expect from a contemporary language, but in Spanish.
+
+      **Includes:**
+      - Object-oriented programming
+      - Asynchronous functions
+      - Exception handling
+      - Module system
+    </Card>
+
+    <Card title="Interoperability" icon="setting">
+      Designed to integrate seamlessly with the current development ecosystem.
+
+      **Compatible with:**
+      - REST APIs
+      - Databases
+      - Web services
+      - Modern tooling
+    </Card>
+
+    <Card title="Expressive and elegant" icon="star">
+      Clean, readable code that expresses your ideas naturally.
+
+      **Benefits:**
+      - Fewer syntax errors
+      - Self-documenting code
+      - Easier maintenance
+      - Better team collaboration
+    </Card>
+  </CardGrid>
+</div>
+
+## Start your journey
+
+<div class="journey-section">
+  <CardGrid>
+    <Card title="1. Learn the basics" icon="document">
+      Master the fundamentals of the language with our step-by-step guide.
+
+      [Basic syntax →](/en/fundamentos/sintaxis-basica/)
+    </Card>
+
+    <Card title="2. Install Quetzal" icon="setting">
+      Set up your development environment in minutes.
+
+      [Installation guide →](/en/introduccion/instalacion/)
+    </Card>
+
+    <Card title="3. Practice with examples" icon="laptop">
+      Explore real projects and practical use cases.
+
+      [Practical examples →](/en/ejemplos/basicos/)
+    </Card>
+
+    <Card title="4. Join the community" icon="github">
+      Contribute to the language and connect with other developers.
+
+      [Contribute on GitHub →](https://github.com/AntaresGT/lenguaje-quetzal)
+    </Card>
+  </CardGrid>
+</div>
+
+---
+
+<div class="cta-section">
+  <h2>Ready to program in Spanish?</h2>
+  <p>Join the Spanish programming revolution and discover how powerful Quetzal Language can be.</p>
+
+  <div class="cta-buttons">
+    <a href="/en/introduccion/instalacion/" class="cta-primary">
+      Install now
+    </a>
+    <a href="/en/introduccion/primer-programa/" class="cta-secondary">
+      Quick tutorial
+    </a>
+  </div>
+</div>

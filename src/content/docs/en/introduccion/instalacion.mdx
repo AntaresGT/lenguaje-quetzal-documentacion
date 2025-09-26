@@ -1,13 +1,200 @@
 ---
-title: QUETZAL LANGUAGE INSTALLATION
-description: Step by step guide to install the Quetzal language interpreter in Windows.
+title: Installing Quetzal Language
+description: Step-by-step guide to install the Quetzal Language interpreter on Windows.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../introduccion/instalacion.mdx';
+import { Card, CardGrid, Steps, Badge } from '@astrojs/starlight/components';
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+This guide walks you through installing the Quetzal Language interpreter on Windows.
 
-<ContenidoOriginal />
+<Badge text="Windows only" variant="note" />
+
+## System requirements
+
+<CardGrid>
+  <Card title="Operating system" icon="laptop">
+    - Windows 10 (64-bit) or later
+    - Windows 11 (recommended)
+  </Card>
+
+  <Card title="Minimum hardware" icon="setting">
+    - RAM: 512 MB minimum (1 GB recommended)
+    - Storage: 100 MB of free space
+    - Processor: compatible x64 CPU
+  </Card>
+</CardGrid>
+
+## Installation steps
+
+<Steps>
+
+1. **Download the executable**
+
+   Visit the GitHub releases page and download the latest version:
+    - [Quetzal Language releases](https://github.com/AntaresGT/lenguaje-quetzal/releases)
+    - Look for the file named `quetzal.exe` in the **Assets** section of the most recent release.
+
+2. **Create an installation directory**
+
+   Create a folder for Quetzal on your system. We recommend:
+
+   ```
+   C:\\quetzal\\
+   ```
+
+   Move the downloaded `quetzal.exe` file into this folder.
+
+3. **Configure environment variables**
+
+   To run Quetzal from any location:
+
+   - Press `Win + R`, type `sysdm.cpl`, and press Enter
+   - Go to the **"Advanced"** tab
+   - Click **"Environment Variables"**
+   - Under **"System variables"**, find `Path` and click **"Edit"**
+   - Click **"New"** and add the path: `C:\\quetzal`
+   - Click **"OK"** on every dialog
+
+4. **Verify the installation**
+
+   Open a new **Command Prompt** or **PowerShell** window and run:
+
+   ```cmd
+   quetzal --version
+   ```
+
+   You should see something like:
+   ```
+   Lenguaje Quetzal v0.0.2
+   ```
+
+</Steps>
+
+## Basic usage
+
+### Run a Quetzal file
+
+```cmd
+quetzal mi_programa.qz
+```
+
+### Show help
+
+```cmd
+quetzal --ayuda
+```
+
+## Quick verification
+
+Create a file named `prueba.qz` with the following content:
+
+```qz
+consola.mostrar_exito("¡Lenguaje Quetzal instalado correctamente!")
+
+entero edad = 25
+texto nombre = "María"
+
+consola.mostrar("Hola " + nombre + ", tienes " + edad.texto() + " años")
+
+si (edad >= 18) {
+    consola.mostrar("Eres mayor de edad")
+} sino {
+    consola.mostrar("Eres menor de edad")
+}
+```
+
+Run the file:
+
+```cmd
+quetzal prueba.qz
+```
+
+If you see the correct output, the installation was successful!
+
+## Troubleshooting
+
+<CardGrid>
+  <Card title="Command not recognized" icon="error">
+    **Error**: `'quetzal' is not recognized as an internal or external command`
+
+    **Solution**:
+    - Confirm you added the correct path to PATH
+    - Restart Command Prompt/PowerShell after changing the environment variables
+    - Ensure the file is at `C:\\quetzal\\quetzal.exe`
+  </Card>
+
+  <Card title="Permission error" icon="warning">
+    **Error**: Cannot run the file
+
+    **Solution**:
+    - Run Command Prompt as administrator
+    - Check that you have read permissions in the installation folder
+    - Make sure Windows is not blocking the file (right-click > Properties > Unblock)
+  </Card>
+
+  <Card title="Antivirus blocks the file" icon="sourcehut">
+    **Error**: The antivirus flags the file as a threat
+
+    **Solution**:
+    - Add `C:\\quetzal\\` to your antivirus exceptions
+    - Download again from the official GitHub Releases page
+    - Report the false positive to your antivirus vendor
+  </Card>
+</CardGrid>
+
+### Diagnostic commands
+
+```cmd
+# Make sure the file exists
+dir C:\\quetzal\\quetzal.exe
+
+# Check environment variables
+echo %PATH%
+
+# Run with detailed information
+quetzal --info
+```
+
+## Update Quetzal
+
+To upgrade to a new version:
+
+1. Download the latest `quetzal.exe` from GitHub Releases
+2. Replace the previous file in `C:\\quetzal\\`
+3. Confirm the new version with `quetzal --version`
+
+## Uninstall
+
+To remove Quetzal from your system:
+
+1. Delete the `C:\\quetzal\\` folder
+2. Remove `C:\\quetzal` from the PATH environment variable
+3. (Optional) Delete any `.qz` files you created
+
+## Next steps
+
+Great! Quetzal Language is ready to use. Continue with:
+
+<CardGrid>
+  <Card title="Your first program" icon="rocket">
+    Learn how to build and run your first complete Quetzal program.
+
+    [Create first program →](/en/introduccion/primer-programa)
+  </Card>
+
+  <Card title="Basic syntax" icon="document">
+    Get familiar with the language syntax and structure.
+
+    [Learn the syntax →](/en/fundamentos/sintaxis-basica)
+  </Card>
+
+  <Card title="Practical examples" icon="open-book">
+    Explore sample code for different use cases.
+
+    [See examples →](/en/ejemplos/basicos)
+  </Card>
+</CardGrid>
+
+---
+
+Any trouble with the installation? [Open an issue](https://github.com/AntaresGT/lenguaje-quetzal/issues) in our GitHub repository.
