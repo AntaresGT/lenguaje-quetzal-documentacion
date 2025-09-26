@@ -1,14 +1,294 @@
 ---
 title: Your first program in Quetzal
-description: Step by step tutorial to create and execute your first complete program
-  in Quetzal language.
+description: Step-by-step tutorial to create and run your first complete program in Quetzal Language.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../introduccion/primer-programa.mdx';
+import { Card, CardGrid, Steps, Code, Tabs, TabItem, Badge } from '@astrojs/starlight/components';
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+In this tutorial you will build and run your first complete program in Quetzal Language while exploring the language basics.
 
-<ContenidoOriginal />
+## Hello, world!
+
+Let’s begin with the classic “Hello, world!” example:
+
+<Steps>
+
+1. **Create the file**
+
+   Create a new file named `hola_mundo.qz` in your preferred folder.
+
+2. **Write the code**
+
+   ```qz
+   // Mi primer programa en Lenguaje Quetzal
+   consola.mostrar("¡Hola, mundo desde Quetzal!")
+   ```
+
+3. **Run the program**
+
+   Open Command Prompt or PowerShell in the folder where you saved the file and run:
+
+   ```cmd
+   quetzal hola_mundo.qz
+   ```
+
+4. **Expected output**
+
+   ```
+   ¡Hola, mundo desde Quetzal!
+   ```
+
+</Steps>
+
+Congratulations! You have executed your first Quetzal program.
+
+## Full program step by step
+
+Now we will create a more complete program to demonstrate several language features:
+
+### Full code
+
+Create a file named `mi_primer_programa.qz`:
+
+```qz
+/*
+ Mi primer programa completo en Lenguaje Quetzal
+ Autor: Tu nombre
+ Fecha: Hoy
+*/
+
+consola.mostrar_exito("=== MI PRIMER PROGRAMA EN QUETZAL ===")
+
+// ===== VARIABLES Y TIPOS =====
+consola.mostrar_informacion("1. Trabajando con variables...")
+
+// Tipos básicos
+entero edad = 25
+texto nombre = "Ana García"
+número salario = 2500.50
+log esta_empleado = verdadero
+
+// Mostrar variables
+consola.mostrar("Nombre: " + nombre)
+consola.mostrar("Edad: " + edad.texto() + " años")
+consola.mostrar("Salario: $" + salario.texto())
+consola.mostrar("Empleado: " + esta_empleado.texto())
+
+// ===== LISTAS =====
+consola.mostrar_informacion("2. Trabajando con listas...")
+
+lista<texto> hobbies = ["programar", "leer", "viajar", "cocinar"]
+lista<entero> numeros_favoritos = [7, 13, 21, 42]
+
+consola.mostrar("Hobbies: " + hobbies.texto())
+consola.mostrar("Números favoritos: " + numeros_favoritos.texto())
+
+// ===== FUNCIONES =====
+consola.mostrar_informacion("3. Usando funciones...")
+
+// Función para calcular área de un círculo
+número calcular_area_circulo(número radio) {
+    número pi = 3.14159
+    retornar pi * radio * radio
+}
+
+// Función para crear saludo personalizado
+texto crear_saludo(texto nombre_persona, entero edad_persona) {
+    si (edad_persona >= 18) {
+        retornar "Hola " + nombre_persona + ", eres mayor de edad"
+    } sino {
+        retornar "Hola " + nombre_persona + ", eres menor de edad"
+    }
+}
+
+// Usar las funciones
+número area = calcular_area_circulo(5.0)
+texto saludo = crear_saludo(nombre, edad)
+
+consola.mostrar("Área del círculo (radio 5): " + area.texto())
+consola.mostrar(saludo)
+
+// ===== CONDICIONALES =====
+consola.mostrar_informacion("4. Usando condicionales...")
+
+entero puntuacion = 85
+
+si (puntuacion >= 90) {
+    consola.mostrar("Calificación: Excelente")
+} sino si (puntuacion >= 80) {
+    consola.mostrar("Calificación: Muy bueno")
+} sino si (puntuacion >= 70) {
+    consola.mostrar("Calificación: Bueno")
+} sino {
+    consola.mostrar("Calificación: Necesita mejorar")
+}
+
+// ===== BUCLES =====
+consola.mostrar_informacion("5. Usando bucles...")
+
+consola.mostrar("Contando del 1 al 5:")
+para (entero i = 1; i <= 5; i++) {
+    consola.mostrar("Número: " + i.texto())
+}
+
+consola.mostrar("Recorriendo hobbies:")
+para (texto hobby en hobbies) {
+    consola.mostrar("- " + hobby)
+}
+
+// ===== OBJETOS JSON =====
+consola.mostrar_informacion("6. Trabajando con JSON...")
+
+jsn persona = {
+    nombre: nombre,
+    edad: edad,
+    salario: salario,
+    hobbies: hobbies,
+    contacto: {
+        email: "ana@ejemplo.com",
+        telefono: "+502 1234-5678"
+    },
+    activo: verdadero
+}
+
+consola.mostrar("Datos de la persona:")
+consola.mostrar(persona.texto())
+
+// ===== OPERACIONES MATEMÁTICAS =====
+consola.mostrar_informacion("7. Operaciones matemáticas...")
+
+entero a = 15
+entero b = 4
+
+consola.mostrar("Operaciones con " + a.texto() + " y " + b.texto() + ":")
+consola.mostrar("Suma: " + (a + b).texto())
+consola.mostrar("Resta: " + (a - b).texto())
+consola.mostrar("Multiplicación: " + (a * b).texto())
+consola.mostrar("División: " + (a / b).texto())
+consola.mostrar("Módulo: " + (a % b).texto())
+
+// ===== VARIABLES MUTABLES =====
+consola.mostrar_informacion("8. Variables mutables...")
+
+entero mut contador = 0
+consola.mostrar("Contador inicial: " + contador.texto())
+
+contador = contador + 10
+consola.mostrar("Contador después de sumar 10: " + contador.texto())
+
+contador += 5
+consola.mostrar("Contador después de += 5: " + contador.texto())
+
+// ===== FINAL =====
+consola.mostrar_exito("¡Programa completado exitosamente!")
+consola.mostrar("Has aprendido los conceptos básicos de Lenguaje Quetzal:")
+consola.mostrar("✓ Variables y tipos de datos")
+consola.mostrar("✓ Funciones")
+consola.mostrar("✓ Condicionales")
+consola.mostrar("✓ Bucles")
+consola.mostrar("✓ Listas")
+consola.mostrar("✓ Objetos JSON")
+consola.mostrar("✓ Operaciones matemáticas")
+consola.mostrar("✓ Variables mutables")
+```
+
+### Run the program
+
+```cmd
+quetzal mi_primer_programa.qz
+```
+
+### Expected output
+
+```cmd
+=== MI PRIMER PROGRAMA EN QUETZAL ===
+1. Trabajando con variables...
+Nombre: Ana García
+Edad: 25 años
+Salario: $2500.5
+Empleado: Sí
+2. Trabajando con listas...
+Hobbies: [programar, leer, viajar, cocinar]
+Números favoritos: [7, 13, 21, 42]
+3. Usando funciones...
+Área del círculo (radio 5): 78.53975
+Hola Ana García, eres mayor de edad
+4. Usando condicionales...
+Calificación: Muy bueno
+5. Usando bucles...
+Contando del 1 al 5:
+Número: 1
+Número: 2
+Número: 3
+Número: 4
+Número: 5
+Recorriendo hobbies:
+- programar
+- leer
+- viajar
+- cocinar
+6. Trabajando con JSON...
+{
+    "nombre": "Ana García",
+    "edad": 25,
+    "salario": 2500.5,
+    "hobbies": ["programar", "leer", "viajar", "cocinar"],
+    "contacto": {
+        "email": "ana@ejemplo.com",
+        "telefono": "+502 1234-5678"
+    },
+    "activo": true
+}
+7. Operaciones matemáticas...
+Suma: 19
+Resta: 11
+División: 3
+Multiplicación: 60
+Módulo: 3
+
+8. Variables mutables...
+Contador inicial: 0
+Contador después de sumar 10: 10
+Contador después de += 5: 15
+9. Final...
+¡Programa completado exitosamente!
+Has aprendido los conceptos básicos de Lenguaje Quetzal:
+✓ Variables y tipos de datos
+✓ Funciones
+✓ Condicionales
+✓ Bucles
+✓ Listas
+✓ Objetos JSON
+✓ Operaciones matemáticas
+✓ Variables mutables
+```
+
+Even though the sample code remains in Spanish, the comments and explanations walk you through each concept so you can recognize Quetzal’s Spanish keywords while learning from English guidance.
+
+## Next steps
+
+<CardGrid>
+  <Card title="Language fundamentals" icon="document">
+    Review the syntax, data types, and variables in detail.
+
+    [Explore fundamentals →](/en/fundamentos/sintaxis-basica)
+  </Card>
+
+  <Card title="Control structures" icon="setting">
+    Discover how `si`, loops, and exceptions work.
+
+    [See control flow →](/en/control/condicionales)
+  </Card>
+
+  <Card title="Data handling" icon="open-book">
+    Learn how to manipulate lists, JSON objects, and files.
+
+    [Learn about data →](/en/datos/listas)
+  </Card>
+
+  <Card title="Practical examples" icon="rocket">
+    Practice with complete programs ready to run.
+
+    [View examples →](/en/ejemplos/basicos)
+  </Card>
+</CardGrid>
