@@ -36,6 +36,11 @@ export default defineConfig({
 			},
 			social: [
 				{
+					icon: 'codePen',
+					href: 'https://entorno-interactivo.escod.com.gt',
+					label: 'Entorno interactivo'
+				},
+				{
 					icon: 'github',
 					label: 'GitHub',
 					href: 'https://github.com/AntaresGT/lenguaje-quetzal'
