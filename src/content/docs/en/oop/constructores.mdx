@@ -1,13 +1,103 @@
 ---
-title: Builders
-description: How to initiate objects in Quetzal language.
+title: Constructors
+description: How to define and use constructors in Quetzal Language objects.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../oop/constructores.mdx';
+
+Constructors are special methods that initialize objects when they are created with `nuevo`.
+
+## Basic Syntax
+
+The constructor has the same name as the object and no explicit return type.
+
+```qz
+objeto Usuario {
+    privado:
+        texto nombre
+        entero edad
+
+    publico:
+        Usuario(texto nombre, entero edad) {
+            ambiente.nombre = nombre
+            ambiente.edad = edad
+        }
+}
+
+// Instantiation
+Usuario persona = nuevo Usuario("Ana", 28)
+```
+
+## The `ambiente` Keyword
+
+Use `ambiente` to refer to the current object's attributes and methods (similar to `this` in other languages).
+
+```qz
+objeto Rectangulo {
+    privado:
+        numero var ancho
+        numero var alto
+
+    publico:
+        Rectangulo(numero ancho, numero alto) {
+            ambiente.ancho = ancho
+            ambiente.alto = alto
+        }
+
+        numero calcular_area() {
+            retornar ambiente.ancho * ambiente.alto
+        }
+}
+```
 
 <Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
+`ambiente` distinguishes between constructor parameters and object attributes when they have the same name.
 </Aside>
 
-<ContenidoOriginal />
+## Constructor Initialization
+
+You can initialize attributes directly in their declaration:
+
+```qz
+objeto Contador {
+    entero var valor = 0
+
+    Contador() {
+        // No additional initialization needed
+    }
+
+    Contador(entero inicial) {
+        ambiente.valor = inicial
+    }
+}
+```
+
+## Constructors with Inheritance
+
+When using inheritance, call the parent constructor with `padre.ParentName()`:
+
+```qz
+objeto Animal {
+    privado:
+        texto nombre
+
+    publico:
+        Animal(texto nombre) {
+            ambiente.nombre = nombre
+        }
+}
+
+objeto Perro como Animal {
+    publico:
+        Perro(texto nombre) {
+            padre.Animal(nombre)
+        }
+}
+```
+
+## Best Practices
+
+- Keep constructors focused on initialization
+- Validate parameters and throw exceptions for invalid values
+- Initialize all required attributes
+- Call parent constructors first when using inheritance

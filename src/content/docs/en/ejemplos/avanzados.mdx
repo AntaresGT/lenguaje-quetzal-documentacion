@@ -1,0 +1,221 @@
+---
+title: Advanced Examples
+description: Advanced code examples in Quetzal Language.
+---
+
+## Design Patterns
+
+### Singleton
+
+```qz
+objeto Configuracion {
+    libre jsn var instancia = nulo
+
+    libre jsn obtener_instancia() {
+        si (Configuracion.instancia == nulo) {
+            Configuracion.instancia = {
+                debug: falso,
+                version: "1.0.0",
+                max_conexiones: 100
+            }
+        }
+        retornar Configuracion.instancia
+    }
+}
+
+jsn config = Configuracion.obtener_instancia()
+consola.mostrar(config.texto_formateado())
+```
+
+### Factory
+
+```qz
+objeto Animal {
+    privado:
+        texto nombre
+    publico:
+        Animal(texto nombre) {
+            ambiente.nombre = nombre
+        }
+        texto hablar() {
+            retornar "..."
+        }
+}
+
+objeto Perro como Animal {
+    publico:
+        Perro(texto nombre) {
+            padre.Animal(nombre)
+        }
+        texto hablar() {
+            retornar "Guau!"
+        }
+}
+
+objeto Gato como Animal {
+    publico:
+        Gato(texto nombre) {
+            padre.Animal(nombre)
+        }
+        texto hablar() {
+            retornar "Miau!"
+        }
+}
+
+objeto FabricaAnimales {
+    libre Animal crear(texto tipo, texto nombre) {
+        si (tipo == "perro") {
+            retornar nuevo Perro(nombre)
+        } sino si (tipo == "gato") {
+            retornar nuevo Gato(nombre)
+        }
+        retornar nuevo Animal(nombre)
+    }
+}
+
+Animal mascota1 = FabricaAnimales.crear("perro", "Firulais")
+Animal mascota2 = FabricaAnimales.crear("gato", "Michi")
+
+consola.mostrar(mascota1.hablar())  // "Guau!"
+consola.mostrar(mascota2.hablar())  // "Miau!"
+```
+
+## Complete Application
+
+```qz
+// Simple task manager
+
+objeto Tarea {
+    privado:
+        entero id
+        texto titulo
+        log var completada
+
+    publico:
+        Tarea(entero id, texto titulo) {
+            ambiente.id = id
+            ambiente.titulo = titulo
+            ambiente.completada = falso
+        }
+
+        vacio completar() {
+            ambiente.completada = verdadero
+        }
+
+        jsn a_json() {
+            retornar {
+                id: ambiente.id,
+                titulo: ambiente.titulo,
+                completada: ambiente.completada
+            }
+        }
+}
+
+objeto GestorTareas {
+    privado:
+        lista<Tarea> var tareas
+        entero var siguiente_id
+
+    publico:
+        GestorTareas() {
+            ambiente.tareas = []
+            ambiente.siguiente_id = 1
+        }
+
+        Tarea agregar_tarea(texto titulo) {
+            Tarea nueva = nuevo Tarea(ambiente.siguiente_id, titulo)
+            ambiente.tareas.agregar(nueva)
+            ambiente.siguiente_id++
+            retornar nueva
+        }
+
+        vacio completar_tarea(entero id) {
+            para (Tarea var tarea en ambiente.tareas) {
+                si (tarea.a_json().id == id) {
+                    tarea.completar()
+                    romper
+                }
+            }
+        }
+
+        lista<jsn> listar_tareas() {
+            lista<jsn> var resultado = []
+            para (Tarea var tarea en ambiente.tareas) {
+                resultado.agregar(tarea.a_json())
+            }
+            retornar resultado
+        }
+
+        entero contar_pendientes() {
+            entero var pendientes = 0
+            para (Tarea var tarea en ambiente.tareas) {
+                si (tarea.a_json().completada == falso) {
+                    pendientes++
+                }
+            }
+            retornar pendientes
+        }
+}
+
+// Use the task manager
+GestorTareas gestor = nuevo GestorTareas()
+
+gestor.agregar_tarea("Learn Quetzal Language")
+gestor.agregar_tarea("Build a project")
+gestor.agregar_tarea("Share with the community")
+
+consola.mostrar_informacion("Tasks created:")
+para (jsn var tarea en gestor.listar_tareas()) {
+    consola.mostrar(tarea.texto_formateado())
+}
+
+gestor.completar_tarea(1)
+consola.mostrar_exito(t"Pending tasks: {gestor.contar_pendientes()}")
+```
+
+## Error Recovery
+
+```qz
+objeto ValidadorDatos {
+    libre lista<texto> validar_usuario(jsn datos) {
+        lista<texto> var errores = []
+
+        si (!datos.contiene_clave("nombre")) {
+            errores.agregar("Name is required")
+        } sino si (datos.nombre.longitud() < 2) {
+            errores.agregar("Name must be at least 2 characters")
+        }
+
+        si (!datos.contiene_clave("email")) {
+            errores.agregar("Email is required")
+        } sino si (!datos.email.contiene("@")) {
+            errores.agregar("Email must be valid")
+        }
+
+        si (!datos.contiene_clave("edad")) {
+            errores.agregar("Age is required")
+        } sino si (datos.edad < 0) {
+            errores.agregar("Age must be positive")
+        }
+
+        retornar errores
+    }
+}
+
+jsn usuario = {
+    nombre: "A",
+    email: "invalid-email",
+    edad: -5
+}
+
+lista<texto> errores = ValidadorDatos.validar_usuario(usuario)
+
+si (errores.longitud() > 0) {
+    consola.mostrar_error("Validation errors:")
+    para (texto var error en errores) {
+        consola.mostrar_error(t"  - {error}")
+    }
+} sino {
+    consola.mostrar_exito("User is valid")
+}
+```

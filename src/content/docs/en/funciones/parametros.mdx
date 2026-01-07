@@ -1,13 +1,86 @@
 ---
 title: Parameters
-description: How to define and use parameters in Quetzal language functions.
+description: How to define and use parameters in Quetzal Language functions.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../funciones/parametros.mdx';
+## Explicit Types
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+Each parameter declares its type before the name.
 
-<ContenidoOriginal />
+```qz
+numero sumar(numero a, numero b) {
+    retornar a + b
+}
+```
+
+## Modifiable Parameters
+
+Use `var` to allow the parameter to be modified within the function. The change does not affect the original argument because Quetzal evaluates arguments by value.
+
+```qz
+texto formatear(texto var mensaje) {
+    mensaje = mensaje.recortar()
+    mensaje = mensaje.titulo()
+    retornar mensaje
+}
+```
+
+## Lists and JSON as Parameters
+
+You can receive typed lists, generic lists, or `jsn` values.
+
+```qz
+numero promedio_lista(lista<numero> valores) {
+    retornar valores.promedio()
+}
+
+texto obtener_nombre(jsn datos) {
+    retornar datos.nombre
+}
+```
+
+## Object Parameters
+
+To use objects defined with `objeto`, declare the corresponding type.
+
+```qz
+objeto Usuario {
+    publico:
+        Usuario(texto nombre) {
+            ambiente.nombre = nombre
+        }
+
+        texto saludo() {
+            retornar t"Hola {ambiente.nombre}"
+        }
+}
+
+texto presentar(Usuario usuario) {
+    retornar usuario.saludo()
+}
+```
+
+## Variable Number of Arguments
+
+Version v0.0.2 does not include optional arguments or variable parameter lists. For similar cases, accept a list and process the elements manually.
+
+```qz
+numero sumar_lista(lista<numero> valores) {
+    retornar valores.sumar()
+}
+```
+
+## Parameter Validation
+
+Apply validations at the start of the function and throw exceptions when requirements are not met.
+
+```qz
+numero dividir(numero a, numero b) {
+    si (b == 0) {
+        lanzar "Cannot divide by zero"
+    }
+    retornar a / b
+}
+```
+
+Document the meaning of each parameter through comments or self-explanatory names to keep the code readable.

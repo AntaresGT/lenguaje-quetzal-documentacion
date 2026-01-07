@@ -1,13 +1,126 @@
 ---
-title: Definition of functions
-description: Syntax and characteristics of the functions in Quetzal language.
+title: Function Definition
+description: Syntax and features of functions in Quetzal Language.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../funciones/definicion.mdx';
+## Basic Declaration
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+```qz
+texto saludar(texto nombre) {
+    retornar "Hola " + nombre
+}
+```
 
-<ContenidoOriginal />
+- Functions require an explicit return type (`vacio` when they don't return a value).
+- The body is defined between braces.
+- `retornar` ends execution and returns the indicated value.
+
+## Functions Without Return
+
+```qz
+vacio mostrar_mensaje(texto mensaje) {
+    consola.mostrar(mensaje)
+}
+```
+
+## Functions Mutating Parameters
+
+Parameters are immutable by default. To allow modification, use the `var` keyword within the signature.
+
+```qz
+texto agregar_sufijo(texto var base) {
+    base += " agregado"
+    retornar base
+}
+```
+
+## Recursive Functions
+
+```qz
+entero factorial(entero n) {
+    si (n == 0) {
+        retornar 1
+    }
+    retornar n * factorial(n - 1)
+}
+```
+
+## Returning Objects
+
+Functions can return object instances or lists.
+
+```qz
+// Function that returns a number
+numero sumar(numero a, numero b) {
+    retornar a + b
+}
+
+// Function that returns an integer
+entero multiplicar(entero a, entero b) {
+    retornar a * b
+}
+
+// Function that returns text
+texto concatenar(texto a, texto b) {
+    retornar a + b
+}
+
+// Function that returns a boolean
+log es_par(entero valor) {
+    retornar valor % 2 == 0
+}
+
+// Function that returns JSON
+jsn obtener_datos() {
+    retornar {
+        nombre: "Quetzal",
+        version: "0.0.2",
+        tipos_soportados: ["entero", "numero", "texto", "log", "lista", "jsn"]
+    }
+}
+
+// Function that returns a typed integer list
+lista<entero> obtener_numeros() {
+    retornar [1, 2, 3, 4, 5]
+}
+
+// Function that returns an untyped list of different types
+lista obtener_datos_lista_no_tipada() {
+    retornar [1, "texto", verdadero, 3.14, [1, 2, 3]]
+}
+
+// Define an object
+objeto DefinicionUsuario {
+    privado:
+        texto nombre
+        entero edad
+    publico:
+        DefinicionUsuario(texto nombre, entero edad) {
+            ambiente.nombre = nombre
+            ambiente.edad = edad
+        }
+
+        texto obtener_nombre() {
+            retornar ambiente.nombre
+        }
+
+        entero obtener_edad() {
+            retornar ambiente.edad
+        }
+}
+
+// Function that returns an object of type DefinicionUsuario
+DefinicionUsuario crear_usuario(texto nombre, entero edad) {
+    retornar nuevo DefinicionUsuario(nombre, edad)
+}
+```
+
+## Overloading and Names
+
+Currently Quetzal does not support function overloading; each name must be unique in the same scope. You can group related behaviors in modules or objects.
+
+## Best Practices
+
+- Use descriptive names in Spanish following `camelCase` or `snake_case`.
+- Validate parameters at the start of the function and use `lanzar` to notify errors.
+- Keep functions short; extract logic into helper functions when necessary.

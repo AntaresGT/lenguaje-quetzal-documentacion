@@ -14,19 +14,19 @@
       "include": "#numbers"
     },
     {
+      "include": "#types"
+    },
+    {
       "include": "#keywords"
     },
     {
-      "include": "#types"
+      "include": "#constants"
     },
     {
       "include": "#functions"
     },
     {
       "include": "#operators"
-    },
-    {
-      "include": "#constants"
     },
     {
       "include": "#objects"
@@ -93,11 +93,11 @@
       "patterns": [
         {
           "name": "keyword.control.quetzal",
-          "match": "\\b(si|sino|mientras|para|hacer|romper|continuar|retornar|en)\\b"
+          "match": "\\b(si|sino|mientras|para|hacer|romper|continuar|retornar|en|cada)\\b"
         },
         {
           "name": "keyword.other.quetzal",
-          "match": "\\b(importar|exportar|desde|como|nuevo|ambiente|libre)\\b"
+          "match": "\\b(importar|exportar|desde|como|nuevo|ambiente|libre|de|es)\\b"
         },
         {
           "name": "keyword.async.quetzal",
@@ -105,11 +105,11 @@
         },
         {
           "name": "keyword.exception.quetzal",
-          "match": "\\b(intentar|atrapar|finalmente|lanzar|excepción)\\b"
+          "match": "\\b(intentar|capturar|atrapar|finalmente|lanzar|excepcion|excepción)\\b"
         },
         {
           "name": "storage.modifier.quetzal",
-          "match": "\\b(mut|publico|privado)\\b"
+          "match": "\\b(var|mut|publico|privado)\\b"
         },
         {
           "name": "storage.type.function.quetzal",
@@ -117,7 +117,7 @@
         },
         {
           "name": "storage.type.class.quetzal",
-          "match": "\\b(objeto)\\b"
+          "match": "\\b(objeto|constructor)\\b"
         }
       ]
     },
@@ -125,19 +125,27 @@
       "patterns": [
         {
           "name": "storage.type.primitive.quetzal",
-          "match": "\\b(vacio|entero|número|numero|cadena|bool|lista|jsn|tipo)\\b"
+          "match": "\\b(vacio|entero|número|numero|texto|cadena|log|bool|lista|jsn|tipo)\\b"
         }
       ]
     },
     "functions": {
       "patterns": [
         {
+          "name": "support.class.builtin.quetzal",
+          "match": "\\b(consola|Matematica|Sistema|Archivo)\\b"
+        },
+        {
           "name": "support.function.builtin.quetzal",
           "match": "\\b(imprimir|imprimir_error|imprimir_advertencia|imprimir_informacion|imprimir_exito|imprimir_alerta|imprimir_confirmacion|imprimir_depurar)\\b"
         },
         {
+          "name": "support.function.method.quetzal",
+          "match": "\\.(mostrar|mostrar_error|mostrar_advertencia|mostrar_informacion|mostrar_exito|leer|agregar|eliminar|obtener|ordenar|invertir|longitud|contiene|buscar|reemplazar|dividir|unir|mayusculas|minusculas|recortar|texto|entero|numero|número|jsn|log)(?=\\()"
+        },
+        {
           "name": "support.function.conversion.quetzal",
-          "match": "\\.(numero|entero|cadena|bool|lista|jsn)\\(\\)"
+          "match": "\\.(numero|número|entero|texto|cadena|log|bool|lista|jsn)\\(\\)"
         },
         {
           "name": "entity.name.function.quetzal",
@@ -149,7 +157,7 @@
       "patterns": [
         {
           "name": "keyword.operator.logical.quetzal",
-          "match": "\\b(y|o)\\b|&&|\\|\\||!"
+          "match": "\\b(y|o|no)\\b|&&|\\|\\||!"
         },
         {
           "name": "keyword.operator.comparison.quetzal",

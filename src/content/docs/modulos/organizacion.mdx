@@ -1,73 +1,297 @@
 ---
-title: Organización de módulos
-description: Cómo estructurar proyectos de Lenguaje Quetzal con múltiples archivos.
+title: Organizacion de proyectos
+description: Como estructurar proyectos de Lenguaje Quetzal con multiples archivos y configuracion.
 ---
+
+import { Aside, Tabs, TabItem, FileTree } from '@astrojs/starlight/components';
 
 ## Estructura recomendada
 
-```
-mi-proyecto/
-├── quetzal.json
-├── principal.qz
-├── modulos/
-│   ├── usuarios.qz
-│   └── utilidades.qz
-└── datos/
-    └── ejemplos.json
-```
+<FileTree>
+- mi-proyecto/
+  - quetzal.json (configuracion del proyecto)
+  - principal.qz (punto de entrada)
+  - modulos/
+    - usuarios.qz
+    - utilidades.qz
+    - validaciones.qz
+  - datos/
+    - configuracion.json
+    - ejemplos.json
+</FileTree>
 
-- `principal.qz` contiene el punto de entrada.
-- La carpeta `modulos` agrupa código reutilizable.
-- `quetzal.json` declara permisos de acceso a recursos del sistema operativo (p. ej., sistema de archivos).
+- `principal.qz` contiene el punto de entrada del programa.
+- La carpeta `modulos/` agrupa codigo reutilizable.
+- La carpeta `datos/` almacena archivos de datos externos.
+- `quetzal.json` declara metadatos y permisos del proyecto.
+
+---
 
 ## Archivo `quetzal.json`
 
+El archivo `quetzal.json` es el archivo de configuracion de un proyecto Quetzal. Define metadatos, dependencias y permisos de acceso a recursos del sistema.
+
+<Aside type="note">
+Este archivo es **opcional**. Sin el, el interprete utiliza configuraciones seguras por defecto, bloqueando operaciones como acceso a archivos o red.
+</Aside>
+
+### Estructura basica
+
 ```json
 {
-  "versión": "1.0.0",
-  "aplicación": "mi-proyecto",
+  "version": "0.2.0",
+  "aplicacion": "mi-proyecto-quetzal",
+  "dependencias": {
+    "libreria_ejemplo": "1.0.0"
+  }
+}
+```
+
+| Campo | Descripcion |
+|-------|-------------|
+| `version` | Version del proyecto |
+| `aplicacion` | Nombre del proyecto |
+| `dependencias` | Librerias externas requeridas |
+
+### Sistema de permisos
+
+El sistema de permisos controla el acceso a recursos del sistema operativo. Por defecto, el interprete opera en modo seguro sin acceso a operaciones peligrosas.
+
+```json
+{
+  "version": "0.2.0",
+  "aplicacion": "mi-proyecto",
   "permisos": [
     {
-      "nombre": "sistema-archivos",
-      "alcance": "directorios",
-      "directorios": ["./modulos", "./datos"]
+      "tipo": "sistema-archivos",
+      "habilitado": true,
+      "alcance": ["lectura", "escritura"],
+      "directorios": [
+        "./",
+        "./modulos",
+        "./datos"
+      ]
     }
   ]
 }
 ```
 
-Este archivo es opcional, pero recomendado si tu proyecto requiere acceso al sistema de archivos (por ejemplo, importar módulos ubicados en el disco o leer recursos). Sin permisos, el intérprete restringe el acceso al sistema del SO y solo permite módulos internos al ejecutable.
+### Tipos de permisos
 
-## Nomenclatura de archivos
+<Tabs>
+  <TabItem label="Sistema de archivos">
+Controla el acceso a lectura y escritura de archivos.
 
-- Los archivos de código usan la extensión `.qz`.
-- Emplea nombres en minúsculas con guiones medios o bajos (`usuarios.qz`, `procesamiento_texto.qz`).
-- Evita espacios o caracteres especiales.
-
-## Exportaciones claras
-
-Cada módulo puede terminar con un bloque `exportar` que indique qué símbolos estarán disponibles para otros archivos.
-
-```qz
-exportar {
-    sumar_entero,
-    Usuario,
-    instancia_usuario,
-    saludo
+```json
+{
+  "tipo": "sistema-archivos",
+  "habilitado": true,
+  "alcance": ["lectura", "escritura"],
+  "directorios": [
+    "./",
+    "/home/usuario/documentos",
+    "C:\\Users\\usuario\\Documents"
+  ]
 }
 ```
 
-## Importaciones relativas
+| Campo | Descripcion |
+|-------|-------------|
+| `habilitado` | Activa o desactiva el permiso |
+| `alcance` | Operaciones permitidas: `lectura`, `escritura` |
+| `directorios` | Lista de directorios autorizados |
+  </TabItem>
+  <TabItem label="Red">
+Controla el acceso a operaciones de red.
 
-Las rutas son relativas al archivo principal que invoca al intérprete. Usa `./` para rutas locales dentro de carpetas autorizadas en `quetzal.json`.
-
-```qz
-importar { Usuario } desde "./modulos/usuarios.qz"
+```json
+{
+  "tipo": "red",
+  "habilitado": true,
+  "alcance": {
+    "dominios": ["api.ejemplo.com", "*.midominio.com"],
+    "puertos": [80, 443, 8080]
+  }
+}
 ```
 
-## Buenas prácticas
+| Campo | Descripcion |
+|-------|-------------|
+| `habilitado` | Activa o desactiva el permiso |
+| `dominios` | Dominios permitidos (soporta comodines) |
+| `puertos` | Puertos de red permitidos |
+  </TabItem>
+</Tabs>
 
-- Mantén funciones relacionadas en el mismo archivo para facilitar su descubrimiento.
-- Separa la lógica de dominio y la infraestructura en módulos diferentes.
-- Documenta en comentarios cualquier dependencia entre módulos.
-- Al compartir proyectos, incluye instrucciones para copiar `quetzal.json` y las carpetas permitidas.
+### Ejemplo completo
+
+```json
+{
+  "version": "0.2.0",
+  "aplicacion": "sistema-gestion",
+  "dependencias": {
+    "quetzal-http": "1.0.0",
+    "quetzal-db": "2.1.0"
+  },
+  "permisos": [
+    {
+      "tipo": "sistema-archivos",
+      "habilitado": true,
+      "alcance": ["lectura", "escritura"],
+      "directorios": [
+        "./",
+        "./modulos",
+        "./datos",
+        "./logs"
+      ]
+    },
+    {
+      "tipo": "red",
+      "habilitado": true,
+      "alcance": {
+        "dominios": ["api.miservicio.com"],
+        "puertos": [443]
+      }
+    }
+  ]
+}
+```
+
+<Aside type="caution">
+Solo otorga los permisos minimos necesarios. Un proyecto que solo lee archivos locales no deberia tener permisos de red.
+</Aside>
+
+---
+
+## Nomenclatura de archivos
+
+- Los archivos de codigo usan la extension `.qz`.
+- Emplea nombres en minusculas con guiones bajos (`usuarios.qz`, `procesamiento_texto.qz`).
+- Evita espacios o caracteres especiales.
+- Los nombres deben ser descriptivos del contenido.
+
+```
+// Correcto
+usuarios.qz
+validaciones_datos.qz
+conexion_base_datos.qz
+
+// Evitar
+Usuarios.qz        // mayusculas
+mis datos.qz       // espacios
+archivo#1.qz       // caracteres especiales
+```
+
+---
+
+## Exportaciones claras
+
+Cada modulo puede terminar con un bloque `exportar` que indique que simbolos estaran disponibles para otros archivos.
+
+```qz
+// archivo: modulos/usuarios.qz
+
+objeto Usuario {
+    texto nombre
+    entero edad
+
+    Usuario(texto nombre, entero edad) {
+        ambiente.nombre = nombre
+        ambiente.edad = edad
+    }
+}
+
+texto VERSION = "1.0.0"
+
+entero sumar_edades(lista<Usuario> usuarios) {
+    entero var total = 0
+    para (Usuario var u en usuarios) {
+        total += u.edad
+    }
+    retornar total
+}
+
+// Exportar simbolos publicos
+exportar {
+    Usuario,
+    VERSION,
+    sumar_edades
+}
+```
+
+---
+
+## Importaciones relativas
+
+Las rutas son relativas al archivo principal que invoca al interprete. Usa `./` para rutas locales dentro de carpetas autorizadas en `quetzal.json`.
+
+```qz
+// archivo: principal.qz
+
+importar { Usuario, VERSION } desde "./modulos/usuarios.qz"
+importar { validar_email } desde "./modulos/validaciones.qz"
+
+Usuario persona = nuevo Usuario("Ana", 28)
+consola.mostrar(t"Version: {VERSION}")
+```
+
+### Importar con alias
+
+```qz
+importar {
+    Usuario como UsuarioBase,
+    VERSION como VERSION_USUARIOS
+} desde "./modulos/usuarios.qz"
+
+UsuarioBase persona = nuevo UsuarioBase("Luis", 30)
+```
+
+### Importar modulos nativos
+
+```qz
+// Modulos integrados de Quetzal
+importar { Matematica } desde "quetzal/matematica"
+importar { Archivo } desde "quetzal/archivo"
+importar { Sistema } desde "quetzal/sistema"
+```
+
+---
+
+## Buenas practicas
+
+1. **Mantener funciones relacionadas juntas** para facilitar su descubrimiento.
+2. **Separar logica de dominio e infraestructura** en modulos diferentes.
+3. **Documentar dependencias** en comentarios al inicio de cada archivo.
+4. **Limitar permisos** al minimo necesario en `quetzal.json`.
+5. **Usar nombres descriptivos** para archivos y simbolos exportados.
+
+```qz
+// archivo: modulos/autenticacion.qz
+// Dependencias: ./usuarios.qz, ./validaciones.qz
+// Descripcion: Manejo de autenticacion de usuarios
+
+importar { Usuario } desde "./usuarios.qz"
+importar { validar_email, validar_clave } desde "./validaciones.qz"
+
+// ... codigo del modulo
+```
+
+---
+
+## Compartir proyectos
+
+Al compartir un proyecto Quetzal, incluye:
+
+1. El archivo `quetzal.json` con la configuracion
+2. Todos los archivos `.qz` del proyecto
+3. Archivos de datos necesarios
+4. Un archivo `LEEME.md` con instrucciones de uso
+
+```
+proyecto-compartido/
+  quetzal.json
+  principal.qz
+  modulos/
+  datos/
+  LEEME.md
+```

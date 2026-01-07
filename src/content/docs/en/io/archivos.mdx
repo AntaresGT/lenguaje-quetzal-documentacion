@@ -1,13 +1,88 @@
 ---
-title: File management
-description: Status of access to files and configuration by `` `` `json`.
+title: Files
+description: File system operations in Quetzal Language.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../io/archivos.mdx';
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
+<Aside type="caution">
+File operations require permissions configured in `quetzal.json`.
 </Aside>
 
-<ContenidoOriginal />
+## Permission Configuration
+
+Add file system permissions to your `quetzal.json`:
+
+```json
+{
+  "permisos": [
+    {
+      "tipo": "sistema-archivos",
+      "habilitado": true,
+      "alcance": ["lectura", "escritura"],
+      "directorios": ["./datos", "./logs"]
+    }
+  ]
+}
+```
+
+## Reading Files
+
+```qz
+importar { Archivo } desde "quetzal/archivo"
+
+intentar {
+    texto contenido = Archivo.leer("./datos/config.txt")
+    consola.mostrar(contenido)
+} capturar (excepcion e) {
+    consola.mostrar_error("Could not read file: " + e.mensaje)
+}
+```
+
+## Writing Files
+
+```qz
+importar { Archivo } desde "quetzal/archivo"
+
+texto datos = "Hello, Quetzal!"
+
+intentar {
+    Archivo.escribir("./datos/output.txt", datos)
+    consola.mostrar_exito("File saved successfully")
+} capturar (excepcion e) {
+    consola.mostrar_error("Could not write file: " + e.mensaje)
+}
+```
+
+## Checking File Existence
+
+```qz
+importar { Archivo } desde "quetzal/archivo"
+
+si (Archivo.existe("./datos/config.txt")) {
+    consola.mostrar("File exists")
+} sino {
+    consola.mostrar("File not found")
+}
+```
+
+## Working with JSON Files
+
+```qz
+importar { Archivo } desde "quetzal/archivo"
+
+// Read JSON file
+texto json_texto = Archivo.leer("./datos/usuarios.json")
+jsn usuarios = json_texto.jsn()
+
+// Modify and save
+usuarios.establecer("actualizado", verdadero)
+Archivo.escribir("./datos/usuarios.json", usuarios.texto_formateado())
+```
+
+## Best Practices
+
+- Always wrap file operations in `intentar`/`capturar`
+- Verify file existence before reading
+- Use appropriate directories in permissions
+- Limit permissions to only necessary directories

@@ -1,14 +1,40 @@
 ---
 title: Comments
-description: Ways of documenting code in quetzal language and recommendations for
-  use.
+description: Ways to document code in Quetzal Language and usage recommendations.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../fundamentos/comentarios.mdx';
+Quetzal Language supports two comment styles.
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+## Single-Line Comments
 
-<ContenidoOriginal />
+Start with `//` and extend to the end of the line.
+
+```qz
+// Start the program
+consola.mostrar("Hola")
+```
+
+## Multi-Line Comments
+
+Delimited by `/*` and `*/`. Content can span multiple lines.
+
+```qz
+/*
+ User module documentation.
+ Includes constructors and helper functions.
+*/
+objeto Usuario { ... }
+```
+
+### Nested Comments
+
+Nested comments are not supported. Avoid patterns like `/* ... /* ... */ ... */` because the interpreter considers them a syntax error.
+
+## Best Practices
+
+- Describe the purpose of complex blocks instead of repeating the code.
+- Keep comments synchronized with the actual program behavior.
+- In objects and modules, document the intent of `privado` and `publico` members to facilitate maintenance.
+- Use comments to indicate permission requirements defined in `quetzal.json` when your module depends on the file system.
+
+Comments are removed during interpretation and do not affect program performance.

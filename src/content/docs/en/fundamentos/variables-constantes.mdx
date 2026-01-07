@@ -1,13 +1,87 @@
 ---
-title: Variables and constant
-description: Declaration, mutability and scope of the variables in quetzal language.
+title: Variables and Constants
+description: Declaration, mutability, and scope of variables in Quetzal Language.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../fundamentos/variables-constantes.mdx';
+
+## Basic Declaration
+
+Each variable requires an explicit type followed by the name and, optionally, an initial value.
+
+```qz
+entero contador = 0
+texto saludo = "Hola"
+log activo = verdadero
+```
+
+If no value is provided, Quetzal assigns a default according to the type (`0` for `entero`, `0.0` for `numero`, empty string for `texto`, `falso` for `log`).
+
+## Mutability
+
+Variables are immutable by default. Use the `var` keyword to allow reassignments or methods that mutate the value.
+
+```qz
+entero var total = 10
+total += 5
+
+lista<texto> var elementos = ["a", "b"]
+elementos.agregar("c")
+```
 
 <Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
+By default, all variables act as constants. Only variables declared with `var` can be modified after their initial assignment.
 </Aside>
 
-<ContenidoOriginal />
+## Valid Names
+
+- Start with a letter or underscore and can contain numbers.
+- Support `camelCase` or `snake_case`.
+- Cannot match reserved words like `si`, `lista`, `importar`, `nuevo`, `ambiente`, `verdadero`, `falso`, `nulo`, `y`, `o`, `no`, and others listed in the reference section.
+
+## Scope
+
+- Variables declared in the main body have global scope within the file.
+- Inside functions or objects, scope is limited to the corresponding block.
+- Each loop creates its own scope, so variables defined in the header or within the block are not visible outside of it.
+
+```qz
+entero var acumulado = 0
+para (entero var numero en [1, 2, 3]) {
+    acumulado += numero
+}
+// numero is no longer available here
+```
+
+## Using `ambiente`
+
+In objects, the reserved word `ambiente` allows access to internal attributes and methods.
+
+```qz
+objeto Contador {
+    entero var valor = 0
+
+    Contador(entero inicial) {
+        ambiente.valor = inicial
+    }
+
+    vacio incrementar() {
+        ambiente.valor++
+    }
+}
+```
+
+## Symbolic Constants
+
+Currently there is no specific keyword for global constants. To simulate a constant, declare the variable without `var` and avoid reassigning it. If you need to share it across multiple files, export it from a dedicated module.
+
+```qz
+texto MENSAJE_BIENVENIDA = "Bienvenido"
+exportar { MENSAJE_BIENVENIDA }
+```
+
+## Best Practices
+
+- Prefer descriptive and consistent names.
+- Declare variables as close as possible to their use.
+- Avoid using mutability unless strictly necessary (e.g., accumulators or changing structures).

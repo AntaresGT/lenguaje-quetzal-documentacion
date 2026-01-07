@@ -1,13 +1,71 @@
 ---
-title: Organization of modules
-description: How to structure Quetzal language projects with multiple files.
+title: Project Organization
+description: How to structure Quetzal Language projects with multiple files and configuration.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../modulos/organizacion.mdx';
+import { Aside, FileTree } from '@astrojs/starlight/components';
+
+## Recommended Structure
+
+<FileTree>
+- my-project/
+  - quetzal.json (project configuration)
+  - principal.qz (entry point)
+  - modulos/
+    - usuarios.qz
+    - utilidades.qz
+  - datos/
+    - config.json
+</FileTree>
+
+## The `quetzal.json` File
+
+This optional configuration file defines metadata, dependencies, and permissions.
+
+### Basic Structure
+
+```json
+{
+  "version": "0.2.0",
+  "aplicacion": "my-project",
+  "dependencias": {
+    "libreria_ejemplo": "1.0.0"
+  }
+}
+```
+
+### Permission System
+
+Controls access to system resources.
+
+```json
+{
+  "version": "0.2.0",
+  "aplicacion": "my-project",
+  "permisos": [
+    {
+      "tipo": "sistema-archivos",
+      "habilitado": true,
+      "alcance": ["lectura", "escritura"],
+      "directorios": ["./", "./modulos"]
+    }
+  ]
+}
+```
 
 <Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
+Without `quetzal.json`, the interpreter uses safe defaults blocking file system and network access.
 </Aside>
 
-<ContenidoOriginal />
+## File Naming
+
+- Use `.qz` extension for code files
+- Use lowercase with underscores (`usuarios.qz`, `validaciones_datos.qz`)
+- Avoid spaces and special characters
+
+## Best Practices
+
+1. **Keep related functions together** for easy discovery
+2. **Separate domain logic and infrastructure** in different modules
+3. **Document dependencies** with comments
+4. **Limit permissions** to minimum necessary in `quetzal.json`

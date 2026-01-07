@@ -1,13 +1,53 @@
 ---
 title: Exceptions
-description: MANAGEMENT OF ERRORS IN QUETZAL LANGUAGE.
+description: Understanding exceptions in Quetzal Language.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../errores/excepciones.mdx';
+Exceptions are runtime errors that can be caught and handled.
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+## Throwing Exceptions
 
-<ContenidoOriginal />
+Use `lanzar` to throw an exception with a message.
+
+```qz
+numero dividir(numero a, numero b) {
+    si (b == 0) {
+        lanzar "Division by zero is not allowed"
+    }
+    retornar a / b
+}
+```
+
+## Exception Properties
+
+When catching an exception, you have access to:
+
+| Property | Description |
+|----------|-------------|
+| `mensaje` | The error message |
+| `llamadas` | Call stack as a list |
+
+```qz
+capturar (excepcion e) {
+    texto mensaje = e.mensaje
+    lista pila = e.llamadas
+}
+```
+
+## Common Exceptions
+
+The interpreter throws exceptions for:
+
+- Division by zero
+- Index out of range
+- Type conversion errors
+- Invalid JSON parsing
+- Access to non-existent properties
+- File system errors (when permissions enabled)
+
+## Best Practices
+
+- Use descriptive error messages
+- Include context in error messages
+- Throw exceptions for exceptional conditions, not flow control
+- Document what exceptions a function might throw

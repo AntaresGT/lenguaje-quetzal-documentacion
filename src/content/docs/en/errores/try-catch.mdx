@@ -1,13 +1,64 @@
 ---
-title: Blocks try/capture
-description: Detailed use of `try`,` capture 'and `finally' in Quetzal language.
+title: Try-Catch-Finally
+description: Exception handling in Quetzal Language.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../errores/try-catch.mdx';
+## Basic Syntax
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+```qz
+intentar {
+    // Code that might throw an exception
+    entero resultado = 10 / 0
+} capturar (excepcion e) {
+    // Handle the error
+    consola.mostrar_error("Error: " + e.mensaje)
+}
+```
 
-<ContenidoOriginal />
+## With `finalmente`
+
+The `finalmente` block always executes, regardless of whether an exception occurred.
+
+```qz
+intentar {
+    texto contenido = archivo.leer("datos.txt")
+    consola.mostrar(contenido)
+} capturar (excepcion e) {
+    consola.mostrar_error("Could not read file: " + e.mensaje)
+} finalmente {
+    consola.mostrar("File operation completed")
+}
+```
+
+## Nested Try-Catch
+
+```qz
+intentar {
+    intentar {
+        // Inner operation
+    } capturar (excepcion inner) {
+        lanzar "Inner error: " + inner.mensaje
+    }
+} capturar (excepcion outer) {
+    consola.mostrar_error(outer.mensaje)
+}
+```
+
+## Re-throwing Exceptions
+
+```qz
+intentar {
+    numero resultado = dividir(10, 0)
+} capturar (excepcion e) {
+    consola.mostrar_advertencia("Logging error...")
+    lanzar e.mensaje  // Re-throw
+}
+```
+
+## Best Practices
+
+- Catch specific exceptions when possible
+- Don't use exceptions for normal flow control
+- Always clean up resources in `finalmente`
+- Log or handle exceptions meaningfully
+- Don't catch exceptions just to ignore them

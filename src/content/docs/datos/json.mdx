@@ -1,50 +1,23 @@
 ---
-title: JSON
-description: Manipulación de valores `jsn` en Lenguaje Quetzal.
+title: Objetos JSON
+description: Manipulacion de valores `jsn` en Lenguaje Quetzal.
 ---
 
-Los valores `jsn` representan objetos JSON con soporte nativo para propiedades anidadas, listas y métodos utilitarios.
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 
-## Declaración
+Los valores `jsn` representan objetos JSON con soporte nativo para propiedades anidadas, listas y metodos utilitarios.
+
+## Declaracion
 
 ```qz
-jsn var persona = {
+jsn persona = {
     nombre: "Ana",
-    datos_personales: {
-        fecha_nacimiento: "1998-05-15",
-        dpi: "1234567890101"
-    },
-    direcciones: [
-        { tipo: "casa", direccion: "Ciudad" },
-        { tipo: "trabajo", direccion: "Antigua" }
-    ],
-    telefonos: ["555-1234", "555-5678"],
+    edad: 28,
     activo: verdadero
 }
 ```
 
-## Acceso a propiedades
-
-- Por punto: `persona.nombre`
-- Por índice o clave con corchetes: `persona["datos_personales"].dpi`
-- Índices en listas anidadas: `persona.direcciones[0].direccion`
-
-## Métodos frecuentes
-
-| Método | Descripción |
-|--------|-------------|
-| `contiene_clave(clave)` | Verifica si la propiedad existe. |
-| `claves()` | Devuelve una lista de las claves de primer nivel. |
-| `valores()` | Devuelve una lista de los valores. |
-| `establecer(clave, valor)` | Asigna o crea una propiedad. |
-| `eliminar(clave)` | Elimina una propiedad y devuelve el valor eliminado. |
-| `fusionar(otro_json)` | Combina propiedades (las existentes se sobrescriben). |
-| `texto()` | Serializa sin formato. |
-| `texto_formateado()` | Serializa con indentación. |
-
-Los métodos mutadores requieren que el `jsn` se declare con `var`.
-
-## Ejemplo de uso
+Para objetos mas complejos con datos anidados:
 
 ```qz
 jsn var persona = {
@@ -55,51 +28,330 @@ jsn var persona = {
         peso: 65.5,
         altura: 1.70,
         genero: "Femenino",
-        nacionalidad: "Guatemalteca",
-        estado_civil: "Soltera"
+        nacionalidad: "Guatemalteca"
     },
     direcciones: [
-        { tipo: "casa", direccion: "123 Calle Principal, Ciudad" },
-        { tipo: "trabajo", direccion: "456 Avenida Secundaria, Ciudad" }
+        { tipo: "casa", direccion: "123 Calle Principal" },
+        { tipo: "trabajo", direccion: "456 Avenida Secundaria" }
     ],
     telefonos: ["555-1234", "555-5678"],
     activo: verdadero
 }
-
-persona.establecer("apellido", "Gómez")
-log tiene_dpi = persona.contiene_clave("dpi")
-
-si (no tiene_dpi) {
-    persona.establecer("dpi", "0000000000000")
-}
-
-// Eliminar propiedad
-persona.eliminar("activo")
-
-// Fusionar con otro JSON
-jsn var otra_persona = {
-    apellido: "Gómez",
-    edad: 30,
-    activo: falso
-}
-persona.fusionar(otra_persona)
-
-// Serializar
-texto persona_a_texto = persona.texto()
-texto persona_a_texto_formateado = persona.texto_formateado()
-consola.mostrar(persona_a_texto_formateado)
 ```
 
-## Conversión desde texto
+<Aside type="note">
+Para modificar un objeto JSON despues de crearlo, debes declararlo con `var`.
+</Aside>
+
+### Claves especiales
+
+Las claves pueden contener espacios, numeros al inicio o caracteres especiales si se encierran entre comillas:
 
 ```qz
-jsn configuracion = "{\"puerto\":8080,\"debug\":true}".jsn()
+jsn datos = {
+    nombre: "valor normal",
+    "clave con espacios": "permitido",
+    "123numerico": 456,
+    "clave-con-guiones": verdadero,
+    "clave.con.puntos": "tambien valido"
+}
 ```
 
-Si la cadena no es JSON válido se lanza una excepción, por lo que conviene envolver la operación en `intentar` y `capturar`.
+---
 
-## Buenas prácticas
+## Acceso a propiedades
 
-- Declara los `jsn` que deban modificarse con la palabra `var`.
-- Usa `claves()` y `valores()` para iterar sobre propiedades en combinación con bucles.
-- Restringe el acceso a rutas del sistema de archivos mediante `quetzal.json` cuando importes módulos que manipulan JSON proveniente de archivos externos.
+### Notacion de punto
+
+```qz
+texto nombre = persona.nombre        // "Ana"
+numero peso = persona.datos_personales.peso  // 65.5
+```
+
+### Notacion de corchetes
+
+Util para claves dinamicas o claves con caracteres especiales:
+
+```qz
+texto nombre = persona["nombre"]
+texto especial = datos["clave con espacios"]
+
+// Acceso dinamico
+texto clave = "nombre"
+texto valor = persona[clave]
+```
+
+### Acceso a elementos anidados
+
+```qz
+// Acceso a objetos dentro de objetos
+texto dpi = persona.datos_personales.dpi
+
+// Acceso a elementos de listas dentro del JSON
+texto direccion_casa = persona.direcciones[0].direccion
+texto telefono_trabajo = persona.telefonos[1]
+
+// Combinar notaciones
+texto ciudad = persona["direcciones"][0]["direccion"]
+```
+
+---
+
+## Metodos de JSON
+
+### Verificacion de claves
+
+| Metodo | Descripcion | Retorna |
+|--------|-------------|---------|
+| `contiene_clave(clave)` | Verifica si la propiedad existe | `log` |
+
+```qz
+jsn persona = { nombre: "Ana", edad: 28 }
+
+log tiene_nombre = persona.contiene_clave("nombre")  // verdadero
+log tiene_email = persona.contiene_clave("email")    // falso
+
+// Verificar en objetos anidados
+log tiene_dpi = persona.datos_personales.contiene_clave("dpi")
+```
+
+### Obtener claves y valores
+
+| Metodo | Descripcion | Retorna |
+|--------|-------------|---------|
+| `claves()` | Lista de claves de primer nivel | `lista<texto>` |
+| `valores()` | Lista de valores de primer nivel | `lista` |
+
+```qz
+jsn persona = {
+    nombre: "Ana",
+    edad: 28,
+    activo: verdadero
+}
+
+lista<texto> claves = persona.claves()
+// ["nombre", "edad", "activo"]
+
+lista valores = persona.valores()
+// ["Ana", 28, verdadero]
+```
+
+### Modificar propiedades
+
+| Metodo | Descripcion |
+|--------|-------------|
+| `establecer(clave, valor)` | Asigna o crea una propiedad |
+| `eliminar(clave)` | Elimina una propiedad y devuelve su valor |
+
+<Aside type="caution">
+Estos metodos requieren que el JSON se declare con `var`.
+</Aside>
+
+```qz
+jsn var persona = { nombre: "Ana" }
+
+// Establecer propiedades (crea si no existe)
+persona.establecer("apellido", "Gomez")
+persona.establecer("edad", 28)
+
+// Tambien puedes usar asignacion directa
+persona.nombre = "Maria"
+persona["activo"] = verdadero
+
+// Eliminar propiedad
+texto eliminado = persona.eliminar("activo")
+// eliminado = verdadero
+```
+
+### Fusionar objetos
+
+| Metodo | Descripcion |
+|--------|-------------|
+| `fusionar(otro_json)` | Combina propiedades (las existentes se sobrescriben) |
+
+```qz
+jsn var persona = {
+    nombre: "Ana",
+    edad: 28
+}
+
+jsn datos_adicionales = {
+    apellido: "Gomez",
+    edad: 30,        // Sobrescribira el valor existente
+    activo: verdadero
+}
+
+persona.fusionar(datos_adicionales)
+// persona ahora tiene: nombre, apellido, edad (30), activo
+```
+
+### Serializacion
+
+| Metodo | Descripcion |
+|--------|-------------|
+| `texto()` | Serializa a JSON compacto |
+| `texto_formateado()` | Serializa con indentacion legible |
+
+<Tabs>
+  <TabItem label="Compacto">
+```qz
+jsn persona = { nombre: "Ana", edad: 28 }
+
+texto json_compacto = persona.texto()
+// '{"nombre":"Ana","edad":28}'
+```
+  </TabItem>
+  <TabItem label="Formateado">
+```qz
+jsn persona = { nombre: "Ana", edad: 28 }
+
+texto json_legible = persona.texto_formateado()
+// {
+//   "nombre": "Ana",
+//   "edad": 28
+// }
+```
+  </TabItem>
+</Tabs>
+
+---
+
+## Conversion desde texto
+
+Puedes convertir una cadena JSON valida a un objeto `jsn`:
+
+```qz
+texto json_texto = '{"nombre":"Ana","edad":25}'
+jsn var persona = json_texto.jsn()
+
+consola.mostrar(persona.nombre)  // "Ana"
+```
+
+<Aside type="caution">
+Si la cadena no es JSON valido, se lanza una excepcion. Usa `intentar`/`capturar` para manejar errores.
+</Aside>
+
+```qz
+intentar {
+    jsn datos = "esto no es json".jsn()
+} capturar (excepcion error) {
+    consola.mostrar_error("JSON invalido: " + error.mensaje)
+}
+```
+
+---
+
+## Iterar sobre JSON
+
+Usa `claves()` y `valores()` para iterar sobre propiedades:
+
+```qz
+jsn persona = {
+    nombre: "Ana",
+    edad: 28,
+    ciudad: "Guatemala"
+}
+
+// Iterar sobre claves
+para (texto var clave en persona.claves()) {
+    consola.mostrar(t"Clave: {clave}")
+}
+
+// Iterar sobre valores
+para (texto var valor en persona.valores()) {
+    consola.mostrar(t"Valor: {valor}")
+}
+
+// Iterar sobre ambos
+lista<texto> claves = persona.claves()
+para (texto var clave en claves) {
+    texto valor = persona[clave].texto()
+    consola.mostrar(t"{clave}: {valor}")
+}
+```
+
+---
+
+## JSON con listas
+
+Los valores `jsn` pueden contener listas que a su vez contienen otros objetos JSON:
+
+```qz
+jsn var tienda = {
+    nombre: "Mi Tienda",
+    productos: [
+        { id: 1, nombre: "Laptop", precio: 999.99 },
+        { id: 2, nombre: "Mouse", precio: 29.99 },
+        { id: 3, nombre: "Teclado", precio: 79.99 }
+    ]
+}
+
+// Acceder a la lista de productos
+lista productos = tienda.productos
+
+// Acceder a un producto especifico
+jsn primer_producto = tienda.productos[0]
+texto nombre_producto = primer_producto.nombre  // "Laptop"
+
+// Agregar un nuevo producto
+tienda.productos.agregar({
+    id: 4,
+    nombre: "Monitor",
+    precio: 299.99
+})
+```
+
+---
+
+## Ejemplo completo
+
+```qz
+// Crear un objeto JSON con datos de usuario
+jsn var usuario = {
+    id: 1,
+    nombre: "Maria Garcia",
+    email: "maria@ejemplo.com",
+    perfil: {
+        avatar: "maria.jpg",
+        biografia: "Desarrolladora de software",
+        redes_sociales: {
+            github: "mariagarcia",
+            linkedin: "maria-garcia"
+        }
+    },
+    proyectos: [
+        { nombre: "Proyecto A", estado: "completado" },
+        { nombre: "Proyecto B", estado: "en_progreso" }
+    ]
+}
+
+// Verificar y actualizar datos
+si (usuario.contiene_clave("email")) {
+    consola.mostrar_exito(t"Email: {usuario.email}")
+}
+
+// Agregar nueva propiedad
+usuario.establecer("fecha_registro", "2024-01-15")
+
+// Modificar datos anidados
+usuario.perfil.biografia = "Ingeniera de software senior"
+
+// Agregar nuevo proyecto
+usuario.proyectos.agregar({
+    nombre: "Proyecto C",
+    estado: "planificado"
+})
+
+// Mostrar JSON formateado
+consola.mostrar(usuario.texto_formateado())
+```
+
+---
+
+## Buenas practicas
+
+1. **Declara con `var`** los JSON que necesites modificar.
+2. **Usa `contiene_clave()`** antes de acceder a propiedades que podrian no existir.
+3. **Valida JSON externo** con `intentar`/`capturar` al parsear cadenas.
+4. **Usa `texto_formateado()`** para depuracion y logs legibles.
+5. **Combina con `claves()` y `valores()`** para procesar objetos dinamicamente.

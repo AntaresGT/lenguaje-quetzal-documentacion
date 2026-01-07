@@ -1,13 +1,99 @@
 ---
-title: Reserved words
-description: List of words that cannot be used as identifiers in Quetzal language.
+title: Reserved Words
+description: Complete list of reserved words in Quetzal Language.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../referencia/palabras-reservadas.mdx';
+These words cannot be used as identifiers (variable names, function names, etc.).
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+## Control Flow
 
-<ContenidoOriginal />
+| Keyword | Description |
+|---------|-------------|
+| `si` | If condition |
+| `sino` | Else |
+| `mientras` | While loop |
+| `hacer` | Do-while loop |
+| `para` | For loop |
+| `en` | Iteration (for-in) |
+| `cada` | Iteration (for-each) |
+| `romper` | Break loop |
+| `continuar` | Continue to next iteration |
+| `retornar` | Return from function |
+
+## Data Types
+
+| Keyword | Description |
+|---------|-------------|
+| `entero` | Integer type |
+| `numero` | Decimal number type |
+| `texto` | String type |
+| `log` | Boolean type |
+| `vacio` | Void type (no value) |
+| `lista` | List type |
+| `jsn` | JSON object type |
+
+## Boolean Values
+
+| Keyword | Description |
+|---------|-------------|
+| `verdadero` | True |
+| `falso` | False |
+| `nulo` | Null value |
+
+## Logical Operators
+
+| Keyword | Description |
+|---------|-------------|
+| `y` | Logical AND |
+| `o` | Logical OR |
+| `no` | Logical NOT |
+
+## Object Oriented
+
+| Keyword | Description |
+|---------|-------------|
+| `objeto` | Object declaration |
+| `nuevo` | Create instance |
+| `ambiente` | Self reference (this) |
+| `privado` | Private access modifier |
+| `publico` | Public access modifier |
+| `libre` | Static member |
+| `como` | Inheritance |
+| `padre` | Parent reference |
+
+## Modules
+
+| Keyword | Description |
+|---------|-------------|
+| `importar` | Import module |
+| `desde` | Import source |
+| `exportar` | Export symbols |
+
+## Error Handling
+
+| Keyword | Description |
+|---------|-------------|
+| `intentar` | Try block |
+| `capturar` | Catch block |
+| `finalmente` | Finally block |
+| `lanzar` | Throw exception |
+| `excepcion` | Exception type |
+
+## Mutability
+
+| Keyword | Description |
+|---------|-------------|
+| `var` | Mutable variable |
+
+## Asynchronous (Reserved)
+
+| Keyword | Description |
+|---------|-------------|
+| `asincrono` | Async function (reserved) |
+| `esperar` | Await (reserved) |
+
+## Built-in Objects
+
+| Identifier | Description |
+|------------|-------------|
+| `consola` | Console object |

@@ -1,13 +1,74 @@
 ---
-title: Conditional
-description: Use of conditional structures in quetzal language.
+title: Conditionals
+description: Using conditional structures in Quetzal Language.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../control/condicionales.mdx';
+## `si` (if)
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+Evaluates a condition and executes the associated block when it is `verdadero` (true).
 
-<ContenidoOriginal />
+```qz
+entero edad = 41
+
+// Conditionals
+si (edad > 60) {
+    consola.mostrar("The person is a senior")
+} sino si (edad > 18) {
+    consola.mostrar("The person is an adult")
+} sino {
+    consola.mostrar("The person is a minor")
+}
+```
+
+## `sino` (else)
+
+Optionally add an `sino` block to handle the opposite case.
+
+```qz
+si (edad >= 18) {
+    consola.mostrar("Is an adult")
+} sino {
+    consola.mostrar("Is a minor")
+}
+```
+
+## `sino si` (else if)
+
+Allows chaining additional conditions.
+
+```qz
+si (edad > 60) {
+    consola.mostrar("The person is a senior")
+} sino si (edad > 18) {
+    consola.mostrar("The person is an adult")
+} sino {
+    consola.mostrar("The person is a minor")
+}
+```
+
+## Conditionals in Expressions
+
+You can use the ternary operator for simple conditionals.
+
+```qz
+texto estado = edad >= 18 ? "Adult" : "Minor"
+```
+
+## Strict Comparisons
+
+- Use `==` to compare values.
+- For JSON and lists, the complete structure is compared.
+- Avoid comparing different types without prior conversion; otherwise an error will be generated.
+
+```qz
+jsn usuario = { nombre: "Ana", activo: verdadero }
+si (usuario.activo == verdadero) {
+    consola.mostrar("Active user")
+}
+```
+
+## Best Practices
+
+- Group complex conditions with parentheses to improve readability.
+- Use methods like `contiene_clave` or `longitud()` before evaluating conditions on JSON or lists.
+- Extract conditions to descriptive functions when they repeat in multiple places.

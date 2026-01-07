@@ -1,0 +1,146 @@
+---
+title: Intermediate Examples
+description: Intermediate code examples in Quetzal Language.
+---
+
+## Object-Oriented Programming
+
+```qz
+objeto Rectangulo {
+    privado:
+        numero var ancho
+        numero var alto
+
+    publico:
+        Rectangulo(numero ancho, numero alto) {
+            ambiente.ancho = ancho
+            ambiente.alto = alto
+        }
+
+        numero calcular_area() {
+            retornar ambiente.ancho * ambiente.alto
+        }
+
+        numero calcular_perimetro() {
+            retornar 2 * (ambiente.ancho + ambiente.alto)
+        }
+
+        texto describir() {
+            retornar t"Rectangle: {ambiente.ancho}x{ambiente.alto}"
+        }
+}
+
+Rectangulo rect = nuevo Rectangulo(10, 5)
+consola.mostrar(rect.describir())
+consola.mostrar(t"Area: {rect.calcular_area()}")
+consola.mostrar(t"Perimeter: {rect.calcular_perimetro()}")
+```
+
+## Inheritance
+
+```qz
+objeto Vehiculo {
+    privado:
+        texto var marca
+        entero var anio
+
+    publico:
+        Vehiculo(texto marca, entero anio) {
+            ambiente.marca = marca
+            ambiente.anio = anio
+        }
+
+        texto obtener_info() {
+            retornar t"{ambiente.marca} ({ambiente.anio})"
+        }
+}
+
+objeto Automovil como Vehiculo {
+    privado:
+        entero var puertas
+
+    publico:
+        Automovil(texto marca, entero anio, entero puertas) {
+            padre.Vehiculo(marca, anio)
+            ambiente.puertas = puertas
+        }
+
+        texto obtener_info() {
+            texto base = padre.Vehiculo.obtener_info()
+            retornar t"{base} - {ambiente.puertas} doors"
+        }
+}
+
+Automovil auto = nuevo Automovil("Toyota", 2023, 4)
+consola.mostrar(auto.obtener_info())
+```
+
+## Module System
+
+```qz
+// file: matematicas.qz
+numero sumar(numero a, numero b) {
+    retornar a + b
+}
+
+numero multiplicar(numero a, numero b) {
+    retornar a * b
+}
+
+exportar { sumar, multiplicar }
+```
+
+```qz
+// file: principal.qz
+importar { sumar, multiplicar } desde "matematicas.qz"
+
+numero resultado_suma = sumar(5, 3)
+numero resultado_mult = multiplicar(4, 7)
+
+consola.mostrar(t"Sum: {resultado_suma}")
+consola.mostrar(t"Product: {resultado_mult}")
+```
+
+## Data Processing
+
+```qz
+lista<jsn> usuarios = [
+    { nombre: "Ana", edad: 28, activo: verdadero },
+    { nombre: "Juan", edad: 35, activo: falso },
+    { nombre: "Maria", edad: 22, activo: verdadero }
+]
+
+// Filter active users
+lista<jsn> var activos = []
+para (jsn var usuario en usuarios) {
+    si (usuario.activo == verdadero) {
+        activos.agregar(usuario)
+    }
+}
+
+consola.mostrar(t"Active users: {activos.longitud()}")
+
+// Calculate average age
+numero var suma_edades = 0
+para (jsn var usuario en usuarios) {
+    suma_edades += usuario.edad
+}
+numero promedio = suma_edades / usuarios.longitud()
+consola.mostrar(t"Average age: {promedio}")
+```
+
+## Recursive Functions
+
+```qz
+entero fibonacci(entero n) {
+    si (n <= 1) {
+        retornar n
+    }
+    retornar fibonacci(n - 1) + fibonacci(n - 2)
+}
+
+// Print Fibonacci sequence
+para (entero var i = 0; i < 10; i++) {
+    consola.mostrar(t"fib({i}) = {fibonacci(i)}")
+}
+```

@@ -1,49 +1,64 @@
 ---
-title: Sintaxis básica
-description: Elementos esenciales de la sintaxis del Lenguaje Quetzal en su versión v0.0.12.
+title: Sintaxis basica
+description: Elementos esenciales de la sintaxis del Lenguaje Quetzal v0.0.2.
 ---
 
-Lenguaje Quetzal utiliza una sintaxis limpia sin punto y coma. Cada instrucción ocupa su propia línea o bloque y las palabras clave están en español.
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Lenguaje Quetzal utiliza una sintaxis limpia sin punto y coma. Cada instruccion ocupa su propia linea o bloque y las palabras clave estan en espanol.
 
 ## Comentarios
 
 ```qz
-// Comentario de una línea
+// Comentario de una linea
 
 /*
- Comentario de varias líneas
+ Comentario de varias lineas
  que puede incluir saltos
- de línea.
+ de linea.
 */
+
+entero valor = 42  // Comentario al lado del codigo
 ```
 
 ## Tipos primitivos
 
-- `vacio`: ausencia de valor.
-- `entero`: números enteros con signo.
-- `número`: valores de punto flotante.
-- `texto`: cadenas Unicode.
-- `log`: valores lógicos (`verdadero` o `falso`).
+| Tipo | Descripcion | Ejemplo |
+|------|-------------|---------|
+| `vacio` | Ausencia de valor (solo para funciones) | - |
+| `entero` | Numeros enteros con signo | `entero edad = 27` |
+| `numero` | Valores de punto flotante | `numero pi = 3.14159` |
+| `texto` | Cadenas Unicode | `texto saludo = "Hola"` |
+| `log` | Valores logicos | `log activo = verdadero` |
 
 ```qz
-vacio sin_valor
 entero edad = 27
-número temperatura = 22.5
+numero temperatura = 22.5
 texto mensaje = "Hola"
 log activo = verdadero
 ```
+
+<Aside type="tip">
+Los tipos `numero` y `número` son equivalentes (con o sin tilde).
+</Aside>
 
 ## Listas
 
 Las listas se declaran con `lista` y pueden ser tipadas o no tipadas.
 
 ```qz
+// Lista tipada
 lista<entero> numeros = [1, 2, 3]
+lista<texto> nombres = ["Ana", "Luis"]
+
+// Lista no tipada (puede contener cualquier tipo)
 lista valores = [1, "dos", verdadero]
+
+// Lista vacia
 lista<texto> vacia = []
 ```
 
-Las listas mutables usan `var` y permiten métodos como `agregar`, `ordenar` o `sumar`.
+Las listas mutables usan `var` y permiten metodos como `agregar`, `ordenar` o `sumar`.
 
 ```qz
 lista<texto> var frutas = ["manzana", "naranja"]
@@ -73,72 +88,240 @@ persona.establecer("activo", falso)
 Por defecto las variables son inmutables. Para permitir cambios se utiliza la palabra reservada `var` tras el tipo.
 
 ```qz
-entero contador = 10          // Inmutable
-entero var mutable = 5        // Mutable
+entero contador = 10          // Inmutable (constante)
+entero var mutable = 5        // Mutable (variable)
 mutable += 1
 
 lista<entero> var datos = [1, 2]
 datos.agregar(3)
 ```
 
-Las listas y JSON declarados dentro de funciones pueden ser mutables sin `var` cuando el intérprete necesita modificar su contenido temporalmente, pero se recomienda declarar la intención de forma explícita.
-
 ## Operadores
 
-### Aritméticos
+### Aritmeticos
 
 ```qz
 entero a = 7
 entero b = 3
 
-entero suma = a + b
-entero resta = a - b
-entero producto = a * b
-entero cociente = a / b
-entero residuo = a % b
-entero incremento = a++      // Operador postfijo
-entero decremento = b--
+entero suma = a + b        // 10
+entero resta = a - b       // 4
+entero producto = a * b    // 21
+entero cociente = a / b    // 2
+entero residuo = a % b     // 1
 ```
 
-### Comparación y lógica
+### Incremento y decremento
 
 ```qz
-log igual = a == b
-log distinto = a != b
-log mayor = a > b
-log menor_o_igual = a <= b
+entero var valor = 5
 
-log conjuncion = (a > 5) y (b < 10)   // También se puede usar &&
-log disyuncion = (a > 5) o (b < 10)   // También se puede usar ||
-log negado = no conjuncion            // También se puede usar !
+valor++   // valor = 6
+valor--   // valor = 5
 ```
 
-### Operadores de asignación compuesta
+### Comparacion
 
 ```qz
-entero var total = 0
-total += 5
-total -= 2
-total *= 3
-total /= 2
+log igual = a == b         // falso
+log distinto = a != b      // verdadero
+log mayor = a > b          // verdadero
+log menor = a < b          // falso
+log mayor_igual = a >= b   // verdadero
+log menor_igual = a <= b   // falso
 ```
 
-## Interpolación de texto
+### Logicos
+
+```qz
+log condicion1 = verdadero
+log condicion2 = falso
+
+// Operadores en espanol
+log conjuncion = condicion1 y condicion2    // falso
+log disyuncion = condicion1 o condicion2    // verdadero
+log negacion = no condicion1                // falso
+
+// Operadores simbolicos (equivalentes)
+log and_result = condicion1 && condicion2   // falso
+log or_result = condicion1 || condicion2    // verdadero
+log not_result = !condicion1                // falso
+```
+
+### Asignacion compuesta
+
+```qz
+entero var total = 10
+
+total += 5    // total = 15
+total -= 3    // total = 12
+total *= 2    // total = 24
+total /= 4    // total = 6
+total %= 4    // total = 2
+```
+
+### Operador ternario
+
+```qz
+entero edad = 20
+texto mensaje = edad >= 18 ? "Mayor de edad" : "Menor de edad"
+```
+
+---
+
+## Interpolacion de texto
 
 Las cadenas interpoladas se declaran con el prefijo `t` y permiten incrustar expresiones dentro de llaves `{}`.
 
-```qz
-texto nombre = "Lucía"
-consola.mostrar(t"Hola, {nombre}")
-```
-
-## Entrada y salida básica
-
-Los métodos de `consola` permiten enviar mensajes y solicitar datos.
+### Sintaxis basica
 
 ```qz
-texto usuario = consola.pedir("Nombre:")
-consola.mostrar_exito(t"Bienvenido {usuario}")
+texto nombre = "Maria"
+entero edad = 25
+
+// Interpolacion basica
+texto saludo = t"Hola, {nombre}!"
+texto info = t"{nombre} tiene {edad} anos"
+
+consola.mostrar(saludo)  // "Hola, Maria!"
+consola.mostrar(info)    // "Maria tiene 25 anos"
 ```
 
-Con estos elementos puedes leer el resto de los fundamentos y construir programas más complejos.
+### Con expresiones
+
+Puedes incluir cualquier expresion valida dentro de las llaves:
+
+```qz
+entero a = 10
+entero b = 5
+
+texto operaciones = t"Suma: {a + b}, Resta: {a - b}, Producto: {a * b}"
+// "Suma: 15, Resta: 5, Producto: 50"
+
+texto comparacion = t"Es {a} mayor que {b}? {a > b}"
+// "Es 10 mayor que 5? verdadero"
+```
+
+### Con diferentes tipos
+
+La interpolacion convierte automaticamente los valores a texto:
+
+```qz
+numero precio = 99.99
+log disponible = verdadero
+lista numeros = [1, 2, 3]
+
+texto producto = t"Precio: ${precio}, Disponible: {disponible}"
+texto lista_info = t"Numeros: {numeros}"
+
+jsn datos = { nombre: "Juan", edad: 30 }
+texto json_info = t"Datos: {datos}"
+```
+
+### Interpolacion multilinea
+
+```qz
+texto nombre = "Juan"
+entero puntos = 150
+
+texto mensaje = t"Estimado/a {nombre},
+Sus {puntos} puntos estan disponibles.
+Gracias por usar Quetzal!"
+
+consola.mostrar(mensaje)
+```
+
+### Escapar llaves
+
+Para mostrar llaves literales, usa doble barra invertida:
+
+```qz
+entero valor = 42
+texto con_llaves = t"El valor es {valor} y esto son llaves: \\{literal\\}"
+// "El valor es 42 y esto son llaves: {literal}"
+```
+
+### Ejemplos practicos
+
+<Tabs>
+  <TabItem label="Formateo de datos">
+```qz
+texto nombre = "Ana Garcia"
+numero saldo = 1234.56
+
+texto recibo = t"Cliente: {nombre}
+Saldo: Q{saldo}
+Fecha: 2024-01-15"
+
+consola.mostrar(recibo)
+```
+  </TabItem>
+  <TabItem label="Calculos">
+```qz
+numero radio = 5
+numero pi = 3.14159
+
+numero area = pi * radio * radio
+numero perimetro = 2 * pi * radio
+
+consola.mostrar(t"Radio: {radio}")
+consola.mostrar(t"Area: {area}")
+consola.mostrar(t"Perimetro: {perimetro}")
+```
+  </TabItem>
+  <TabItem label="Condiciones">
+```qz
+entero edad = 17
+
+texto estado = t"Estado: {edad >= 18 ? 'Mayor' : 'Menor'} de edad"
+consola.mostrar(estado)
+```
+  </TabItem>
+</Tabs>
+
+---
+
+## Entrada y salida basica
+
+Los metodos de `consola` permiten enviar mensajes y solicitar datos.
+
+### Mostrar mensajes
+
+```qz
+consola.mostrar("Mensaje normal")
+consola.mostrar_exito("Operacion exitosa")
+consola.mostrar_error("Ocurrio un error")
+consola.mostrar_advertencia("Advertencia importante")
+consola.mostrar_informacion("Informacion util")
+```
+
+### Solicitar entrada
+
+```qz
+texto nombre = consola.pedir("Ingresa tu nombre: ")
+consola.mostrar_exito(t"Bienvenido, {nombre}")
+
+// Entrada oculta (para contrasenas)
+texto clave = consola.pedir_secreto("Ingresa tu clave: ")
+```
+
+---
+
+## Valor nulo
+
+El literal `nulo` representa la ausencia de valor y puede asignarse a cualquier tipo:
+
+```qz
+entero valor_nulo = nulo
+texto mensaje_nulo = nulo
+lista<entero> lista_nula = nulo
+jsn json_nulo = nulo
+```
+
+<Aside type="caution">
+Intentar usar un valor `nulo` en operaciones puede causar errores. Verifica siempre antes de operar.
+</Aside>
+
+---
+
+Con estos elementos puedes leer el resto de los fundamentos y construir programas mas complejos.

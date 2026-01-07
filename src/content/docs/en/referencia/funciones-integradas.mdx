@@ -1,13 +1,119 @@
 ---
-title: Integrated functions
-description: Functions provided by the Quetzal Language Interpreter.
+title: Built-in Functions
+description: Functions and methods provided by the Quetzal Language interpreter.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../referencia/funciones-integradas.mdx';
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+These functions and methods are available without importing.
 
-<ContenidoOriginal />
+## Console Aliases
+
+| Function | Equivalent | Description |
+|----------|------------|-------------|
+| `imprimir(texto)` | `consola.mostrar` | Display text |
+| `imprimir_error(texto)` | `consola.mostrar_error` | Error messages |
+| `imprimir_advertencia(texto)` | `consola.mostrar_advertencia` | Warning messages |
+| `imprimir_informacion(texto)` | `consola.mostrar_informacion` | Info messages |
+| `imprimir_exito(texto)` | `consola.mostrar_exito` | Success messages |
+
+## `rango` Function
+
+Generates lists of consecutive integers.
+
+```qz
+lista<entero> from_zero = rango(5)      // [0, 1, 2, 3, 4]
+lista<entero> from_two = rango(2, 5)    // [2, 3, 4]
+```
+
+---
+
+## Text Methods
+
+### Case Transformations
+
+| Method | Description |
+|--------|-------------|
+| `.mayusculas()` | Convert to uppercase |
+| `.minusculas()` | Convert to lowercase |
+| `.capitalizar()` | First letter uppercase |
+| `.titulo()` | Each word capitalized |
+
+### Trimming
+
+| Method | Description |
+|--------|-------------|
+| `.recortar()` | Remove spaces from start and end |
+| `.recortar_inicio()` | Remove spaces from start |
+| `.recortar_final()` | Remove spaces from end |
+
+### Search and Verification
+
+| Method | Description |
+|--------|-------------|
+| `.contiene(texto)` | Check if contains substring |
+| `.empieza_con(texto)` | Check if starts with |
+| `.termina_con(texto)` | Check if ends with |
+| `.encontrar(texto)` | Find position of substring |
+| `.buscar_ultimo(texto)` | Find last occurrence |
+| `.contar(texto)` | Count occurrences |
+| `.igual_sin_caso(texto)` | Case-insensitive comparison |
+
+### Replacement
+
+| Method | Description |
+|--------|-------------|
+| `.reemplazar(old, new)` | Replace all occurrences |
+| `.reemplazar_primero(old, new)` | Replace first occurrence |
+
+### Division and Extraction
+
+| Method | Description |
+|--------|-------------|
+| `.dividir(separador)` | Split into list |
+| `.partir_lineas()` | Split by lines |
+| `.subtexto(inicio, fin)` | Extract substring |
+| `.izquierda(n)` | Extract first n characters |
+| `.derecha(n)` | Extract last n characters |
+
+### Encoding
+
+| Method | Description |
+|--------|-------------|
+| `.a_base64()` | Encode to Base64 |
+| `.decodificar_base64()` | Decode from Base64 |
+| `.a_enlace()` | URL encode |
+| `.decodificar_enlace()` | URL decode |
+
+---
+
+## Conversion Methods
+
+| Method | Description |
+|--------|-------------|
+| `.texto()` | Convert to text |
+| `.entero()` | Convert text to integer |
+| `.numero()` | Convert text to decimal |
+| `.log()` | Convert text to boolean |
+| `.lista()` | Convert text to list |
+
+---
+
+## Native Modules
+
+### Mathematics
+
+```qz
+importar { Matematica } desde "quetzal/matematica"
+```
+
+**Basic operations:** `sumar`, `restar`, `multiplicar`, `dividir`
+
+**Advanced:** `potencia`, `raiz_cuadrada`, `promedio`, `maximo`, `minimo`, `seno`, `coseno`, `tangente`, `absoluto`, `redondear`, `piso`, `techo`
+
+**Constants:** `PI`, `TAU`, `E`
+
+```qz
+numero area = Matematica.PI * Matematica.potencia(5, 2)
+numero raiz = Matematica.raiz_cuadrada(16)  // 4
+```

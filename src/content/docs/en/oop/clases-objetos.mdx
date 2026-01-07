@@ -1,13 +1,163 @@
 ---
-title: Objects
-description: Definition and use of objects in quetzal language.
+title: Objects and Inheritance
+description: Definition and use of objects in Quetzal Language, including simple, cascade, and multiple inheritance.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../oop/clases-objetos.mdx';
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
+Objects in Quetzal allow grouping data and behaviors. They are defined with the `objeto` keyword followed by the name and a block of members.
+
+## Basic Declaration
+
+```qz
+objeto Usuario {
+    texto nombre
+    entero edad
+
+    Usuario(texto nombre, entero edad) {
+        ambiente.nombre = nombre
+        ambiente.edad = edad
+    }
+
+    texto obtener_nombre() {
+        retornar ambiente.nombre
+    }
+}
+```
+
+- Attributes declared outside `privado` or `publico` are public by default.
+- Constructors use the same object name and don't return an explicit value.
+
+## Instantiation
+
+```qz
+Usuario persona = nuevo Usuario("Maria", 30)
+texto nombre = persona.obtener_nombre()
+```
+
+## `privado` and `publico` Blocks
+
+```qz
+objeto Banco {
+    privado:
+        numero var saldo = 0
+
+    publico:
+        Banco(numero inicial) {
+            ambiente.saldo = inicial
+        }
+
+        numero obtener_saldo() {
+            retornar ambiente.saldo
+        }
+}
+```
+
+- Members within `privado` are only available inside the object.
+- Members in `publico` can be used from anywhere.
+
+## Static Members (`libre`)
+
+Members declared with `libre` act as static members: they can be invoked without creating an instance.
+
+```qz
+objeto Matematicas {
+    libre numero PI = 3.14159
+
+    libre numero sumar(numero a, numero b) {
+        retornar a + b
+    }
+}
+
+numero resultado = Matematicas.sumar(2, 3)
+```
+
+---
+
+## Inheritance
+
+Quetzal supports object inheritance using the `como` keyword.
+
+### Simple Inheritance
+
+```qz
+objeto Animal {
+    privado:
+        texto var nombre
+    publico:
+        Animal(texto nombre) {
+            ambiente.nombre = nombre
+        }
+
+        texto obtener_nombre() {
+            retornar ambiente.nombre
+        }
+}
+
+objeto Perro como Animal {
+    publico:
+        Perro(texto nombre) {
+            padre.Animal(nombre)
+        }
+
+        texto ladrar() {
+            retornar "Guau!"
+        }
+}
+```
+
+<Aside type="tip">
+Use `padre.ObjectName(arguments)` inside the child constructor to invoke the parent constructor.
 </Aside>
 
-<ContenidoOriginal />
+### Cascade Inheritance
+
+```qz
+objeto Mamifero como Animal {
+    publico:
+        Mamifero(texto nombre) {
+            padre.Animal(nombre)
+        }
+}
+
+objeto Gato como Mamifero {
+    publico:
+        Gato(texto nombre) {
+            padre.Mamifero(nombre)
+        }
+
+        texto maullar() {
+            retornar "Miau!"
+        }
+}
+```
+
+### Multiple Inheritance
+
+Quetzal allows inheriting from multiple parent objects by separating them with commas:
+
+```qz
+objeto Felino como Mamifero, Animal {
+    publico:
+        Felino(texto nombre) {
+            padre.Mamifero(nombre)
+            padre.Animal(nombre)
+        }
+}
+```
+
+<Aside type="caution">
+When using multiple inheritance, you must explicitly call all parent constructors and resolve method conflicts using `padre.ParentName.method()`.
+</Aside>
+
+### Method Overriding
+
+```qz
+objeto Perro como Animal {
+    publico:
+        // Override parent method
+        texto describir() {
+            retornar "Soy un perro"
+        }
+}
+```

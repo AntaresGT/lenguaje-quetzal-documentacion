@@ -1,0 +1,158 @@
+---
+title: Common Errors
+description: Common errors and their solutions in Quetzal Language.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+## Syntax Errors
+
+### Missing Parentheses or Braces
+
+```
+Error: Se esperaba ')' despues de la expresion
+```
+
+**Solution:** Check that all parentheses and braces are properly closed.
+
+```qz
+// Wrong
+si (edad > 18 {
+    consola.mostrar("Adult")
+}
+
+// Correct
+si (edad > 18) {
+    consola.mostrar("Adult")
+}
+```
+
+### Undefined Variable
+
+```
+Error: Variable 'nombre' no definida
+```
+
+**Solution:** Declare the variable before using it.
+
+```qz
+// Wrong
+consola.mostrar(nombre)
+
+// Correct
+texto nombre = "Ana"
+consola.mostrar(nombre)
+```
+
+## Type Errors
+
+### Incompatible Types
+
+```
+Error: No se puede asignar 'texto' a tipo 'entero'
+```
+
+**Solution:** Use explicit conversion or correct the type.
+
+```qz
+// Wrong
+entero valor = "123"
+
+// Correct
+entero valor = "123".entero()
+```
+
+### Invalid Operation
+
+```
+Error: No se puede sumar 'texto' con 'entero'
+```
+
+**Solution:** Convert values to compatible types.
+
+```qz
+// Wrong
+texto resultado = "Age: " + 25
+
+// Correct
+texto resultado = "Age: " + (25).texto()
+```
+
+## Runtime Errors
+
+### Index Out of Range
+
+```
+Error: Indice fuera de rango
+```
+
+**Solution:** Check list bounds before accessing.
+
+```qz
+lista<entero> numeros = [1, 2, 3]
+
+// Wrong
+entero valor = numeros[5]
+
+// Correct
+si (numeros.longitud() > 5) {
+    entero valor = numeros[5]
+}
+```
+
+### Division by Zero
+
+```
+Error: Division por cero
+```
+
+**Solution:** Check divisor before dividing.
+
+```qz
+// Wrong
+entero resultado = 10 / 0
+
+// Correct
+entero divisor = 0
+si (divisor != 0) {
+    entero resultado = 10 / divisor
+}
+```
+
+### Invalid JSON
+
+```
+Error: JSON invalido
+```
+
+**Solution:** Validate JSON string before parsing.
+
+```qz
+intentar {
+    jsn datos = texto_json.jsn()
+} capturar (excepcion e) {
+    consola.mostrar_error("Invalid JSON: " + e.mensaje)
+}
+```
+
+## Object Errors
+
+### Accessing Private Members
+
+```
+Error: Miembro 'saldo' es privado
+```
+
+**Solution:** Use public methods to access private data.
+
+### Calling Non-existent Method
+
+```
+Error: Metodo 'calcular' no existe en 'Usuario'
+```
+
+**Solution:** Check method name and object type.
+
+<Aside type="tip">
+Always check the interpreter's error messages carefully. They include the line number and a description of the problem.
+</Aside>

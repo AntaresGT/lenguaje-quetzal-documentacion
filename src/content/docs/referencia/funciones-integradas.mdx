@@ -1,24 +1,26 @@
 ---
 title: Funciones integradas
-description: Funciones proporcionadas por el intérprete de Lenguaje Quetzal.
+description: Funciones y metodos proporcionados por el interprete de Lenguaje Quetzal.
 ---
 
-Estas funciones están disponibles sin necesidad de importarlas.
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+
+Estas funciones y metodos estan disponibles sin necesidad de importarlas.
 
 ## Alias de consola
 
-| Función | Equivalente en `consola` | Descripción |
+| Funcion | Equivalente en `consola` | Descripcion |
 |---------|--------------------------|-------------|
 | `imprimir(texto)` | `consola.mostrar` | Muestra texto con el color por defecto. |
 | `imprimir_error(texto)` | `consola.mostrar_error` | Muestra mensajes de error. |
 | `imprimir_advertencia(texto)` | `consola.mostrar_advertencia` | Mensajes de advertencia. |
 | `imprimir_informacion(texto)` | `consola.mostrar_informacion` | Mensajes informativos. |
-| `imprimir_exito(texto)` | `consola.mostrar_exito` | Mensajes de éxito. |
-| `imprimir_alerta(texto)` | `consola.mostrar_alerta` | Mensajes que requieren atención. |
-| `imprimir_confirmacion(texto)` | `consola.mostrar_confirmacion` | Mensajes de confirmación. |
-| `imprimir_depurar(texto)` | `consola.mostrar_depurar` | Salida destinada a depuración. |
+| `imprimir_exito(texto)` | `consola.mostrar_exito` | Mensajes de exito. |
+| `imprimir_alerta(texto)` | `consola.mostrar_alerta` | Mensajes que requieren atencion. |
+| `imprimir_confirmacion(texto)` | `consola.mostrar_confirmacion` | Mensajes de confirmacion. |
+| `imprimir_depurar(texto)` | `consola.mostrar_depurar` | Salida destinada a depuracion. |
 
-Todas aceptan una única cadena (`texto`). Si necesitas mostrar otros tipos, conviértelos mediante `.texto()` o utiliza cadenas interpoladas `t"..."`.
+Todas aceptan una unica cadena (`texto`). Si necesitas mostrar otros tipos, conviertelos mediante `.texto()` o utiliza cadenas interpoladas `t"..."`.
 
 ## `rango`
 
@@ -33,22 +35,252 @@ lista<entero> de_dos_a_cinco = rango(2, 5)       // [2, 3, 4]
 - Con dos argumentos (`rango(inicio, fin)`) crea una lista desde `inicio` hasta `fin - 1`.
 - Los argumentos deben ser enteros no negativos y `inicio` no puede ser mayor que `fin`.
 
-## Métodos de conversión
+---
 
-Aunque se invocan como métodos (`valor.texto()`, `cadena.entero()`), forman parte del conjunto estándar del lenguaje y están disponibles para todos los valores. Revisa la sección de **Conversión de tipos** para conocerlos a detalle.
+## Metodos de texto
 
-## Módulos nativos
+Los valores de tipo `texto` tienen metodos integrados para manipulacion y transformacion.
 
-El intérprete distribuye el módulo `quetzal/matemática` con funciones adicionales:
-
-- `Matemática.sumar`, `Matemática.restar`, `Matemática.multiplicar`, `Matemática.dividir`
-- Operaciones avanzadas: `potencia`, `promedio`, `maximo`, `minimo`, `hipotenusa`, `logaritmo_base`, entre otras.
-- Constantes: `Matemática.PI`, `Matemática.TAU`, `Matemática.E`.
-
-Para usarlo, importa el módulo antes de llamar a sus funciones.
+### Longitud
 
 ```qz
-importar { Matemática } desde "quetzal/matemática"
+texto mensaje = "Hola Mundo"
+entero tamaño = mensaje.longitud()  // 10
 ```
 
-La documentación de cada módulo nativo se amplía conforme se publiquen nuevas versiones.
+### Transformaciones de caso
+
+| Metodo | Descripcion | Ejemplo |
+|--------|-------------|---------|
+| `.mayusculas()` | Convierte a mayusculas | `"hola".mayusculas()` → `"HOLA"` |
+| `.minusculas()` | Convierte a minusculas | `"HOLA".minusculas()` → `"hola"` |
+| `.capitalizar()` | Primera letra mayuscula | `"hola mundo".capitalizar()` → `"Hola mundo"` |
+| `.titulo()` | Cada palabra capitalizada | `"hola mundo".titulo()` → `"Hola Mundo"` |
+
+```qz
+texto original = "hola MUNDO"
+
+texto mayus = original.mayusculas()      // "HOLA MUNDO"
+texto minus = original.minusculas()      // "hola mundo"
+texto capital = original.capitalizar()   // "Hola mundo"
+texto titulo = original.titulo()         // "Hola Mundo"
+```
+
+### Recorte de espacios
+
+| Metodo | Descripcion |
+|--------|-------------|
+| `.recortar()` | Elimina espacios al inicio y final |
+| `.recortar_inicio()` | Elimina espacios solo al inicio |
+| `.recortar_final()` | Elimina espacios solo al final |
+
+```qz
+texto con_espacios = "  Hola Mundo  "
+
+texto recortado = con_espacios.recortar()          // "Hola Mundo"
+texto sin_inicio = con_espacios.recortar_inicio()  // "Hola Mundo  "
+texto sin_final = con_espacios.recortar_final()    // "  Hola Mundo"
+```
+
+### Busqueda y verificacion
+
+```qz
+texto frase = "Hola Mundo Quetzal"
+
+// Verificar contenido
+log tiene = frase.contiene("Mundo")        // verdadero
+log empieza = frase.empieza_con("Hola")    // verdadero
+log termina = frase.termina_con("Quetzal") // verdadero
+
+// Encontrar posiciones
+entero pos = frase.encontrar("Mundo")      // 5
+entero ultima = frase.buscar_ultimo("o")   // 9
+entero no_existe = frase.encontrar("xyz")  // -1
+
+// Contar ocurrencias
+entero cuenta = "Hola Hola Hola".contar("Hola")  // 3
+
+// Comparacion insensible a mayusculas
+log igual = "hola".igual_sin_caso("HOLA")  // verdadero
+```
+
+### Reemplazo
+
+```qz
+texto original = "Hola Mundo Mundo"
+
+// Reemplazar todas las ocurrencias
+texto reemplazado = original.reemplazar("Mundo", "Quetzal")
+// "Hola Quetzal Quetzal"
+
+// Reemplazar solo la primera ocurrencia
+texto primero = original.reemplazar_primero("Mundo", "Quetzal")
+// "Hola Quetzal Mundo"
+```
+
+### Division y extraccion
+
+```qz
+texto frase = "uno,dos,tres"
+
+// Dividir por separador
+lista<texto> partes = frase.dividir(",")  // ["uno", "dos", "tres"]
+
+// Partir por lineas
+texto lineas = "Linea 1\nLinea 2"
+lista<texto> lista_lineas = lineas.partir_lineas()  // ["Linea 1", "Linea 2"]
+
+// Extraer subtexto
+texto sub = frase.subtexto(0, 3)    // "uno"
+texto izq = frase.izquierda(3)      // "uno"
+texto der = frase.derecha(4)        // "tres"
+```
+
+### Acceso por indice
+
+```qz
+texto palabra = "Quetzal"
+
+texto primer_char = palabra[0]   // "Q"
+texto segundo = palabra[1]       // "u"
+texto ultimo_char = palabra[-1]  // "l"
+texto penultimo = palabra[-2]    // "a"
+```
+
+<Aside type="tip">
+Los indices negativos cuentan desde el final del texto. `-1` es el ultimo caracter, `-2` el penultimo, etc.
+</Aside>
+
+### Repeticion e inversion
+
+```qz
+texto base = "Hola "
+
+texto repetido = base.repetir(3)   // "Hola Hola Hola "
+texto invertido = base.invertir()  // " aloH"
+```
+
+### Validacion
+
+```qz
+log es_num = "12345".es_numero()        // verdadero
+log es_ent = "12345".es_entero()        // verdadero
+log es_alfa = "abc123".es_alfanumerico() // verdadero
+
+// Devuelven falso si contienen caracteres invalidos
+log invalido = "12.34".es_entero()      // falso
+log con_espacios = "abc 123".es_alfanumerico()  // falso
+```
+
+### Codificacion
+
+<Tabs>
+  <TabItem label="Base64">
+```qz
+texto original = "Hola Mundo"
+
+// Codificar a Base64
+texto base64 = original.a_base64()
+// "SG9sYSBNdW5kbw=="
+
+// Decodificar de Base64
+texto decodificado = base64.decodificar_base64()
+// "Hola Mundo"
+```
+  </TabItem>
+  <TabItem label="URL">
+```qz
+// Codificar para URL
+texto url_codificada = "Hola Mundo!".a_enlace()
+// "Hola%20Mundo!"
+
+// Decodificar de URL
+texto url_decodificada = "Hola%20Mundo!".decodificar_enlace()
+// "Hola Mundo!"
+```
+  </TabItem>
+</Tabs>
+
+### Unir listas a texto
+
+```qz
+lista<texto> palabras = ["Hola", "Mundo", "desde", "Quetzal"]
+texto unido = palabras.unir(" ")  // "Hola Mundo desde Quetzal"
+
+lista<entero> numeros = [1, 2, 3, 4, 5]
+texto lista_numeros = numeros.unir(", ")  // "1, 2, 3, 4, 5"
+```
+
+---
+
+## Metodos de conversion
+
+Aunque se invocan como metodos (`valor.texto()`, `cadena.entero()`), forman parte del conjunto estandar del lenguaje y estan disponibles para todos los valores.
+
+| Metodo | Descripcion |
+|--------|-------------|
+| `.texto()` | Convierte cualquier valor a texto |
+| `.entero()` | Convierte texto a entero |
+| `.numero()` | Convierte texto a numero decimal |
+| `.log()` | Convierte texto a valor logico |
+| `.lista()` | Convierte texto a lista |
+
+```qz
+// Texto a numeros
+entero numero_entero = "123".entero()
+numero numero_decimal = "123.45".numero()
+
+// Texto a logico
+log valor_logico = "verdadero".log()
+
+// Cualquier tipo a texto
+texto desde_entero = (42).texto()
+texto desde_lista = [1, 2, 3].texto()
+```
+
+Revisa la seccion de **Conversion de tipos** para conocerlos a detalle.
+
+---
+
+## Modulos nativos
+
+El interprete distribuye el modulo `quetzal/matematica` con funciones adicionales:
+
+### Matematica
+
+```qz
+importar { Matematica } desde "quetzal/matematica"
+```
+
+**Operaciones basicas:**
+- `Matematica.sumar(a, b)`
+- `Matematica.restar(a, b)`
+- `Matematica.multiplicar(a, b)`
+- `Matematica.dividir(a, b)`
+
+**Operaciones avanzadas:**
+- `Matematica.potencia(base, exponente)`
+- `Matematica.raiz_cuadrada(valor)`
+- `Matematica.promedio(lista)`
+- `Matematica.maximo(a, b)` / `Matematica.minimo(a, b)`
+- `Matematica.hipotenusa(a, b)`
+- `Matematica.logaritmo_base(valor, base)`
+- `Matematica.seno(angulo)` / `Matematica.coseno(angulo)` / `Matematica.tangente(angulo)`
+- `Matematica.absoluto(valor)`
+- `Matematica.redondear(valor)`
+- `Matematica.piso(valor)` / `Matematica.techo(valor)`
+
+**Constantes:**
+- `Matematica.PI` - 3.14159265359
+- `Matematica.TAU` - 6.28318530718
+- `Matematica.E` - 2.71828182845
+
+```qz
+importar { Matematica } desde "quetzal/matematica"
+
+numero area_circulo = Matematica.PI * Matematica.potencia(5, 2)
+numero hipotenusa = Matematica.hipotenusa(3, 4)  // 5
+numero raiz = Matematica.raiz_cuadrada(16)       // 4
+```
+
+La documentacion de cada modulo nativo se amplia conforme se publiquen nuevas versiones.

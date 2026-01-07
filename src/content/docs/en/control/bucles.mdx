@@ -1,13 +1,87 @@
 ---
 title: Loops
-description: Repetitive structures available in Quetzal language.
+description: Repetitive structures available in Quetzal Language.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../control/bucles.mdx';
+## `mientras` (while)
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+Executes the block while the condition is true.
 
-<ContenidoOriginal />
+```qz
+// While loop
+entero var iterador_mientras = 0
+mientras (iterador_mientras < 10) {
+    consola.mostrar("Iteration: " + iterador_mientras.texto())
+    iterador_mientras++
+}
+```
+
+## `hacer ... mientras` (do...while)
+
+Evaluates the condition at the end of the block, guaranteeing at least one execution.
+
+```qz
+// Do-while
+entero var iterador_hacer = 0
+hacer {
+    consola.mostrar("This message prints at least once.")
+    consola.mostrar("Iteration: " + iterador_hacer.texto())
+    iterador_hacer++
+} mientras (iterador_hacer < 3)
+```
+
+## `para` (for)
+
+Exists in two variants:
+
+1. **Classic** with initialization, condition, and increment.
+
+    ```qz
+    // For loop
+    para (entero var i = 0; i < 5; i++) {
+        consola.mostrar("For loop, iteration: " + i.texto())
+    }
+    ```
+
+2. **Iteration over collections** using `en` or `cada`.
+
+    ```qz
+    // For-in loop
+    lista<entero> lista_numeros = [10, 20, 30, 40, 50]
+    para (entero var valor_numero en lista_numeros) {
+        consola.mostrar("Current value: " + valor_numero.texto())
+    }
+
+    // For-each loop
+    para (entero var valor_numero cada lista_numeros) {
+        consola.mostrar("Current value: " + valor_numero.texto())
+    }
+    ```
+
+Both forms create a new scope for loop variables.
+
+## Loop Control
+
+- `romper` (break): terminates the current loop.
+- `continuar` (continue): skips the current iteration and evaluates the next one.
+
+```qz
+// Exit any loop with 'romper'
+entero var contador = 0
+mientras (contador < 10) {
+    consola.mostrar("Counter: " + contador.texto())
+
+    si (contador == 5) {
+        consola.mostrar("Counter reached 5, exiting loop!")
+        romper
+    }
+
+    contador++
+}
+```
+
+## Recommendations
+
+- Avoid infinite loops by verifying that the condition changes in each iteration.
+- Use list methods (`sumar`, `promedio`, `buscar`) when they simplify code instead of manual iterations.
+- If you need to accumulate results, initialize variables outside the loop and document the intent with brief comments.

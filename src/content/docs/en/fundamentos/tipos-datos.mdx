@@ -1,13 +1,99 @@
 ---
-title: Data types
-description: Types available in quetzal language, conversion methods and common operations.
+title: Data Types
+description: Types available in Quetzal Language, conversion methods, and common operations.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../fundamentos/tipos-datos.mdx';
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
+## Primitive Types
+
+| Type | Description | Example |
+|------|-------------|---------|
+| `vacio` | Absence of value. Used as return type for functions that don't return a value. Cannot be used to declare variables. | - |
+| `entero` | 64-bit signed integers. | `entero edad = 32` |
+| `numero` | Double precision decimal values. | `numero temperatura = 21.5` |
+| `texto` | Unicode strings. | `texto saludo = "Hola"` |
+| `log` | Logical values `verdadero` or `falso`. | `log habilitado = verdadero` |
+
+## Lists
+
+Lists can be typed or generic.
+
+```qz
+lista<texto> nombres = ["Ana", "Luis", "Maria"]
+lista valores = [1, "dos", verdadero]
+```
+
+Mutable lists (`lista<type> var`) accept methods like `agregar`, `insertar`, `quitar_en`, `ordenar`, or `sumar`.
+
+```qz
+lista<entero> var numeros = [3, 1, 4]
+numeros.ordenar()
+consola.mostrar(numeros.texto())   // [1, 3, 4]
+```
+
+## JSON (`jsn`)
+
+JSON objects are first-class and support dot access, key access, or auxiliary methods.
+
+```qz
+jsn var persona = {
+    nombre: "Ana",
+    datos: {
+        edad: 28,
+        ciudad: "Guatemala"
+    },
+    telefonos: ["555-1234", "555-5678"],
+    activo: verdadero
+}
+
+texto ciudad = persona.datos.ciudad
+persona.establecer("activo", falso)
+lista<texto> claves = persona.claves()
+```
+
+## Type Conversion
+
+Values offer explicit conversion methods. If the operation is not possible, the interpreter throws a runtime error.
+
+```qz
+entero numero_entero = "123".entero()
+numero numero_decimal = "123.45".numero()
+log valor_logico = "verdadero".log()
+texto como_texto = numero_entero.texto()
+lista<entero> desde_texto = "1,2,3".lista()
+```
+
+To convert lists or JSON to readable text:
+
+```qz
+lista<texto> palabras = ["Hola", "Quetzal"]
+texto representacion = palabras.texto()    // "[Hola, Quetzal]"
+texto json_pretty = persona.texto_formateado()
+```
+
+## Null Values
+
+The interpreter recognizes the `nulo` literal, which can be assigned to any type.
+
+```qz
+entero valor_entero_nulo = nulo
+numero valor_numero_nulo = nulo
+texto valor_texto_nulo = nulo
+log valor_logico_nulo = nulo
+lista valores_lista_nula = nulo
+lista<entero> valores_lista_tipada_nula = nulo
+jsn valor_json_nulo = nulo
+```
+
+When accessing a non-existent property in a `jsn`, the result is `nulo`. Check for key presence using `contiene_clave` before converting values or calling methods on them.
+
+```qz
+jsn datos = { nombre: "Ana" }
+log tiene_activo = datos.contiene_clave("activo")
+log es_activo = tiene_activo y (datos.activo == verdadero)
+```
+
+<Aside type="tip">
+Check for key presence using `contiene_clave` before operating with potentially null values.
 </Aside>
-
-<ContenidoOriginal />

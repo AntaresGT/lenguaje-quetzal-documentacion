@@ -1,13 +1,123 @@
 ---
-title: Lists
-description: Operations with lists in Quetzal language.
+title: Lists and Matrices
+description: Operations with lists and multidimensional matrices in Quetzal Language.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../datos/listas.mdx';
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
+Lists represent ordered collections of values. They can be declared with a specific type (`lista<entero>`) or without a type (`lista`).
+
+## Declaration
+
+```qz
+// Typed list
+lista<texto> nombres = ["Ana", "Carlos", "Maria"]
+lista<entero> numeros = [1, 2, 3, 4, 5]
+
+// Untyped list (can contain any type)
+lista mixta = [1, "dos", verdadero, 3.14]
+
+// Empty list
+lista<entero> vacia = []
+```
+
+Lists are immutable unless indicated as variables with `var`.
+
+```qz
+lista<entero> var numeros = [3, 1, 4]
+numeros.agregar(2)  // Now: [3, 1, 4, 2]
+```
+
+## Element Access
+
+- Positive indices start at 0.
+- Negative indices access from the end (`-1` is the last element).
+
+```qz
+lista<texto> frutas = ["manzana", "banana", "cereza"]
+
+texto primera = frutas[0]    // "manzana"
+texto ultima = frutas[-1]    // "cereza"
+```
+
+<Aside type="caution">
+Accessing a non-existent index throws an exception. Use `intentar`/`capturar` to handle these cases.
 </Aside>
 
-<ContenidoOriginal />
+## List Methods
+
+### Basic Information
+
+| Method | Description | Returns |
+|--------|-------------|---------|
+| `longitud()` | Number of elements | `entero` |
+| `esta_vacia()` | Checks if list has no elements | `log` |
+| `contiene(valor)` | Checks for value presence | `log` |
+
+### Add and Remove Elements
+
+| Method | Description |
+|--------|-------------|
+| `agregar(valor)` | Insert at end |
+| `insertar(indice, valor)` | Insert at specific position |
+| `remover(valor)` | Remove first occurrence |
+| `quitar_en(indice)` | Remove and return element at position |
+| `limpiar()` | Empty the list |
+
+### Search
+
+| Method | Description | Returns |
+|--------|-------------|---------|
+| `buscar(valor)` | Position of first match | `entero` (-1 if not found) |
+| `buscar_ultimo(valor)` | Position of last match | `entero` |
+| `contar(valor)` | Number of occurrences | `entero` |
+
+### Sorting
+
+| Method | Description | Modifies Original |
+|--------|-------------|-------------------|
+| `ordenar()` | Sort ascending | Yes |
+| `ordenar_descendente()` | Sort descending | Yes |
+| `ordenado()` | Return sorted copy | No |
+| `invertir()` | Reverse order | Yes |
+
+### Numeric Operations
+
+| Method | Description |
+|--------|-------------|
+| `sumar()` | Sum all elements |
+| `promedio()` | Calculate average |
+| `maximo()` | Get maximum value |
+| `minimo()` | Get minimum value |
+
+### Combining Lists
+
+| Method | Description |
+|--------|-------------|
+| `concatenar(otra)` | Returns new combined list |
+| `extender(otra)` | Adds elements from another list |
+| `unir(delimitador)` | Concatenates elements as text |
+
+## Multidimensional Matrices
+
+Matrices are lists of lists, allowing multidimensional data structures.
+
+```qz
+lista<lista<entero>> matriz_2d = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+// Access elements
+entero valor = matriz_2d[1][2]  // 6 (row 1, column 2)
+```
+
+## `rango` Function
+
+Generates lists of consecutive integers.
+
+```qz
+lista<entero> del_cero = rango(5)     // [0, 1, 2, 3, 4]
+lista<entero> del_dos = rango(2, 7)   // [2, 3, 4, 5, 6]
+```

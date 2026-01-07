@@ -1,13 +1,127 @@
 ---
-title: Access modifiers
-description: Visibility control in Quetzal language objects.
+title: Access Modifiers
+description: Controlling visibility of members in Quetzal Language objects.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../oop/modificadores-acceso.mdx';
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
+Quetzal provides access modifiers to control the visibility of object members.
+
+## `publico` (Public)
+
+Members in the `publico` block are accessible from anywhere.
+
+```qz
+objeto Usuario {
+    publico:
+        texto nombre
+
+        Usuario(texto nombre) {
+            ambiente.nombre = nombre
+        }
+
+        texto obtener_nombre() {
+            retornar ambiente.nombre
+        }
+}
+
+Usuario u = nuevo Usuario("Ana")
+texto nombre = u.obtener_nombre()  // Accessible
+texto directo = u.nombre           // Also accessible
+```
+
+## `privado` (Private)
+
+Members in the `privado` block are only accessible within the object itself.
+
+```qz
+objeto Cuenta {
+    privado:
+        numero var saldo = 0
+        texto clave_secreta
+
+        log validar_clave(texto clave) {
+            retornar ambiente.clave_secreta == clave
+        }
+
+    publico:
+        Cuenta(numero inicial, texto clave) {
+            ambiente.saldo = inicial
+            ambiente.clave_secreta = clave
+        }
+
+        numero consultar_saldo(texto clave) {
+            si (ambiente.validar_clave(clave)) {
+                retornar ambiente.saldo
+            }
+            retornar -1
+        }
+}
+```
+
+<Aside type="caution">
+Attempting to access private members from outside the object will cause an error.
 </Aside>
 
-<ContenidoOriginal />
+## Default Visibility
+
+Members declared without a visibility block are public by default.
+
+```qz
+objeto Simple {
+    texto nombre        // Public by default
+    entero valor = 0    // Public by default
+
+    Simple(texto nombre) {
+        ambiente.nombre = nombre
+    }
+}
+```
+
+## `libre` (Static)
+
+The `libre` keyword creates static members that belong to the object itself, not instances.
+
+```qz
+objeto Matematicas {
+    libre numero PI = 3.14159
+
+    libre numero cuadrado(numero valor) {
+        retornar valor * valor
+    }
+}
+
+// Use without instantiation
+numero area = Matematicas.PI * Matematicas.cuadrado(5)
+```
+
+<Aside type="note">
+Static members (`libre`) cannot access instance attributes using `ambiente`.
+</Aside>
+
+## Combining Modifiers
+
+You can have both private static and public static members:
+
+```qz
+objeto Utilidades {
+    privado:
+        libre entero var contador = 0
+
+    publico:
+        libre entero obtener_contador() {
+            retornar ambiente.contador
+        }
+
+        libre vacio incrementar() {
+            ambiente.contador++
+        }
+}
+```
+
+## Best Practices
+
+- Use `privado` for internal implementation details
+- Use `publico` for the object's interface
+- Use `libre` for utility functions that don't need instance state
+- Prefer getters/setters over direct attribute access for better encapsulation

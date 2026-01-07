@@ -1,13 +1,86 @@
 ---
-title: Type conversion
-description: Methods available to convert values ​​into quetzal language.
+title: Type Conversion
+description: How to convert between types in Quetzal Language.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../datos/conversion-tipos.mdx';
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
+Quetzal provides explicit conversion methods for transforming values between types.
+
+## Conversion Methods
+
+| Method | Description | Example |
+|--------|-------------|---------|
+| `.texto()` | Convert any value to text | `(42).texto()` returns `"42"` |
+| `.entero()` | Convert text to integer | `"123".entero()` returns `123` |
+| `.numero()` | Convert text to decimal number | `"3.14".numero()` returns `3.14` |
+| `.log()` | Convert text to boolean | `"verdadero".log()` returns `verdadero` |
+| `.lista()` | Convert text to list | `"1,2,3".lista()` |
+| `.jsn()` | Convert text to JSON object | `'{"a":1}'.jsn()` |
+
+## Examples
+
+### To Text
+
+```qz
+entero numero = 42
+texto como_texto = numero.texto()  // "42"
+
+lista<entero> numeros = [1, 2, 3]
+texto lista_texto = numeros.texto()  // "[1, 2, 3]"
+
+jsn datos = { nombre: "Ana" }
+texto json_texto = datos.texto()
+texto json_formateado = datos.texto_formateado()
+```
+
+### To Numbers
+
+```qz
+texto cadena_entero = "123"
+entero valor_entero = cadena_entero.entero()  // 123
+
+texto cadena_decimal = "3.14159"
+numero valor_decimal = cadena_decimal.numero()  // 3.14159
+```
+
+### To Boolean
+
+```qz
+texto verdad = "verdadero"
+log valor_logico = verdad.log()  // verdadero
+
+texto falsedad = "falso"
+log valor_falso = falsedad.log()  // falso
+```
+
+## Error Handling
+
+<Aside type="caution">
+If a conversion is not possible, the interpreter throws a runtime error. Use `intentar`/`capturar` to handle these cases.
 </Aside>
 
-<ContenidoOriginal />
+```qz
+intentar {
+    entero valor = "not a number".entero()
+} capturar (excepcion error) {
+    consola.mostrar_error("Conversion failed: " + error.mensaje)
+}
+```
+
+## Implicit Conversions
+
+Quetzal does not perform implicit conversions between types. You must explicitly convert values when needed:
+
+```qz
+entero edad = 25
+// This would fail: "Age: " + edad
+// Correct way:
+texto mensaje = "Age: " + edad.texto()
+```
+
+## Best Practices
+
+- Always validate input before conversion
+- Use `intentar`/`capturar` for external or user-provided data
+- Prefer explicit conversions for code clarity

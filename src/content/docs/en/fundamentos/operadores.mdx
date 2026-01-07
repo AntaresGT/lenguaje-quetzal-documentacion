@@ -1,13 +1,150 @@
 ---
 title: Operators
-description: Operators available in quetzal language and practical examples of use.
+description: Operators available in Quetzal Language and practical usage examples.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../fundamentos/operadores.mdx';
+## Arithmetic
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+| Operator | Description | Example |
+|----------|-------------|---------|
+| `+` | Adds two numeric values or concatenates text. | `numero total = a + b` |
+| `-` | Subtracts the second operand from the first. | `entero diferencia = a - b` |
+| `*` | Multiplication. | `entero producto = a * b` |
+| `/` | Division. For integers, division is integer division. | `entero cociente = a / b` |
+| `%` | Remainder or modulo. | `entero residuo = a % b` |
 
-<ContenidoOriginal />
+```qz
+entero suma = 5 + 3
+texto combinado = "Hola" + " Quetzal"
+```
+
+## Relational
+
+| Operator | Description |
+|----------|-------------|
+| `==` | Equality. |
+| `!=` | Inequality. |
+| `>`  | Greater than. |
+| `<`  | Less than. |
+| `>=` | Greater than or equal. |
+| `<=` | Less than or equal. |
+
+```qz
+log es_mayor = 10 > 5
+log es_igual = "texto" == "texto"
+```
+
+## Logical
+
+Quetzal supports both symbolic operators (`&&`, `||`, `!`) and their Spanish equivalents (`y`, `o`, `no`).
+
+```qz
+log acceso = (usuario.autenticado y !usuario.bloqueado)
+log disponible = (stock > 0) o (pedido_en_camino == verdadero)
+log negado = no acceso
+```
+
+Non-boolean values are automatically converted to `log` following interpreter rules (e.g., empty lists are `falso`).
+
+## Assignment
+
+| Operator | Description |
+|----------|-------------|
+| `=` | Simple assignment. |
+| `+=` | Add and assign. |
+| `-=` | Subtract and assign. |
+| `*=` | Multiply and assign. |
+| `/=` | Divide and assign. |
+| `%=` | Calculate remainder and assign. |
+
+```qz
+entero var acumulado = 0
+acumulado += 5
+acumulado -= 2
+```
+
+## Increment and Decrement
+
+The `++` and `--` operators are available in postfix form.
+
+```qz
+entero var contador = 0
+contador++
+contador--
+```
+
+## Ternary Operator
+
+The form `condition ? value_if_true : value_if_false` is available for quick evaluations.
+
+```qz
+entero numero = -10
+entero absoluto = numero < 0 ? -numero : numero
+```
+
+## Operators for Lists and JSON
+
+Lists and `jsn` values provide methods instead of specific operators. For example, `lista.concatenar(otra_lista)` or `json.fusionar(otro_json)`. See the data types sections for more information.
+
+## Precedence
+
+1. Function calls and member access.
+2. Unary operators (`no`, `!`, `++`, `--`).
+3. Multiplication and division.
+4. Addition and subtraction.
+5. Comparisons.
+6. Logical operators (`y`, `o`).
+7. Assignments (`=`, `+=`, etc.).
+
+Use parentheses to clarify intent when combining multiple operators.
+
+## Complete Examples
+
+```qz
+// Arithmetic operators
+entero suma(entero a, entero b) {
+    retornar a + b
+}
+
+entero resta(entero a, entero b) {
+    retornar a - b
+}
+
+// Logical operators
+log es_verdadero(log valor) {
+    retornar valor
+}
+
+log es_falso(log valor) {
+    retornar !valor
+}
+
+// Comparison operators
+log es_igual(entero a, entero b) {
+    retornar a == b
+}
+
+log es_diferente(entero a, entero b) {
+    retornar a != b
+}
+
+log es_mayor(entero a, entero b) {
+    retornar a > b
+}
+
+log es_menor(entero a, entero b) {
+    retornar a < b
+}
+
+// Compound operators
+entero suma_compuesta(entero var valor, entero incremento) {
+    valor += incremento
+    retornar valor
+}
+
+// Run functions to test operators
+entero resultado_suma = suma(5, 10)
+entero resultado_resta = resta(10, 5)
+log resultado_es_igual = es_igual(5, 5)
+entero resultado_suma_compuesta = suma_compuesta(5, 10)
+```

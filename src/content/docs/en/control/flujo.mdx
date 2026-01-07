@@ -1,13 +1,83 @@
 ---
-title: Flow control
-description: Tools to modify the execution flow in quetzal language.
+title: Flow Control
+description: Tools to modify execution flow in Quetzal Language.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../control/flujo.mdx';
+## `retornar` (return)
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+Ends a function and returns a value. In `vacio` type functions it can be omitted.
 
-<ContenidoOriginal />
+```qz
+texto saludar(texto nombre) {
+    retornar t"Hola, {nombre}"
+}
+```
+
+Object constructors do not allow `retornar`; the implicit value is always `vacio`.
+
+## `romper` (break)
+
+Immediately exits the current loop (`para`, `mientras`, `hacer ... mientras`, or iterations with `en`/`cada`).
+
+```qz
+entero var contador = 0
+mientras (contador < 10) {
+    si (contador == 5) {
+        romper
+    }
+    contador++
+}
+```
+
+## `continuar` (continue)
+
+Skips the rest of the current block and evaluates the next loop iteration.
+
+```qz
+// Reserved word 'continuar', continues to the next loop iteration
+para (entero var i = 0; i < 10; i++) {
+    si (i % 2 == 0) {
+        // If the number is even, skip printing and continue to next iteration
+        continuar
+    }
+    consola.mostrar(i)
+}
+```
+
+## `lanzar` (throw)
+
+Generates an exception that can be caught higher up in the call stack.
+
+```qz
+numero dividir(numero a, numero b) {
+    si (b == 0) {
+        lanzar "Division by zero"
+    }
+    retornar a / b
+}
+```
+
+## `intentar`, `capturar`, `finalmente` (try, catch, finally)
+
+Handle exceptions generated within the `intentar` block. The `capturar` parameter must use the `excepcion` type.
+
+```qz
+intentar {
+    numero resultado = dividir(10, 0)
+    consola.mostrar(resultado.texto())
+} capturar (excepcion error) {
+    consola.mostrar_error(error.mensaje)
+} finalmente {
+    consola.mostrar("Operation finished")
+}
+```
+
+## `esperar` (await) - Reserved
+
+The `esperar` keyword is reserved for future asynchronous function execution. In v0.0.2 it is not yet fully enabled.
+
+## Program Exit Flow
+
+The interpreter does not include explicit instructions like `exit` or `quit`. To finish, simply allow the program to reach the end of the file or use `retornar` at the entry point if your application is organized within a main function.
+
+These tools, combined with conditionals and loops, allow you to control your programs' behavior.

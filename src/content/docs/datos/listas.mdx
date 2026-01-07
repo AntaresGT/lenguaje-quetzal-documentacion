@@ -1,15 +1,24 @@
 ---
-title: Listas
-description: Operaciones con listas en Lenguaje Quetzal.
+title: Listas y Matrices
+description: Operaciones con listas y matrices multidimensionales en Lenguaje Quetzal.
 ---
 
-Las listas representan colecciones ordenadas de valores. Pueden declararse con tipo específico (`lista<entero>`) o sin tipo (`lista`).
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 
-## Declaración
+Las listas representan colecciones ordenadas de valores. Pueden declararse con tipo especifico (`lista<entero>`) o sin tipo (`lista`).
+
+## Declaracion
 
 ```qz
-lista<texto> nombres = ["Ana", "Carlos", "María"]
-lista mixta = [1, "dos", verdadero]
+// Lista tipada
+lista<texto> nombres = ["Ana", "Carlos", "Maria"]
+lista<entero> numeros = [1, 2, 3, 4, 5]
+lista<numero> precios = [10.5, 20.3, 15.0]
+
+// Lista no tipada (puede contener cualquier tipo)
+lista mixta = [1, "dos", verdadero, 3.14]
+
+// Lista vacia
 lista<entero> vacia = []
 ```
 
@@ -17,121 +26,353 @@ Las listas son inmutables a menos que se indiquen como variables con `var`.
 
 ```qz
 lista<entero> var numeros = [3, 1, 4]
-numeros.agregar(2)
+numeros.agregar(2)  // Ahora: [3, 1, 4, 2]
 ```
 
 ## Acceso a elementos
 
-- Índices positivos comienzan en 0.
-- Índices negativos acceden desde el final (`-1` es el último elemento).
+- Indices positivos comienzan en 0.
+- Indices negativos acceden desde el final (`-1` es el ultimo elemento).
 
 ```qz
-texto segundo = nombres[1]
-texto ultimo = nombres[-1]
+lista<texto> frutas = ["manzana", "banana", "cereza"]
+
+texto primera = frutas[0]    // "manzana"
+texto segunda = frutas[1]    // "banana"
+texto ultima = frutas[-1]    // "cereza"
+texto penultima = frutas[-2] // "banana"
 ```
 
-## Métodos principales
+<Aside type="caution">
+Acceder a un indice que no existe lanza una excepcion. Usa `intentar`/`capturar` para manejar estos casos.
+</Aside>
 
-| Método | Descripción |
-|--------|-------------|
-| `longitud()` | Número de elementos. |
-| `esta_vacia()` | Devuelve `verdadero` si la lista no tiene elementos. |
-| `agregar(valor)` | Inserta al final (lista mutable). |
-| `insertar(indice, valor)` | Inserta en una posición específica. |
-| `remover(valor)` | Elimina la primera coincidencia. |
-| `quitar_en(indice)` | Elimina y devuelve el elemento de la posición indicada. |
-| `limpiar()` | Vacía la lista. |
-| `contiene(valor)` | Verifica la presencia de un valor. |
-| `buscar(valor)` / `buscar_ultimo(valor)` | Devuelve la posición de la coincidencia. |
-| `contar(valor)` | Número de veces que aparece un valor. |
-| `ordenar()` / `ordenar_descendente()` | Ordena elementos comparables. |
-| `ordenado()` | Devuelve una copia ordenada. |
-| `invertir()` | Invierte el orden de la lista mutable. |
-| `primero()` / `ultimo()` | Obtiene el primer o último elemento. |
-| `tomar(n)` | Crea una sublista con los primeros `n` elementos. |
-| `saltar(n)` | Omite los primeros `n` elementos. |
-| `sublista(inicio, fin)` | Extrae un rango (sin incluir `fin`). |
-| `sumar()` / `promedio()` / `maximo()` / `minimo()` | Operaciones numéricas. |
-| `unir(delimitador)` | Concatena elementos como texto. |
-| `concatenar(otra_lista)` | Devuelve una nueva lista con los elementos combinados. |
-| `extender(otra_lista)` | Añade todos los elementos de otra lista (mutable). |
-| `texto()` | Representación textual. |
-| `jsn()` | Convierte la lista a JSON. |
+---
 
-## Ejemplos prácticos
+## Metodos de listas
+
+### Informacion basica
+
+| Metodo | Descripcion | Retorna |
+|--------|-------------|---------|
+| `longitud()` | Numero de elementos | `entero` |
+| `esta_vacia()` | Verifica si la lista no tiene elementos | `log` |
+| `contiene(valor)` | Verifica la presencia de un valor | `log` |
 
 ```qz
-lista<entero> var numeros = [3, 1, 4]
-numeros.ordenar()                     // [1, 3, 4]
+lista<texto> frutas = ["manzana", "banana"]
 
-lista<texto> palabras = ["Hola", "Quetzal"]
-texto frase = palabras.unir(" ")      // "Hola Quetzal"
+entero tamaño = frutas.longitud()     // 2
+log vacia = frutas.esta_vacia()       // falso
+log tiene = frutas.contiene("banana") // verdadero
+```
 
-lista rango = rango(1, 5)              // [1, 2, 3, 4, 5]
- 
-// Acceso seguro con manejo de errores
-intentar {
-    texto elemento_seguro = palabras[5]  // Error
-} capturar(excepcion ex){
-    consola.mostrar("Error al acceder a la lista: " + ex.mensaje)
-}
+### Agregar y remover elementos
 
-// Índices negativos
-texto ultimo = palabras[-1]             // "Quetzal"
+<Aside type="note">
+Estos metodos requieren que la lista sea mutable (declarada con `var`).
+</Aside>
 
-// Búsquedas y conteos
-log contiene_elemento = palabras.contiene("Hola")   // verdadero
-entero posicion_elemento = palabras.buscar("Quetzal")
-entero posicion_ultimo = palabras.buscar_ultimo("Hola")
-entero ocurrencias = palabras.contar("Hola")
+| Metodo | Descripcion |
+|--------|-------------|
+| `agregar(valor)` | Inserta al final |
+| `insertar(indice, valor)` | Inserta en una posicion especifica |
+| `remover(valor)` | Elimina la primera coincidencia |
+| `quitar_en(indice)` | Elimina y devuelve el elemento de la posicion |
+| `limpiar()` | Vacia la lista |
 
-// Ordenar descendente y producir copia ordenada
-numeros.ordenar_descendente()           // [4, 3, 1]
-lista<entero> numeros_ordenados = numeros.ordenado()
+```qz
+lista<texto> var frutas = ["manzana", "banana"]
 
-// Invertir
+// Agregar al final
+frutas.agregar("cereza")
+// ["manzana", "banana", "cereza"]
+
+// Insertar en posicion especifica
+frutas.insertar(1, "naranja")
+// ["manzana", "naranja", "banana", "cereza"]
+
+// Remover por valor
+frutas.remover("banana")
+// ["manzana", "naranja", "cereza"]
+
+// Remover por indice
+texto removido = frutas.quitar_en(0)
+// removido = "manzana", frutas = ["naranja", "cereza"]
+
+// Vaciar la lista
+frutas.limpiar()
+// []
+```
+
+### Busqueda
+
+| Metodo | Descripcion | Retorna |
+|--------|-------------|---------|
+| `buscar(valor)` | Posicion de la primera coincidencia | `entero` (-1 si no existe) |
+| `buscar_ultimo(valor)` | Posicion de la ultima coincidencia | `entero` (-1 si no existe) |
+| `contar(valor)` | Numero de veces que aparece | `entero` |
+
+```qz
+lista<texto> letras = ["a", "b", "a", "c", "a"]
+
+entero primera = letras.buscar("a")        // 0
+entero ultima = letras.buscar_ultimo("a")  // 4
+entero cuenta = letras.contar("a")         // 3
+entero no_existe = letras.buscar("z")      // -1
+```
+
+### Ordenacion
+
+| Metodo | Descripcion | Modifica original |
+|--------|-------------|-------------------|
+| `ordenar()` | Ordena ascendente | Si |
+| `ordenar_descendente()` | Ordena descendente | Si |
+| `ordenado()` | Devuelve copia ordenada | No |
+| `invertir()` | Invierte el orden | Si |
+
+```qz
+lista<entero> var numeros = [3, 1, 4, 2]
+
+// Ordenar ascendente (modifica la lista)
+numeros.ordenar()
+// [1, 2, 3, 4]
+
+// Ordenar descendente
+numeros.ordenar_descendente()
+// [4, 3, 2, 1]
+
+// Obtener copia ordenada sin modificar original
+lista<entero> copia = numeros.ordenado()
+
+// Invertir orden
 numeros.invertir()
+// [1, 2, 3, 4]
+```
 
-// Primeros/últimos y sublistas
-texto primero = palabras.primero()      // "Hola"
-texto ult = palabras.ultimo()           // "Quetzal"
-lista<texto> primeros_n = palabras.tomar(1)
-lista<texto> omitidos_n = palabras.saltar(1)
-lista<texto> sub = palabras.sublista(0, 1)
+### Extraccion de elementos
 
-// Sumas, promedio, máximos y mínimos
-lista<entero> numeros_lista = [1, 2, 3, 4, 5]
-entero suma = numeros_lista.sumar()     // 15
-lista<número> numeros_flotantes = [1.5, 2.5, 3.0]
-número promedio = numeros_lista.promedio()  // 3.0
-entero maximo = numeros_lista.maximo()
-entero minimo = numeros_lista.minimo()
+| Metodo | Descripcion |
+|--------|-------------|
+| `primero()` | Obtiene el primer elemento |
+| `ultimo()` | Obtiene el ultimo elemento |
+| `tomar(n)` | Crea sublista con los primeros `n` elementos |
+| `saltar(n)` | Omite los primeros `n` elementos |
+| `sublista(inicio, fin)` | Extrae un rango (sin incluir `fin`) |
 
-// Concatenar y extender
+```qz
+lista<texto> frutas = ["manzana", "banana", "cereza", "durazno"]
+
+texto primera = frutas.primero()  // "manzana"
+texto ultima = frutas.ultimo()    // "durazno"
+
+lista<texto> primeras_dos = frutas.tomar(2)
+// ["manzana", "banana"]
+
+lista<texto> sin_primeras = frutas.saltar(2)
+// ["cereza", "durazno"]
+
+lista<texto> medio = frutas.sublista(1, 3)
+// ["banana", "cereza"]
+```
+
+### Operaciones numericas
+
+Estos metodos funcionan con listas de `entero` o `numero`.
+
+| Metodo | Descripcion |
+|--------|-------------|
+| `sumar()` | Suma todos los elementos |
+| `promedio()` | Calcula el promedio |
+| `maximo()` | Obtiene el valor maximo |
+| `minimo()` | Obtiene el valor minimo |
+
+```qz
+lista<entero> numeros = [1, 2, 3, 4, 5]
+
+entero suma = numeros.sumar()        // 15
+numero promedio = numeros.promedio() // 3.0
+entero max = numeros.maximo()        // 5
+entero min = numeros.minimo()        // 1
+
+// Con numeros decimales
+lista<numero> precios = [10.5, 20.3, 15.0]
+numero total = precios.sumar()  // 45.8
+```
+
+### Combinacion de listas
+
+| Metodo | Descripcion | Modifica original |
+|--------|-------------|-------------------|
+| `concatenar(otra)` | Devuelve nueva lista combinada | No |
+| `extender(otra)` | Añade elementos de otra lista | Si |
+| `unir(delimitador)` | Concatena elementos como texto | No |
+
+```qz
 lista<texto> lista1 = ["A", "B"]
 lista<texto> lista2 = ["C", "D"]
-lista<texto> concatenada = lista1.concatenar(lista2)
-lista<texto> var lista_base = ["A", "B"]
-lista_base.extender(lista2)
 
-// Conversión a texto, jsn y log
-texto como_texto = palabras.texto()     // "[Hola, Quetzal]"
-texto como_json = lista1.jsn()
-log lista_no_vacia = palabras.log()  // verdadero
+// Concatenar (crea nueva lista)
+lista<texto> combinada = lista1.concatenar(lista2)
+// ["A", "B", "C", "D"]
+
+// Extender (modifica la original)
+lista<texto> var base = ["A", "B"]
+base.extender(lista2)
+// base = ["A", "B", "C", "D"]
+
+// Unir como texto
+lista<texto> palabras = ["Hola", "Mundo", "Quetzal"]
+texto frase = palabras.unir(" ")  // "Hola Mundo Quetzal"
+
+lista<entero> nums = [1, 2, 3]
+texto numeros_texto = nums.unir(", ")  // "1, 2, 3"
 ```
 
-## Validaciones
+### Conversion
 
-- Para usar métodos mutadores (`agregar`, `ordenar`, etc.) la lista debe declararse con `var`.
-- Los métodos de ordenación requieren elementos comparables; mezclar tipos incompatibles genera un error.
-- Cuando un índice no existe, el intérprete lanza una excepción que puede manejarse con `intentar` y `capturar`.
+| Metodo | Descripcion |
+|--------|-------------|
+| `texto()` | Representacion textual |
+| `json()` | Convierte a JSON |
+| `logico()` | `verdadero` si no esta vacia |
 
 ```qz
+lista<texto> frutas = ["manzana", "banana"]
+
+texto como_texto = frutas.texto()  // "[manzana, banana]"
+texto como_json = frutas.json()    // '["manzana","banana"]'
+log tiene_elementos = frutas.logico()  // verdadero
+```
+
+---
+
+## Matrices multidimensionales
+
+Las matrices son listas de listas, permitiendo crear estructuras de datos multidimensionales.
+
+### Matriz 2D
+
+```qz
+lista<lista<entero>> matriz_2d = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+// Acceder a elementos
+entero valor = matriz_2d[1][2]  // 6 (fila 1, columna 2)
+entero primera_fila_primer_elem = matriz_2d[0][0]  // 1
+
+// Obtener una fila completa
+lista<entero> fila = matriz_2d[1]  // [4, 5, 6]
+```
+
+### Matriz 3D
+
+```qz
+lista<lista<lista<numero>>> matriz_3d = [
+    [
+        [1.1, 1.2],
+        [1.3, 1.4]
+    ],
+    [
+        [2.1, 2.2],
+        [2.3, 2.4]
+    ]
+]
+
+// Acceder a elementos
+numero valor = matriz_3d[1][0][1]  // 2.2
+```
+
+### Modificar matrices
+
+```qz
+lista<lista<entero>> var matriz = [
+    [1, 2],
+    [3, 4]
+]
+
+// Modificar un elemento
+matriz[0][1] = 10
+// [[1, 10], [3, 4]]
+
+// Agregar una fila
+matriz.agregar([5, 6])
+// [[1, 10], [3, 4], [5, 6]]
+```
+
+### Iterar sobre matrices
+
+```qz
+lista<lista<entero>> matriz = [
+    [1, 2, 3],
+    [4, 5, 6]
+]
+
+// Iterar por filas
+para (lista<entero> var fila en matriz) {
+    consola.mostrar(t"Fila: {fila.texto()}")
+}
+
+// Iterar por elementos individuales
+para (lista<entero> var fila en matriz) {
+    para (entero var elemento en fila) {
+        consola.mostrar(t"Elemento: {elemento}")
+    }
+}
+```
+
+---
+
+## Funcion `rango`
+
+Genera listas de enteros consecutivos.
+
+```qz
+// Desde 0 hasta n-1
+lista<entero> del_cero = rango(5)
+// [0, 1, 2, 3, 4]
+
+// Desde inicio hasta fin-1
+lista<entero> del_dos = rango(2, 7)
+// [2, 3, 4, 5, 6]
+```
+
+---
+
+## Manejo de errores
+
+Cuando un indice no existe, el interprete lanza una excepcion.
+
+```qz
+lista<texto> frutas = ["manzana", "banana"]
+
 intentar {
-    texto elemento = nombres[10]
+    texto elemento = frutas[10]  // Error: indice fuera de rango
 } capturar (excepcion error) {
     consola.mostrar_advertencia(error.mensaje)
 }
 ```
 
-Las listas son fundamentales para procesar colecciones de datos y trabajar con módulos nativos como `Matemática`.
+---
+
+## Buenas practicas
+
+1. **Usa listas tipadas** cuando conozcas el tipo de elementos para mayor seguridad.
+2. **Declara como `var`** solo las listas que necesites modificar.
+3. **Verifica indices** antes de acceder o usa `intentar`/`capturar`.
+4. **Usa metodos como `esta_vacia()`** antes de llamar a `primero()` o `ultimo()`.
+
+```qz
+lista<entero> var numeros = []
+
+// Verificar antes de acceder
+si (!numeros.esta_vacia()) {
+    entero primero = numeros.primero()
+    consola.mostrar(t"Primer elemento: {primero}")
+} sino {
+    consola.mostrar_advertencia("La lista esta vacia")
+}
+```

@@ -1,13 +1,289 @@
 ---
-title: Basic syntax
-description: Essential elements of the Quetzal language syntax in its V0.0.12 version.
+title: Basic Syntax
+description: Essential elements of Quetzal Language syntax v0.0.2.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../fundamentos/sintaxis-basica.mdx';
+import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
+Quetzal Language uses clean syntax without semicolons. Each instruction occupies its own line or block, and keywords are in Spanish.
+
+## Comments
+
+```qz
+// Single line comment
+
+/*
+ Multi-line comment
+ that can include line
+ breaks.
+*/
+
+entero valor = 42  // Comment next to code
+```
+
+## Primitive Types
+
+| Type | Description | Example |
+|------|-------------|---------|
+| `vacio` | Absence of value (functions only) | - |
+| `entero` | Signed integers | `entero edad = 27` |
+| `numero` | Floating point values | `numero pi = 3.14159` |
+| `texto` | Unicode strings | `texto saludo = "Hola"` |
+| `log` | Boolean values | `log activo = verdadero` |
+
+```qz
+entero edad = 27
+numero temperatura = 22.5
+texto mensaje = "Hola"
+log activo = verdadero
+```
+
+<Aside type="tip">
+The types `numero` and `número` are equivalent (with or without accent).
 </Aside>
 
-<ContenidoOriginal />
+## Lists
+
+Lists are declared with `lista` and can be typed or untyped.
+
+```qz
+// Typed list
+lista<entero> numeros = [1, 2, 3]
+lista<texto> nombres = ["Ana", "Luis"]
+
+// Untyped list (can contain any type)
+lista valores = [1, "dos", verdadero]
+
+// Empty list
+lista<texto> vacia = []
+```
+
+Mutable lists use `var` and allow methods like `agregar`, `ordenar`, or `sumar`.
+
+```qz
+lista<texto> var frutas = ["manzana", "naranja"]
+frutas.agregar("pera")
+consola.mostrar(frutas.texto())
+```
+
+## JSON Values (`jsn`)
+
+```qz
+jsn var persona = {
+    nombre: "Ana",
+    edad: 30,
+    activo: verdadero,
+    direcciones: [
+        { tipo: "casa", ciudad: "Guatemala" },
+        { tipo: "trabajo", ciudad: "Antigua" }
+    ]
+}
+
+texto ciudad = persona.direcciones[0].ciudad
+persona.establecer("activo", falso)
+```
+
+## Variables and Mutability
+
+Variables are immutable by default. Use the `var` keyword to allow reassignments or mutating methods.
+
+```qz
+entero contador = 10          // Immutable (constant)
+entero var mutable = 5        // Mutable (variable)
+mutable += 1
+
+lista<entero> var datos = [1, 2]
+datos.agregar(3)
+```
+
+## Operators
+
+### Arithmetic
+
+```qz
+entero a = 7
+entero b = 3
+
+entero suma = a + b        // 10
+entero resta = a - b       // 4
+entero producto = a * b    // 21
+entero cociente = a / b    // 2
+entero residuo = a % b     // 1
+```
+
+### Increment and Decrement
+
+```qz
+entero var valor = 5
+
+valor++   // valor = 6
+valor--   // valor = 5
+```
+
+### Comparison
+
+```qz
+log igual = a == b         // falso
+log distinto = a != b      // verdadero
+log mayor = a > b          // verdadero
+log menor = a < b          // falso
+log mayor_igual = a >= b   // verdadero
+log menor_igual = a <= b   // falso
+```
+
+### Logical
+
+```qz
+log condicion1 = verdadero
+log condicion2 = falso
+
+// Spanish operators
+log conjuncion = condicion1 y condicion2    // falso (AND)
+log disyuncion = condicion1 o condicion2    // verdadero (OR)
+log negacion = no condicion1                // falso (NOT)
+
+// Symbolic operators (equivalent)
+log and_result = condicion1 && condicion2   // falso
+log or_result = condicion1 || condicion2    // verdadero
+log not_result = !condicion1                // falso
+```
+
+### Compound Assignment
+
+```qz
+entero var total = 10
+
+total += 5    // total = 15
+total -= 3    // total = 12
+total *= 2    // total = 24
+total /= 4    // total = 6
+total %= 4    // total = 2
+```
+
+### Ternary Operator
+
+```qz
+entero edad = 20
+texto mensaje = edad >= 18 ? "Mayor de edad" : "Menor de edad"
+```
+
+---
+
+## Text Interpolation
+
+Interpolated strings are declared with the `t` prefix and allow embedding expressions within braces `{}`.
+
+### Basic Syntax
+
+```qz
+texto nombre = "Maria"
+entero edad = 25
+
+// Basic interpolation
+texto saludo = t"Hola, {nombre}!"
+texto info = t"{nombre} tiene {edad} anos"
+
+consola.mostrar(saludo)  // "Hola, Maria!"
+consola.mostrar(info)    // "Maria tiene 25 anos"
+```
+
+### With Expressions
+
+You can include any valid expression inside the braces:
+
+```qz
+entero a = 10
+entero b = 5
+
+texto operaciones = t"Sum: {a + b}, Difference: {a - b}, Product: {a * b}"
+// "Sum: 15, Difference: 5, Product: 50"
+
+texto comparacion = t"Is {a} greater than {b}? {a > b}"
+// "Is 10 greater than 5? verdadero"
+```
+
+### With Different Types
+
+Interpolation automatically converts values to text:
+
+```qz
+numero precio = 99.99
+log disponible = verdadero
+lista numeros = [1, 2, 3]
+
+texto producto = t"Price: ${precio}, Available: {disponible}"
+texto lista_info = t"Numbers: {numeros}"
+
+jsn datos = { nombre: "Juan", edad: 30 }
+texto json_info = t"Data: {datos}"
+```
+
+### Multiline Interpolation
+
+```qz
+texto nombre = "Juan"
+entero puntos = 150
+
+texto mensaje = t"Dear {nombre},
+Your {puntos} points are available.
+Thank you for using Quetzal!"
+
+consola.mostrar(mensaje)
+```
+
+### Escaping Braces
+
+To show literal braces, use double backslash:
+
+```qz
+entero valor = 42
+texto con_llaves = t"The value is {valor} and these are braces: \\{literal\\}"
+// "The value is 42 and these are braces: {literal}"
+```
+
+---
+
+## Basic Input and Output
+
+The `consola` methods allow sending messages and requesting data.
+
+### Display Messages
+
+```qz
+consola.mostrar("Normal message")
+consola.mostrar_exito("Successful operation")
+consola.mostrar_error("An error occurred")
+consola.mostrar_advertencia("Important warning")
+consola.mostrar_informacion("Useful information")
+```
+
+### Request Input
+
+```qz
+texto nombre = consola.pedir("Enter your name: ")
+consola.mostrar_exito(t"Welcome, {nombre}")
+
+// Hidden input (for passwords)
+texto clave = consola.pedir_secreto("Enter your password: ")
+```
+
+---
+
+## Null Value
+
+The `nulo` literal represents the absence of value and can be assigned to any type:
+
+```qz
+entero valor_nulo = nulo
+texto mensaje_nulo = nulo
+lista<entero> lista_nula = nulo
+jsn json_nulo = nulo
+```
+
+<Aside type="caution">
+Attempting to use a `nulo` value in operations can cause errors. Always verify before operating.
+</Aside>
+
+---
+
+With these elements you can read the rest of the fundamentals and build more complex programs.

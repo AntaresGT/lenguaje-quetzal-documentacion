@@ -1,13 +1,140 @@
 ---
-title: Basic examples
-description: Simple fragments to become familiar with Quetzal language.
+title: Basic Examples
+description: Basic code examples in Quetzal Language.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../ejemplos/basicos.mdx';
+## Hello World
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+```qz
+consola.mostrar("Hola, mundo!")
+```
 
-<ContenidoOriginal />
+## Variables and Types
+
+```qz
+// Integer
+entero edad = 25
+
+// Decimal number
+numero precio = 99.99
+
+// Text
+texto nombre = "Maria"
+
+// Boolean
+log activo = verdadero
+
+// Display values
+consola.mostrar(t"Name: {nombre}")
+consola.mostrar(t"Age: {edad}")
+consola.mostrar(t"Price: ${precio}")
+consola.mostrar(t"Active: {activo}")
+```
+
+## Lists
+
+```qz
+// Typed list
+lista<texto> frutas = ["manzana", "banana", "naranja"]
+
+// Iterate
+para (texto fruta en frutas) {
+    consola.mostrar(t"Fruit: {fruta}")
+}
+
+// List operations
+consola.mostrar(t"Total fruits: {frutas.longitud()}")
+consola.mostrar(t"First: {frutas.primero()}")
+consola.mostrar(t"Last: {frutas.ultimo()}")
+```
+
+## Functions
+
+```qz
+// Function with return value
+numero calcular_area(numero base, numero altura) {
+    retornar base * altura / 2
+}
+
+// Function without return value
+vacio saludar(texto nombre) {
+    consola.mostrar_exito(t"Hola, {nombre}!")
+}
+
+// Use functions
+numero area = calcular_area(10, 5)
+consola.mostrar(t"Area: {area}")
+
+saludar("Juan")
+```
+
+## Conditionals
+
+```qz
+entero edad = 20
+
+si (edad >= 18) {
+    consola.mostrar("Adult")
+} sino si (edad >= 13) {
+    consola.mostrar("Teenager")
+} sino {
+    consola.mostrar("Child")
+}
+
+// Ternary operator
+texto estado = edad >= 18 ? "Adult" : "Minor"
+```
+
+## Loops
+
+```qz
+// While loop
+entero var i = 0
+mientras (i < 5) {
+    consola.mostrar(i.texto())
+    i++
+}
+
+// For loop
+para (entero var j = 0; j < 5; j++) {
+    consola.mostrar(j.texto())
+}
+
+// For-each
+lista<entero> numeros = [1, 2, 3, 4, 5]
+para (entero num en numeros) {
+    consola.mostrar(num.texto())
+}
+```
+
+## JSON Objects
+
+```qz
+jsn persona = {
+    nombre: "Ana",
+    edad: 28,
+    activo: verdadero,
+    hobbies: ["leer", "programar"]
+}
+
+// Access properties
+consola.mostrar(persona.nombre)
+consola.mostrar(persona.hobbies[0])
+
+// Check property
+si (persona.contiene_clave("email")) {
+    consola.mostrar(persona.email)
+}
+```
+
+## Error Handling
+
+```qz
+intentar {
+    entero resultado = 10 / 0
+} capturar (excepcion e) {
+    consola.mostrar_error(t"Error: {e.mensaje}")
+} finalmente {
+    consola.mostrar("Operation finished")
+}
+```

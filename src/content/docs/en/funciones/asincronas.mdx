@@ -1,13 +1,31 @@
 ---
-title: Asynchronous functions
-description: Current state of asynchronous support in Quetzal language.
+title: Asynchronous Functions
+description: Current status of asynchronous support in Quetzal Language.
 ---
 
-import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../funciones/asincronas.mdx';
+The Quetzal Language grammar includes the reserved words `asincrono` and `esperar` to prepare for asynchronous function support. However, in version v0.0.2 these features are not yet fully implemented in the interpreter.
 
-<Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
-</Aside>
+## Reserved Syntax
 
-<ContenidoOriginal />
+```qz
+asincrono texto obtener_datos() {
+    // Pending implementation
+}
+
+texto resultado = esperar obtener_datos()
+```
+
+The above code cannot currently be executed; the interpreter will show an error indicating the functionality is not available.
+
+## Roadmap
+
+- Functions marked with `asincrono` will be able to execute operations that return promises or deferred tasks.
+- `esperar` will allow pausing the current function until the asynchronous task finishes.
+- The system will respect the same type rules and error handling as synchronous functions.
+
+## Temporary Recommendations
+
+- Implement I/O-dependent operations as synchronous functions and use native modules (e.g., `quetzal/matematica`) while asynchronous support is completed.
+- Follow roadmap updates to know the availability of this feature.
+
+When the functionality is released, this section will include practical examples and recommended patterns.

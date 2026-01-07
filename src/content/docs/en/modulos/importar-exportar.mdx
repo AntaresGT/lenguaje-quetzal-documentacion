@@ -1,13 +1,106 @@
 ---
-title: Import and export
-description: Share code between files in quetzal language.
+title: Import and Export
+description: How to share code between files in Quetzal Language.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../modulos/importar-exportar.mdx';
+
+Quetzal uses `importar` and `exportar` to share code between files.
+
+## Exporting
+
+Use the `exportar` block at the end of a file to make symbols available to other files.
+
+```qz
+// file: utilidades.qz
+
+entero sumar(entero a, entero b) {
+    retornar a + b
+}
+
+objeto Calculadora {
+    libre numero multiplicar(numero a, numero b) {
+        retornar a * b
+    }
+}
+
+texto VERSION = "1.0.0"
+
+exportar {
+    sumar,
+    Calculadora,
+    VERSION
+}
+```
+
+## Importing
+
+Use `importar` with `desde` to bring symbols from another file.
+
+```qz
+// file: principal.qz
+
+importar {
+    sumar,
+    Calculadora,
+    VERSION
+} desde "utilidades.qz"
+
+entero resultado = sumar(5, 3)
+numero producto = Calculadora.multiplicar(4.5, 2.0)
+consola.mostrar("Version: " + VERSION)
+```
+
+## Import with Alias
+
+Use `como` to rename imported symbols.
+
+```qz
+importar {
+    sumar como suma_enteros,
+    Calculadora como Calc,
+    VERSION como version_actual
+} desde "utilidades.qz"
+
+entero resultado = suma_enteros(10, 20)
+```
+
+## Native Modules
+
+Quetzal provides built-in modules with the `quetzal/` prefix.
+
+```qz
+importar { Matematica } desde "quetzal/matematica"
+
+numero pi = Matematica.PI
+numero resultado = Matematica.sumar(2, 3)
+numero seno = Matematica.seno(Matematica.PI / 2)
+```
+
+### Available Native Modules
+
+| Module | Description |
+|--------|-------------|
+| `quetzal/matematica` | Mathematical functions and constants |
+| `quetzal/archivo` | File system operations |
+| `quetzal/sistema` | System utilities |
 
 <Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
+Native modules are available without needing file system permissions. Custom module imports may require permissions in `quetzal.json`.
 </Aside>
 
-<ContenidoOriginal />
+## Relative Paths
+
+Paths are relative to the main file that invokes the interpreter.
+
+```qz
+importar { Usuario } desde "./modulos/usuarios.qz"
+importar { validar } desde "../compartido/validaciones.qz"
+```
+
+## Best Practices
+
+- Export only what other modules need
+- Use descriptive names for exported symbols
+- Group related functionality in the same module
+- Document exported symbols with comments

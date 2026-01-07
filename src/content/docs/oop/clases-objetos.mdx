@@ -1,11 +1,13 @@
 ---
-title: Objetos
-description: Definición y uso de objetos en Lenguaje Quetzal.
+title: Objetos y Herencia
+description: Definicion y uso de objetos en Lenguaje Quetzal, incluyendo herencia simple, en cascada y multiple.
 ---
+
+import { Aside } from '@astrojs/starlight/components';
 
 Los objetos en Quetzal permiten agrupar datos y comportamientos. Se definen con la palabra clave `objeto` seguida del nombre y un bloque de miembros.
 
-## Declaración básica
+## Declaracion basica
 
 ```qz
 objeto Usuario {
@@ -23,13 +25,13 @@ objeto Usuario {
 }
 ```
 
-- Los atributos declarados fuera de `privado` o `publico` son públicos por defecto.
-- Los constructores usan el mismo nombre del objeto y no retornan valor explícito.
+- Los atributos declarados fuera de `privado` o `publico` son publicos por defecto.
+- Los constructores usan el mismo nombre del objeto y no retornan valor explicito.
 
-## Instanciación
+## Instanciacion
 
 ```qz
-Usuario persona = nuevo Usuario("María", 30)
+Usuario persona = nuevo Usuario("Maria", 30)
 texto nombre = persona.obtener_nombre()
 ```
 
@@ -38,46 +40,46 @@ texto nombre = persona.obtener_nombre()
 ```qz
 objeto Banco {
     privado:
-        número var saldo = 0
+        numero var saldo = 0
 
-        número obtener_saldo_privado() {
+        numero obtener_saldo_privado() {
             retornar ambiente.saldo
         }
 
     publico:
-        Banco(número inicial) {
+        Banco(numero inicial) {
             ambiente.saldo = inicial
         }
 
-        número obtener_saldo() {
+        numero obtener_saldo() {
             retornar ambiente.obtener_saldo_privado()
         }
 }
 ```
 
-- Los miembros dentro de `privado` solo están disponibles dentro del objeto.
+- Los miembros dentro de `privado` solo estan disponibles dentro del objeto.
 - Los miembros en `publico` pueden usarse desde cualquier parte.
 
 ## Miembros libres
 
-Los miembros declarados con la palabra `libre` actúan como miembros estáticos: pueden invocarse sin crear una instancia y no acceden al estado del objeto instanciado.
+Los miembros declarados con la palabra `libre` actuan como miembros estaticos: pueden invocarse sin crear una instancia y no acceden al estado del objeto instanciado.
 
 ```qz
 objeto MatematicaBasica {
-    libre número PI = 3.14159
+    libre numero PI = 3.14159
 
-    libre número sumar(número a, número b) {
+    libre numero sumar(numero a, numero b) {
         retornar a + b
     }
 }
 
-número resultado = MatematicaBasica.sumar(2, 3)
+numero resultado = MatematicaBasica.sumar(2, 3)
 ```
 
 ## Mutabilidad de atributos
 
 - Los atributos son inmutables a menos que se declaren con `var` dentro del objeto.
-- Para modificar desde métodos públicos usa `ambiente`.
+- Para modificar desde metodos publicos usa `ambiente`.
 
 ```qz
 objeto Contador {
@@ -89,19 +91,194 @@ objeto Contador {
 }
 ```
 
+---
+
 ## Herencia
 
-Lenguaje Quetzal no incluye herencia clásica. Recomienda composición: crea objetos que utilicen a otros internamente o expón funciones libres reutilizables.
+Quetzal soporta herencia de objetos mediante la palabra clave `como`. Esto permite crear jerarquias de objetos donde los hijos heredan atributos y metodos de los padres.
+
+### Herencia simple
+
+Para heredar de un objeto padre, usa `como` seguido del nombre del objeto padre:
+
+```qz
+objeto Animal {
+    privado:
+        texto var nombre
+        texto var especie
+    publico:
+        Animal(texto nombre, texto especie) {
+            ambiente.nombre = nombre
+            ambiente.especie = especie
+        }
+
+        texto obtener_nombre() {
+            retornar ambiente.nombre
+        }
+
+        texto obtener_especie() {
+            retornar ambiente.especie
+        }
+
+        vacio comer() {
+            consola.mostrar("El animal come.")
+        }
+}
+
+objeto Perro como Animal {
+    publico:
+        Perro(texto nombre, texto especie) {
+            padre.Animal(nombre, especie)
+        }
+
+        texto ladrar() {
+            retornar "Guau!"
+        }
+}
+```
+
+<Aside type="tip">
+Usa `padre.NombreObjeto(argumentos)` dentro del constructor del hijo para invocar el constructor del padre.
+</Aside>
+
+### Uso del objeto heredado
+
+```qz
+// Instanciar el objeto hijo
+Perro perro1 = nuevo Perro("Firulais", "Canino")
+
+// Acceder a metodos propios
+texto sonido = perro1.ladrar()  // "Guau!"
+
+// Acceder a metodos heredados del padre
+texto nombre = perro1.obtener_nombre()    // "Firulais"
+texto especie = perro1.obtener_especie()  // "Canino"
+```
+
+### Herencia en cascada
+
+Puedes crear cadenas de herencia donde un objeto hereda de otro que a su vez hereda de un tercero:
+
+```qz
+objeto Mamifero como Animal {
+    publico:
+        Mamifero(texto nombre, texto especie) {
+            padre.Animal(nombre, especie)
+        }
+
+        texto comer() {
+            retornar "El mamifero come."
+        }
+}
+
+objeto Gato como Mamifero {
+    publico:
+        Gato(texto nombre, texto especie) {
+            padre.Mamifero(nombre, especie)
+        }
+
+        texto maullar() {
+            retornar "Miau!"
+        }
+}
+```
+
+En este ejemplo:
+- `Gato` hereda de `Mamifero`
+- `Mamifero` hereda de `Animal`
+- `Gato` tiene acceso a metodos de `Mamifero` y `Animal`
+
+```qz
+Gato gato1 = nuevo Gato("Michi", "Felino")
+texto nombre = gato1.obtener_nombre()  // Heredado de Animal
+texto sonido = gato1.maullar()         // Propio de Gato
+```
+
+### Herencia multiple
+
+Quetzal permite heredar de multiples objetos padre separandolos con comas:
+
+```qz
+objeto Felino como Mamifero, Animal {
+    publico:
+        Felino(texto nombre, texto especie) {
+            padre.Mamifero(nombre, especie)
+            padre.Animal(nombre, especie)
+        }
+
+        texto comer() {
+            retornar padre.Mamifero.comer()
+        }
+
+        texto rugir() {
+            retornar "Rugido!"
+        }
+}
+```
+
+<Aside type="caution">
+Al usar herencia multiple, debes llamar explicitamente a los constructores de todos los padres y resolver conflictos de metodos usando `padre.NombrePadre.metodo()`.
+</Aside>
+
+### Sobrescribir metodos
+
+Puedes sobrescribir metodos del padre definiendo un metodo con el mismo nombre en el hijo:
+
+```qz
+objeto Animal {
+    publico:
+        texto describir() {
+            retornar "Soy un animal"
+        }
+}
+
+objeto Perro como Animal {
+    publico:
+        Perro() {
+            padre.Animal()
+        }
+
+        // Sobrescribe el metodo del padre
+        texto describir() {
+            retornar "Soy un perro"
+        }
+}
+
+Perro perro = nuevo Perro()
+consola.mostrar(perro.describir())  // "Soy un perro"
+```
+
+### Acceder a metodos del padre
+
+Desde un metodo sobrescrito, puedes llamar al metodo original del padre:
+
+```qz
+objeto Gato como Animal {
+    publico:
+        Gato() {
+            padre.Animal()
+        }
+
+        texto describir() {
+            texto descripcion_base = padre.Animal.describir()
+            retornar descripcion_base + ", especificamente un gato"
+        }
+}
+```
+
+---
 
 ## Exportar objetos
 
-Los objetos pueden exportarse desde un módulo y reutilizarse en otros archivos.
+Los objetos pueden exportarse desde un modulo y reutilizarse en otros archivos.
 
 ```qz
 exportar {
     Usuario,
-    Banco
+    Banco,
+    Animal,
+    Perro
 }
 ```
 
-Consulta las secciones de constructores y modificadores de acceso para profundizar en cada característica.
+Consulta las secciones de constructores y modificadores de acceso para profundizar en cada caracteristica.

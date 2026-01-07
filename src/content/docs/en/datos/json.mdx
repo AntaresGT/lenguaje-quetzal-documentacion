@@ -1,13 +1,91 @@
 ---
-title: Json
-description: Manipulation of `JSN` values ​​in Quetzal language.
+title: JSON Objects
+description: Manipulation of `jsn` values in Quetzal Language.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
-import ContenidoOriginal from '../../datos/json.mdx';
+
+The `jsn` values represent JSON objects with native support for nested properties, lists, and utility methods.
+
+## Declaration
+
+```qz
+jsn persona = {
+    nombre: "Ana",
+    edad: 28,
+    activo: verdadero
+}
+```
 
 <Aside type="note">
-  <p>Translation in progress. The following content is temporarily shown in Spanish.</p>
+To modify a JSON object after creation, you must declare it with `var`.
 </Aside>
 
-<ContenidoOriginal />
+## Property Access
+
+### Dot Notation
+
+```qz
+texto nombre = persona.nombre
+numero peso = persona.datos_personales.peso
+```
+
+### Bracket Notation
+
+```qz
+texto nombre = persona["nombre"]
+texto especial = datos["clave con espacios"]
+```
+
+## JSON Methods
+
+### Key Verification
+
+| Method | Description | Returns |
+|--------|-------------|---------|
+| `contiene_clave(clave)` | Checks if property exists | `log` |
+
+### Get Keys and Values
+
+| Method | Description | Returns |
+|--------|-------------|---------|
+| `claves()` | List of first-level keys | `lista<texto>` |
+| `valores()` | List of first-level values | `lista` |
+
+### Modify Properties
+
+| Method | Description |
+|--------|-------------|
+| `establecer(clave, valor)` | Assign or create a property |
+| `eliminar(clave)` | Delete a property and return its value |
+
+### Merge Objects
+
+| Method | Description |
+|--------|-------------|
+| `fusionar(otro_json)` | Combine properties (existing ones are overwritten) |
+
+### Serialization
+
+| Method | Description |
+|--------|-------------|
+| `texto()` | Serialize to compact JSON |
+| `texto_formateado()` | Serialize with readable indentation |
+
+## Conversion from Text
+
+```qz
+texto json_texto = '{"nombre":"Ana","edad":25}'
+jsn var persona = json_texto.jsn()
+```
+
+<Aside type="caution">
+If the string is not valid JSON, an exception is thrown. Use `intentar`/`capturar` to handle errors.
+</Aside>
+
+## Best Practices
+
+1. **Declare with `var`** JSON objects you need to modify.
+2. **Use `contiene_clave()`** before accessing properties that might not exist.
+3. **Validate external JSON** with `intentar`/`capturar` when parsing strings.
+4. **Use `texto_formateado()`** for debugging and readable logs.
