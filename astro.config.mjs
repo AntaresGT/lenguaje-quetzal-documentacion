@@ -289,6 +289,10 @@ export default defineConfig({
 							slug: 'oop/clases-objetos'
 						},
 						{
+							label: 'Prototipos',
+							slug: 'oop/prototipos'
+						},
+						{
 							label: 'Constructores',
 							translations: {
 								en: 'Constructors',

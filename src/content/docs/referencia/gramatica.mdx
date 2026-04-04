@@ -13,6 +13,7 @@ Un archivo `.qz` contiene una secuencia de declaraciones separadas por saltos de
 programa      -> declaracion*
 declaracion   -> declaracion_variable
                | declaracion_funcion
+               | declaracion_prototipo
                | declaracion_objeto
                | declaracion_importacion
                | declaracion_exportacion
@@ -29,7 +30,18 @@ declaracion_funcion  -> tipo identificador '(' parametros? ')' bloque
 parametros           -> parametro (',' parametro)*
 parametro            -> tipo ('var')? identificador
 
-Declaracion_objeto   -> 'objeto' identificador '{' miembros_objeto '}'
+declaracion_prototipo      -> 'prototipo' identificador '{' miembros_prototipo '}'
+miembros_prototipo         -> (bloque_publico_prototipo | bloque_privado_prototipo | miembro_prototipo_publico)*
+bloque_publico_prototipo   -> 'publico:' miembro_prototipo_publico*
+bloque_privado_prototipo   -> 'privado:' miembro_prototipo_privado*
+miembro_prototipo_publico  -> firma_atributo | firma_funcion
+miembro_prototipo_privado  -> firma_atributo | firma_funcion
+firma_atributo             -> tipo ('opcional')? ('var')? identificador
+firma_funcion              -> tipo ('opcional')? identificador '(' parametros? ')'
+
+declaracion_objeto   -> 'objeto' identificador herencia? implementacion? '{' miembros_objeto '}'
+herencia             -> 'como' identificador (',' identificador)*
+implementacion       -> 'implementa' identificador (',' identificador)*
 miembros_objeto      -> (bloque_publico | bloque_privado | miembro_publico)*
 bloque_publico       -> 'publico:' miembro_publico*
 bloque_privado       -> 'privado:' miembro_privado*
@@ -38,6 +50,8 @@ miembro_privado      -> igual que miembro_publico pero accesible solo dentro del
 constructor          -> identificador '(' parametros? ')' bloque (sin `retornar`)
 miembro_libre        -> 'libre' declaracion_variable | 'libre' declaracion_funcion
 ```
+
+Cuando un objeto combina herencia e implementación de prototipos, la forma es: `objeto Nombre como Padre implementa Prototipo1, Prototipo2`.
 
 ## Sentencias
 

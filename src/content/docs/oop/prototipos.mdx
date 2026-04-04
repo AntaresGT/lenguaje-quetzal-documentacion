@@ -1,0 +1,136 @@
+---
+title: Prototipos
+description: Define contratos de atributos y funciones que los objetos deben implementar en Lenguaje Quetzal.
+---
+
+Un `prototipo` define un contrato: especifica qué atributos y funciones debe exponer un objeto que lo implemente.
+
+## Declaración básica
+
+```qz
+prototipo DocumentoFiscal {
+    privado:
+        entero correlativo
+    publico:
+        texto serie
+        texto nitCliente
+        número subtotal
+        número iva
+        número calcular_total(número subtotalBase, número ivaAplicado)
+        texto generar_resumen(texto serieDoc, entero correlativoDoc, número totalDoc)
+        log opcional validar_nit(texto nit)
+}
+```
+
+- Puedes usar bloques `privado` y `publico`.
+- Si no defines bloques, los miembros se consideran públicos por defecto.
+- Un prototipo puede declarar firmas de atributos y firmas de funciones.
+
+## Implementar un prototipo
+
+Usa `implementa` en la declaración del objeto:
+
+```qz
+objeto FacturaElectronica implementa DocumentoFiscal {
+    privado:
+        entero correlativo = 1001
+    publico:
+        texto serie = "A"
+        texto nitCliente = "CF"
+        número subtotal = 850.00
+        número iva = 0.12
+
+        número calcular_total(número subtotalBase, número ivaAplicado) {
+            retornar subtotalBase + (subtotalBase * ivaAplicado)
+        }
+
+        texto generar_resumen(texto serieDoc, entero correlativoDoc, número totalDoc) {
+            retornar "Factura " + serieDoc + "-" + correlativoDoc.texto() + " total Q" + totalDoc.texto()
+        }
+}
+```
+
+El objeto debe implementar todos los miembros obligatorios del prototipo.
+
+## Miembros `opcional`
+
+Puedes marcar miembros como `opcional` para que su implementación no sea obligatoria:
+
+```qz
+prototipo ClienteApiRest {
+    texto urlBase
+    texto tokenAcceso
+    jsn obtener(texto ruta)
+    jsn opcional enviar(texto ruta, jsn cuerpo)
+}
+```
+
+En este ejemplo, cualquier objeto que implemente `ClienteApiRest` debe definir `urlBase`, `tokenAcceso` y `obtener`, pero puede omitir `enviar`.
+
+## Implementación múltiple
+
+Un objeto puede implementar varios prototipos separados por coma:
+
+```qz
+prototipo Persistible {
+    texto tabla
+    entero id
+    jsn serializar()
+}
+
+objeto UsuarioServicio implementa ClienteApiRest, Persistible {
+    texto urlBase = "https://api.ejemplo.com"
+    texto tokenAcceso = "token-demo"
+    texto tabla = "usuarios"
+    entero id = 42
+
+    jsn obtener(texto ruta) {
+        retornar { metodo: "GET", url: ruta, autorizado: verdadero }
+    }
+
+    jsn serializar() {
+        retornar { tabla: ambiente.tabla, id: ambiente.id }
+    }
+}
+```
+
+## Herencia + prototipos
+
+También puedes combinar herencia con contratos de prototipo. El orden recomendado es:
+
+`objeto Nombre como Padre implementa Prototipo1, Prototipo2`
+
+```qz
+prototipo Autenticable {
+    texto usuario
+    texto hashClave
+    log autenticar(texto clave)
+}
+
+objeto EntidadAuditable {
+    texto origen() {
+        retornar "sistema-interno"
+    }
+}
+
+objeto CuentaInterna como EntidadAuditable implementa Autenticable {
+    texto usuario = "admin"
+    texto hashClave = "admin-123"
+
+    log autenticar(texto clave) {
+        retornar clave == "admin-123"
+    }
+}
+```
+
+## Mutabilidad en firmas
+
+Si un contrato requiere parámetros mutables, puedes declararlos con `var` en la firma:
+
+```qz
+prototipo OperadorMutable {
+    entero actualizar(entero var p, entero var q)
+}
+```
+
+Mantén la firma del objeto alineada con la definición del prototipo para evitar incompatibilidades.
