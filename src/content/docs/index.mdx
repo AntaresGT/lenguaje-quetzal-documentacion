@@ -1,6 +1,6 @@
 ---
 title: Lenguaje Quetzal
-description: Documentación oficial del Lenguaje de Programación Quetzal v0.0.2
+description: Documentación oficial del Lenguaje de Programación Quetzal v0.0.3
 template: splash
 head:
   - tag: meta
@@ -11,7 +11,7 @@ head:
   - tag: meta
     attrs: {
       property: 'og:description',
-      content: 'Documentación del Lenguaje Quetzal v0.0.2 con guías, ejemplos y referencias en español'
+      content: 'Documentación del Lenguaje Quetzal v0.0.3 con guías, ejemplos y referencias en español'
     }
   - tag: meta
     attrs: {
@@ -41,7 +41,7 @@ head:
   - tag: meta
     attrs: {
       name: 'twitter:description',
-      content: 'Documentación del Lenguaje Quetzal v0.0.2 con guías, ejemplos y referencias en español'
+      content: 'Documentación del Lenguaje Quetzal v0.0.3 con guías, ejemplos y referencias en español'
     }
   - tag: meta
     attrs: {
@@ -72,7 +72,7 @@ import { LinkButton } from '@astrojs/starlight/components';
   <div class="floating-code">
     <pre class="code-snippet">
       <code class="language-qz">
-{`// Lenguaje Quetzal v0.0.2
+{`// Lenguaje Quetzal v0.0.3
 texto saludo = "Hola, Quetzal"
 log es_activo = verdadero
 lista<entero> valores = [1, 2, 3]
@@ -103,8 +103,8 @@ consola.mostrar(t"Valores: {valores.texto()}")`}
     <Card title="Módulos con permisos" icon="seti:csv">
       Control de acceso a los recursos del sistema mediante `quetzal.json`.
     </Card>
-    <Card title="Implementación en Rust" icon="rocket">
-      El intérprete escrito en Rust ofrece ejecución rápida, manejo detallado de errores y herramientas como la extensión oficial para VS Code.
+    <Card title="JIT y herramientas de desarrollo" icon="rocket">
+      La versión 0.0.3 incorpora JIT selectivo, el servidor `quetzal-lsp` y extensiones para VS Code, Neovim y Zed.
     </Card>
   </CardGrid>
 </div>

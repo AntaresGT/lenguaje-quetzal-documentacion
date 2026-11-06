@@ -1,43 +1,113 @@
 ---
 title: Manejo de archivos
-description: Estado del acceso a archivos y configuración mediante `quetzal.json`.
+description: Lectura, escritura y permisos del sistema de archivos en Lenguaje Quetzal.
 ---
 
-La versión v0.0.2 del intérprete no expone todavía un API de lectura o escritura de archivos desde el código Quetzal. No existen funciones nativas como `consola` para interactuar directamente con el sistema de archivos.
+import { Aside } from '@astrojs/starlight/components';
 
-## Uso actual: permisos del sistema (archivos)
+El módulo `quetzal/sistema_archivos` permite trabajar con archivos de texto o binarios, directorios, flujos con cursor y observadores de cambios.
 
-Los permisos de acceso a recursos del sistema operativo (por ejemplo, el sistema de archivos) se configuran en `quetzal.json`, ubicado junto al programa principal. Este archivo delimita qué rutas del sistema están autorizadas para que el intérprete pueda accederlas. Si importas módulos desde el sistema de archivos, esa operación también queda sujeta a estas restricciones; los permisos no pertenecen al sistema de módulos, sino al entorno del SO donde se ejecuta Quetzal.
+<Aside type="caution">
+Las operaciones con archivos requieren el permiso `sistema-archivos` en `quetzal.json`. Sin ese permiso, el intérprete bloquea el acceso.
+</Aside>
+
+## Configurar permisos
+
+Declara cada directorio y el nivel de acceso necesario:
 
 ```json
 {
   "versión": "1.0.0",
   "aplicación": "mi-proyecto",
+  "entrada": "principal.qz",
+  "tipo": "aplicación",
+  "quetzal": "0.0.3",
   "permisos": [
     {
-      "nombre": "sistema-archivos",
-      "alcance": "directorios",
-      "directorios": ["./modulos", "./datos"]
+      "tipo": "sistema-archivos",
+      "habilitado": true,
+      "directorios": [
+        { "ruta": "./datos", "permiso": "lectura" },
+        { "ruta": "./salida", "permiso": "escritura" }
+      ]
     }
   ]
 }
 ```
 
-Ejemplo: importación desde el sistema de archivos
+Los niveles disponibles son `lectura`, `escritura` y `todo`. Las rutas relativas se resuelven desde la raíz del proyecto; `"*"` permite cualquier ruta.
+
+## Leer y escribir texto
 
 ```qz
-importar { utilidades } desde "./modulos/utilidades.qz"
+importar { SistemaArchivos } desde "quetzal/sistema_archivos"
 
-utilidades.leer_archivo("datos/ejemplo.txt")
+SistemaArchivos.crear_directorios("./salida")
+SistemaArchivos.escribir("./salida/resultado.txt", "Hola, Quetzal")
 
+texto contenido = SistemaArchivos.leer("./salida/resultado.txt")
+consola.mostrar(contenido)
 ```
 
-Si el archivo `quetzal.json` no existe o no contiene permisos para el sistema de archivos, el intérprete restringe el acceso al sistema del SO.
+`escribir` crea o sobrescribe el archivo. Para agregar contenido al final, usa `anexar`.
 
-## Buenas prácticas mientras llega el API de archivos
+## Consultar archivos y directorios
 
-- Mantén tus módulos dentro de los directorios autorizados para evitar errores de permisos.
-- No expongas rutas absolutas sensibles; utiliza rutas relativas desde el archivo principal.
-- Documenta en tus proyectos qué carpetas deben agregarse al arreglo `directorios` para que otras personas puedan ejecutarlos sin modificar el código.
+```qz
+log existe = SistemaArchivos.existe("./salida/resultado.txt")
+log es_archivo = SistemaArchivos.es_archivo("./salida/resultado.txt")
+lista<texto> archivos = SistemaArchivos.listar_archivos("./salida")
+```
 
-Esta sección se actualizará cuando el lenguaje incluya funciones para leer o escribir archivos directamente.
+También puedes obtener una referencia con metadatos:
+
+```qz
+importar { SistemaArchivos, Archivo } desde "quetzal/sistema_archivos"
+
+Archivo archivo = SistemaArchivos.abrir("./salida/resultado.txt")
+consola.mostrar(archivo.nombre())
+consola.mostrar(archivo.tamaño().texto())
+```
+
+## Datos binarios
+
+`Bits` representa una secuencia de bytes en memoria:
+
+```qz
+importar { SistemaArchivos, Bits } desde "quetzal/sistema_archivos"
+
+Bits datos = Bits.desde_texto("Quetzal")
+SistemaArchivos.escribir_bits("./salida/datos.bin", datos)
+
+Bits leidos = SistemaArchivos.leer_bits("./salida/datos.bin")
+consola.mostrar(leidos.texto())
+```
+
+## Operaciones asíncronas
+
+Las operaciones de entrada y salida tienen una variante con el sufijo `_asincrono`, que se utiliza con `esperar`:
+
+```qz
+asincrono vacio guardar() {
+    esperar SistemaArchivos.escribir_asincrono("./salida/datos.txt", "contenido")
+    texto datos = esperar SistemaArchivos.leer_asincrono("./salida/datos.txt")
+    consola.mostrar(datos)
+}
+
+esperar guardar()
+```
+
+## Manejar errores
+
+Los permisos insuficientes, las rutas no autorizadas y los errores del sistema operativo producen excepciones capturables:
+
+```qz
+intentar {
+    texto contenido = SistemaArchivos.leer("./datos/config.txt")
+    consola.mostrar(contenido)
+} capturar (excepcion error) {
+    consola.mostrar_error(error.mensaje)
+}
+```
+
+El módulo también incluye `Flujo` para lectura y escritura por partes con un cursor persistente, y `Observador` para recibir eventos de cambios en archivos o directorios.

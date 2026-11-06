@@ -1,0 +1,107 @@
+---
+title: Variables de entorno
+description: Consulta variables del sistema y carga archivos .env con el módulo quetzal/entorno.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+El módulo `quetzal/entorno` permite consultar variables del sistema y cargar variables desde un archivo `.env` ubicado en el directorio actual.
+
+Los valores cargados desde `.env` permanecen dentro del runtime de Quetzal y no modifican el entorno global del proceso.
+
+## Permiso requerido
+
+Habilita el permiso `entorno` en `quetzal.json`:
+
+```json
+{
+  "versión": "1.0.0",
+  "aplicación": "mi-proyecto",
+  "entrada": "principal.qz",
+  "tipo": "aplicación",
+  "quetzal": "0.0.3",
+  "permisos": [
+    { "tipo": "entorno", "habilitado": true }
+  ]
+}
+```
+
+Sin este permiso, todas las llamadas al módulo lanzan una excepción capturable.
+
+## Importar el módulo
+
+El objeto `entorno` se importa con minúsculas:
+
+```qz
+importar { entorno } desde "quetzal/entorno"
+```
+
+## Funciones
+
+| Función | Retorna | Descripción |
+|---------|---------|-------------|
+| `entorno.cargar()` | `entero` | Lee `.env` desde el directorio actual y devuelve la cantidad de variables cargadas. |
+| `entorno.obtener(nombre)` | `texto` o `nulo` | Devuelve el valor de la variable o `nulo` si no existe. |
+| `entorno.obtener_o(nombre, defecto)` | `texto` | Devuelve el valor de la variable o `defecto` si no existe. |
+| `entorno.contiene(nombre)` | `log` | Indica si la variable existe. |
+
+## Cargar un archivo `.env`
+
+Crea un archivo `.env` en el directorio desde el cual ejecutarás el programa:
+
+```text
+MODO=desarrollo
+PUERTO=3000
+URL_BASE=http://localhost:3000
+```
+
+Carga el archivo antes de consultar sus valores:
+
+```qz
+importar { entorno } desde "quetzal/entorno"
+
+entero cargadas = entorno.cargar()
+consola.mostrar(t"Variables cargadas: {cargadas}")
+
+texto modo = entorno.obtener_o("MODO", "producción")
+texto puerto = entorno.obtener_o("PUERTO", "8080")
+
+consola.mostrar(t"Modo: {modo}")
+consola.mostrar(t"Puerto: {puerto}")
+```
+
+## Consultar variables del sistema
+
+No es necesario llamar a `cargar()` para consultar variables que ya existen en el sistema:
+
+```qz
+importar { entorno } desde "quetzal/entorno"
+
+si (entorno.contiene("HOME")) {
+    texto inicio = entorno.obtener("HOME")
+    consola.mostrar(inicio)
+}
+```
+
+Usa `obtener_o` cuando quieras proporcionar un valor predeterminado:
+
+```qz
+texto editor = entorno.obtener_o("EDITOR", "code")
+```
+
+## Manejar errores de permiso
+
+```qz
+importar { entorno } desde "quetzal/entorno"
+
+intentar {
+    texto modo = entorno.obtener_o("MODO", "desarrollo")
+    consola.mostrar(modo)
+} capturar (excepcion error) {
+    consola.mostrar_error(error.mensaje)
+}
+```
+
+<Aside type="caution">
+No publiques credenciales en `.env`. Mantén ese archivo fuera del control de versiones y comparte un `.env.example` con nombres de variables y valores de ejemplo sin secretos.
+</Aside>

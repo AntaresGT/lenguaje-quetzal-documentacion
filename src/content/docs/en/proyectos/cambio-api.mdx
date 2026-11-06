@@ -1,0 +1,57 @@
+---
+title: Cambio API
+description: Sample project built with Quetzal Language to query the USD to GTQ exchange rate.
+---
+
+import { Card, CardGrid, LinkButton } from '@astrojs/starlight/components';
+
+**Cambio API** is a proof of concept developed with Quetzal Language. It queries the official daily exchange rate from the Bank of Guatemala (Banguat) and exposes an API to convert US dollars (USD) to Guatemalan quetzales (GTQ).
+
+<LinkButton href="https://tipo-cambio.lenguaje-quetzal.com/" icon="external">Open project</LinkButton>
+<LinkButton href="https://github.com/AntaresGT/qz-cambio-moneda-pdc" icon="github" variant="secondary">View GitHub repository</LinkButton>
+
+## What it demonstrates
+
+The project applies language features to a real-world case:
+
+- HTTP server and static files.
+- Routes and controllers written in `.qz` files.
+- Asynchronous HTTP client for the Banguat SOAP service.
+- Native JSON for requests and responses.
+- GET, POST, and QUERY method handling.
+- Web interface to test the API and review code examples.
+
+## Main endpoint
+
+All methods use `/api/tipo-cambio`:
+
+| Method | Use |
+|--------|-----|
+| `GET` | Gets the current exchange rate without parameters. |
+| `POST` | Accepts `valor_dolares` in JSON and returns the conversion to quetzales. |
+| `QUERY` | Experimental HTTP method with the same behavior as POST in this project. |
+
+## Run locally
+
+The `quetzal` command must be available in your `PATH`.
+
+```bash
+git clone https://github.com/AntaresGT/qz-cambio-moneda-pdc.git
+cd qz-cambio-moneda-pdc
+quetzal ejecutar
+```
+
+The server starts at `http://localhost:3000`.
+
+<CardGrid>
+  <Card title="Source code" icon="github">
+    Review the implementation, project structure, and Quetzal files.
+
+    [Open repository →](https://github.com/AntaresGT/qz-cambio-moneda-pdc)
+  </Card>
+  <Card title="Live demo" icon="rocket">
+    Run real requests and review JSON responses from the browser.
+
+    [Try Cambio API →](https://tipo-cambio.lenguaje-quetzal.com/)
+  </Card>
+</CardGrid>

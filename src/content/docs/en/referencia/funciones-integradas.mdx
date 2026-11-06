@@ -1,119 +1,211 @@
 ---
-title: Built-in Functions
-description: Functions and methods provided by the Quetzal Language interpreter.
+title: Built-in functions and methods
+description: Global functions, type methods, and the Quetzal Language standard library.
 ---
 
-import { Aside, Tabs, TabItem } from '@astrojs/starlight/components';
+import { Aside } from '@astrojs/starlight/components';
 
-These functions and methods are available without importing.
+Quetzal includes the global `consola` object, the `rango` function, methods for language types, and native modules imported from `quetzal/...` paths.
 
-## Console Aliases
+## Console
 
-| Function | Equivalent | Description |
-|----------|------------|-------------|
-| `imprimir(texto)` | `consola.mostrar` | Display text |
-| `imprimir_error(texto)` | `consola.mostrar_error` | Error messages |
-| `imprimir_advertencia(texto)` | `consola.mostrar_advertencia` | Warning messages |
-| `imprimir_informacion(texto)` | `consola.mostrar_informacion` | Info messages |
-| `imprimir_exito(texto)` | `consola.mostrar_exito` | Success messages |
+The `consola` object is available without an import.
 
-## `rango` Function
+| Method | Description |
+|--------|-------------|
+| `consola.mostrar(texto)` | Prints a line using the default color. |
+| `consola.mostrar_error(texto)` | Prints an error message. |
+| `consola.mostrar_advertencia(texto)` | Prints a warning. |
+| `consola.mostrar_exito(texto)` | Prints a success message. |
+| `consola.mostrar_informacion(texto)` | Prints information. |
+| `consola.pedir(texto)` | Reads a line entered by the user. |
+| `consola.pedir_secreto(texto)` | Reads a line without echoing the input. |
 
-Generates lists of consecutive integers.
+Output methods accept `texto`. To print another type, use `.texto()` or interpolation with `t"..."`.
+
+## `rango` function
+
+`rango(inicio, fin)` generates a list of integers from `inicio` through `fin`, **including both endpoints**. It requires two arguments.
 
 ```qz
-lista<entero> from_zero = rango(5)      // [0, 1, 2, 3, 4]
-lista<entero> from_two = rango(2, 5)    // [2, 3, 4]
+lista<entero> numeros = rango(2, 5)  // [2, 3, 4, 5]
+lista<entero> desde_cero = rango(0, 3)  // [0, 1, 2, 3]
 ```
 
----
+## `texto` methods
 
-## Text Methods
+| Operation | Methods |
+|-----------|---------|
+| Size and state | `longitud()`, `esta_vacia()` |
+| Case | `mayusculas()`, `minusculas()`, `capitalizar()`, `titulo()` |
+| Trimming | `recortar()`, `recortar_inicio()`, `recortar_final()` |
+| Search | `contiene(texto)`, `empieza_con(texto)`, `termina_con(texto)`, `encontrar(texto)`, `buscar_ultimo(texto)`, `contar(texto)` |
+| Comparison | `igual_sin_caso(texto)` |
+| Replacement | `reemplazar(anterior, nuevo)`, `reemplazar_primero(anterior, nuevo)` |
+| Splitting | `dividir(separador)`, `partir_lineas()` |
+| Extraction | `subtexto(inicio, fin)`, `izquierda(n)`, `derecha(n)` |
+| Transformation | `repetir(n)`, `invertir()` |
+| Validation | `es_numero()`, `es_entero()`, `es_alfanumerico()` |
+| Encoding | `a_base64()`, `decodificar_base64()`, `a_enlace()`, `decodificar_enlace()` |
+| Conversion | `texto()`, `entero()`, `numero()` / `número()`, `logico()`, `lista()`, `jsn()` |
 
-### Case Transformations
+```qz
+texto mensaje = "  Hola Quetzal  "
+texto limpio = mensaje.recortar()
+log contiene = limpio.contiene("Quetzal")
+lista<texto> palabras = limpio.dividir(" ")
+texto codificado = limpio.a_base64()
+```
+
+Indexes start at zero; negative indexes count from the end:
+
+```qz
+texto palabra = "Quetzal"
+texto primera = palabra[0]   // "Q"
+texto ultima = palabra[-1]  // "l"
+```
+
+## `lista` and `lista<T>` methods
+
+| Operation | Methods |
+|-----------|---------|
+| Size and state | `longitud()`, `esta_vacia()` |
+| Access | `primero()`, `ultimo()`, `[indice]` |
+| Mutation | `agregar(valor)`, `insertar(indice, valor)`, `remover(valor)`, `quitar_en(indice)`, `limpiar()` |
+| Search | `contiene(valor)`, `buscar(valor)`, `buscar_ultimo(valor)`, `contar(valor)` |
+| Ordering | `ordenar()`, `ordenar_descendente()`, `ordenado()`, `invertir()` |
+| Sublists | `tomar(n)`, `saltar(n)`, `sublista(inicio, fin)` |
+| Combination | `concatenar(otra)`, `extender(otra)` |
+| Numeric lists | `sumar()`, `promedio()`, `maximo()`, `minimo()` |
+| Conversion | `unir(separador)`, `texto()`, `json()`, `logico()` |
+
+```qz
+lista<entero> var numeros = [3, 1, 2]
+numeros.agregar(4)
+numeros.ordenar()
+
+entero total = numeros.sumar()       // 10
+texto valores = numeros.unir(", ") // "1, 2, 3, 4"
+```
+
+<Aside type="note">
+Methods that mutate a list, such as `agregar`, `ordenar`, `invertir`, or `extender`, require the list to be declared with `var`.
+</Aside>
+
+## `jsn` methods
 
 | Method | Description |
 |--------|-------------|
-| `.mayusculas()` | Convert to uppercase |
-| `.minusculas()` | Convert to lowercase |
-| `.capitalizar()` | First letter uppercase |
-| `.titulo()` | Each word capitalized |
+| `contiene_clave(clave)` | Checks whether a key exists. |
+| `claves()` | Returns the list of keys. |
+| `valores()` | Returns the list of values. |
+| `establecer(clave, valor)` | Creates or updates a property. |
+| `eliminar(clave)` | Deletes a property. |
+| `fusionar(otro)` | Combines properties from another JSON object. |
+| `texto()` | Serializes the value as JSON. |
+| `texto_formateado()` | Serializes the value in a readable format. |
 
-### Trimming
+```qz
+jsn persona = { nombre: "Ana", edad: 30 }
+persona.establecer("activo", verdadero)
 
-| Method | Description |
-|--------|-------------|
-| `.recortar()` | Remove spaces from start and end |
-| `.recortar_inicio()` | Remove spaces from start |
-| `.recortar_final()` | Remove spaces from end |
+lista<texto> campos = persona.claves()
+texto serializado = persona.texto_formateado()
+```
 
-### Search and Verification
+## Numeric and logical methods
 
-| Method | Description |
-|--------|-------------|
-| `.contiene(texto)` | Check if contains substring |
-| `.empieza_con(texto)` | Check if starts with |
-| `.termina_con(texto)` | Check if ends with |
-| `.encontrar(texto)` | Find position of substring |
-| `.buscar_ultimo(texto)` | Find last occurrence |
-| `.contar(texto)` | Count occurrences |
-| `.igual_sin_caso(texto)` | Case-insensitive comparison |
+`entero` and `número` values support `texto()`, `logico()`, `absoluto()`, `entero()`, and `numero()` / `número()`. `log` values support `texto()`.
 
-### Replacement
+```qz
+texto entero_como_texto = 42.texto()
+número desde_entero = 42.número()
+entero truncado = 3.99.entero()  // 3
+log distinto_de_cero = 1.logico()  // verdadero
+texto logico_como_texto = falso.texto()
+```
 
-| Method | Description |
-|--------|-------------|
-| `.reemplazar(old, new)` | Replace all occurrences |
-| `.reemplazar_primero(old, new)` | Replace first occurrence |
+## Native modules
 
-### Division and Extraction
-
-| Method | Description |
-|--------|-------------|
-| `.dividir(separador)` | Split into list |
-| `.partir_lineas()` | Split by lines |
-| `.subtexto(inicio, fin)` | Extract substring |
-| `.izquierda(n)` | Extract first n characters |
-| `.derecha(n)` | Extract last n characters |
-
-### Encoding
-
-| Method | Description |
-|--------|-------------|
-| `.a_base64()` | Encode to Base64 |
-| `.decodificar_base64()` | Decode from Base64 |
-| `.a_enlace()` | URL encode |
-| `.decodificar_enlace()` | URL decode |
-
----
-
-## Conversion Methods
-
-| Method | Description |
-|--------|-------------|
-| `.texto()` | Convert to text |
-| `.entero()` | Convert text to integer |
-| `.numero()` | Convert text to decimal |
-| `.log()` | Convert text to boolean |
-| `.lista()` | Convert text to list |
-
----
-
-## Native Modules
+| Import path | Main symbols | Functionality |
+|-------------|--------------|---------------|
+| `"quetzal/matemática"` | `Matemática` | Arithmetic, trigonometry, logarithms, statistics, and random numbers. |
+| `"quetzal/tiempo"` | `Tiempo` | Dates, times, time zones, formatting, and time arithmetic. |
+| `"quetzal/motor"` | `ExpresiónRegular` | Regular-expression search, validation, replacement, and splitting. |
+| `"quetzal/entorno"` | `entorno` | System variables and `.env` file loading. Requires the `entorno` permission. |
+| `"quetzal/sistema_archivos"` | `SistemaArchivos`, `Archivo`, `Bits`, `Flujo`, `Observador`, `EventoArchivo` | Text and binary files, directories, streams, and change watching. Requires the `sistema-archivos` permission. |
+| `"quetzal/red"` | `ServidorHttp`, `ClienteHttp`, `Enrutador`, `Formulario`, `HttpCodigos`, and others | HTTP servers and clients, asynchronous requests, and multipart forms. Requires the `red` permission. |
 
 ### Mathematics
 
 ```qz
-importar { Matematica } desde "quetzal/matematica"
+importar { Matemática } desde "quetzal/matemática"
+
+número area = Matemática.PI * Matemática.potencia(5, 2)
+entero dado = Matemática.aleatorio_rango(1, 6)
 ```
 
-**Basic operations:** `sumar`, `restar`, `multiplicar`, `dividir`
+Constants: `PI`, `TAU`, and `E`.
 
-**Advanced:** `potencia`, `raiz_cuadrada`, `promedio`, `maximo`, `minimo`, `seno`, `coseno`, `tangente`, `absoluto`, `redondear`, `piso`, `techo`
+- Arithmetic: `sumar`, `restar`, `multiplicar`, `dividir`, `potencia`, `absoluto`.
+- Trigonometry: `seno`, `coseno`, `tangente`, `grados_a_radianes`, `radianes_a_grados`, `hipotenusa`.
+- Logarithms and roots: `logaritmo`, `logaritmo_base`, `exponencial`, `raiz_cuadrada`.
+- Rounding: `redondear`, `piso`, `techo`.
+- Statistics: `promedio`, `maximo`, `minimo`, `suma_total`, `producto_total`.
+- Random values: `aleatorio`, `aleatorio_rango`.
 
-**Constants:** `PI`, `TAU`, `E`
+### Time
 
 ```qz
-numero area = Matematica.PI * Matematica.potencia(5, 2)
-numero raiz = Matematica.raiz_cuadrada(16)  // 4
+importar { Tiempo } desde "quetzal/tiempo"
+
+Tiempo actual = Tiempo.ahora()
+Tiempo mañana = actual.agregar_dias(1)
+consola.mostrar(actual.formatear("%d/%m/%Y"))
 ```
+
+Includes constructors, `ahora`, `ahora_utc`, `ahora_en`, `hoy`, `marca`, `desde_marca`, `analizar`, date components, formatting, comparison, time arithmetic, and time-zone conversion.
+
+### Regular expressions
+
+```qz
+importar { ExpresiónRegular } desde "quetzal/motor"
+
+ExpresiónRegular numeros = nuevo ExpresiónRegular("\\d+")
+log coincide = numeros.coincide("abc123")
+lista coincidencias = numeros.buscar_todo("a1 b22 c333")
+```
+
+### Environment
+
+```qz
+importar { entorno } desde "quetzal/entorno"
+
+entorno.cargar()
+texto modo = entorno.obtener_o("MODO", "desarrollo")
+```
+
+The module includes `cargar`, `obtener`, `obtener_o`, and `contiene`. It requires the `entorno` permission. See [Environment variables](/en/io/entorno) for the complete reference.
+
+### File system
+
+```qz
+importar { SistemaArchivos } desde "quetzal/sistema_archivos"
+
+SistemaArchivos.escribir("./salida.txt", "Hola")
+texto contenido = SistemaArchivos.leer("./salida.txt")
+```
+
+I/O operations have synchronous forms and asynchronous forms with the `_asincrono` suffix. See [File handling](/en/io/archivos) to configure permissions.
+
+### Networking
+
+```qz
+importar { ClienteHttp, RespuestaHttp } desde "quetzal/red"
+
+ClienteHttp cliente = nuevo ClienteHttp({ base_url: "https://api.ejemplo.com" })
+RespuestaHttp respuesta = esperar cliente.obtener_asincrono("/usuarios")
+consola.mostrar(respuesta.estado().texto())
+```
+
+HTTP methods use Spanish names: `obtener`, `publicar`, `poner`, `parchear`, `borrar`, `cabecera`, `opciones`, `consultar`, `rastrear`, and `conectar`.

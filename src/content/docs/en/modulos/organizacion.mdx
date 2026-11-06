@@ -1,71 +1,105 @@
 ---
-title: Project Organization
-description: How to structure Quetzal Language projects with multiple files and configuration.
+title: Project organization
+description: Structure, manifest, and permissions for Quetzal Language v0.0.3 projects.
 ---
 
 import { Aside, FileTree } from '@astrojs/starlight/components';
 
-## Recommended Structure
+## Create a project
+
+The `nuevo` command generates the initial structure:
+
+```bash
+quetzal nuevo my-project
+```
+
+A typical structure is:
 
 <FileTree>
 - my-project/
-  - quetzal.json (project configuration)
-  - principal.qz (entry point)
+  - quetzal.json
+  - principal.qz
   - modulos/
     - usuarios.qz
     - utilidades.qz
   - datos/
-    - config.json
 </FileTree>
 
-## The `quetzal.json` File
+Code files use the `.qz` extension. Imports between files use relative paths:
 
-This optional configuration file defines metadata, dependencies, and permissions.
+```qz
+importar { Usuario } desde "./modulos/usuarios.qz"
+```
 
-### Basic Structure
+## `quetzal.json` manifest
+
+The manifest defines metadata, the entry file, the required Quetzal version, dependencies, and project permissions. Its canonical field names retain Spanish accents.
 
 ```json
 {
-  "version": "0.2.0",
-  "aplicacion": "my-project",
-  "dependencias": {
-    "libreria_ejemplo": "1.0.0"
-  }
+  "versión": "1.0.0",
+  "aplicación": "my-project",
+  "entrada": "principal.qz",
+  "tipo": "aplicación",
+  "quetzal": "0.0.3",
+  "dependencias": {}
 }
 ```
 
-### Permission System
+| Field | Description |
+|-------|-------------|
+| `versión` | Manifest format version. |
+| `aplicación` | Project name. |
+| `entrada` | Main `.qz` file. |
+| `tipo` | `aplicación` for a program or `biblioteca` for importable code. |
+| `quetzal` | Required language version. |
+| `dependencias` | Dependencies and their versions or URLs. |
 
-Controls access to system resources.
+<Aside type="note">
+Without `quetzal.json`, the interpreter applies secure defaults and blocks file-system and network access.
+</Aside>
+
+## Permissions
+
+Available permissions are `sistema-archivos`, `red`, `entorno`, and `ejecución`.
 
 ```json
 {
-  "version": "0.2.0",
-  "aplicacion": "my-project",
+  "versión": "1.0.0",
+  "aplicación": "my-project",
+  "entrada": "principal.qz",
+  "tipo": "aplicación",
+  "quetzal": "0.0.3",
   "permisos": [
     {
       "tipo": "sistema-archivos",
       "habilitado": true,
-      "alcance": ["lectura", "escritura"],
-      "directorios": ["./", "./modulos"]
+      "directorios": [
+        { "ruta": "./datos", "permiso": "lectura" },
+        { "ruta": "./salida", "permiso": "todo" }
+      ]
+    },
+    {
+      "tipo": "red",
+      "habilitado": true
     }
   ]
 }
 ```
 
-<Aside type="note">
-Without `quetzal.json`, the interpreter uses safe defaults blocking file system and network access.
-</Aside>
+For the file system, each directory declares `lectura`, `escritura`, or `todo`. The `red` permission enables HTTP clients and servers. The `entorno` permission allows reading system variables and loading `.env` files. The `ejecución` permission includes an `ejecutables` list for authorized external processes.
 
-## File Naming
+Grant only the permissions and paths the program needs.
 
-- Use `.qz` extension for code files
-- Use lowercase with underscores (`usuarios.qz`, `validaciones_datos.qz`)
-- Avoid spaces and special characters
+## Native modules
 
-## Best Practices
+```qz
+importar { Matemática } desde "quetzal/matemática"
+importar { Tiempo } desde "quetzal/tiempo"
+importar { ExpresiónRegular } desde "quetzal/motor"
+importar { entorno } desde "quetzal/entorno"
+importar { SistemaArchivos } desde "quetzal/sistema_archivos"
+importar { ClienteHttp } desde "quetzal/red"
+```
 
-1. **Keep related functions together** for easy discovery
-2. **Separate domain logic and infrastructure** in different modules
-3. **Document dependencies** with comments
-4. **Limit permissions** to minimum necessary in `quetzal.json`
+See [Built-in functions and methods](/en/referencia/funciones-integradas) for the complete standard library.

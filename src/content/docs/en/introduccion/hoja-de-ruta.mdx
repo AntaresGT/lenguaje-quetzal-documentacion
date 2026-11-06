@@ -1,89 +1,50 @@
 ---
-title: Roadmap
-description: Discover the Quetzal Language roadmap, from its beginnings to the future. Learn about its evolution, key features, and how you can contribute.
+title: Versions and roadmap
+description: Published versions and upcoming Quetzal Language features.
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+## Current version: v0.0.3
 
-## Mission
-Create a programming language in Spanish that is fully functional for general purpose use, not just for teaching.
+Quetzal Language v0.0.3 retains the v0.0.2 features and adds:
 
-## Short-term Vision
-For Quetzal Language to become a tool capable of running on a server to respond to requests and execute code in real-time, facilitating the development of web applications and backend services.
+- Virtual-machine, bytecode, function-call, and loop optimizations.
+- Selective JIT compilation through Cranelift for compatible functions.
+- `--jit`, `--sin-jit`, and `--sin-optimizar` options.
+- The `quetzal-lsp` language server with diagnostics, completion, and go-to-definition.
+- Extensions for Visual Studio Code, Neovim, and Zed.
+- `quetzal` and `quetzal-lsp` executables in the Windows and Linux packages.
+- Stability, exception-handling, and compatibility improvements for existing programs.
+- Interruption of `mientras` statements.
 
-## Motivation
-Programming has no borders, but it can have roots. Quetzal aims to provide the Spanish-speaking community with a modern, secure, efficient language entirely in Spanish, allowing Spanish-speaking developers to create applications more intuitively and naturally. It also facilitates teaching programming concepts to those who have Spanish as their native language.
+See the [complete v0.0.3 release notes](https://github.com/AntaresGT/lenguaje-quetzal/releases/tag/v0.0.3).
 
-## Quetzal is for Production
-Don't see Quetzal as a programming language only for learning to program, but as a powerful tool that can be used by experienced developers to create robust and efficient applications. Currently in version 0.0.2, Quetzal already has a functional interpreter and a Visual Studio Code extension that improves the development experience.
+## v0.0.2
 
-## Where is Quetzal Now?
+- Explicit static typing and default immutability with `var`.
+- User modules with `importar` and `exportar`.
+- Exceptions with `intentar`, `capturar`, `finalmente`, and `lanzar`.
+- Single and multiple inheritance, prototypes, and `libre` members.
+- Asynchronous functions and named callbacks.
+- Lists, native JSON, and built-in methods by type.
+- Standard library for console, mathematics, time, regular expressions, files, and networking.
+- `quetzal.json` manifest and declarative permissions.
+- Interactive REPL.
 
-### v0.0.1 (Released)
-- [x] Basic interpreter in Rust
-- [x] Fundamental data types
-- [x] User-defined functions
-- [x] Control flow (if/else, loops)
-- [x] Native JSON support
-- [x] Strong type system
-- [x] VS Code extension
+## v0.0.1
 
-### v0.0.2 (Current)
-- [x] Module system (`importar/exportar`)
-- [x] Exception handling (`intentar/capturar/finalmente`)
-- [x] Object inheritance
-- [x] Complete asynchronous functions
-- [x] Advanced operators
-- [x] Interactive REPL
+- Basic interpreter implemented in Rust.
+- Fundamental data types and user-defined functions.
+- Conditionals, loops, and native JSON.
+- Visual Studio Code extension.
 
-### v0.1.0 (Future)
-- [ ] Standard libraries
-- [ ] Package management
-- [ ] Integrated debugger
-- [ ] Easy server application creation (REST API)
-- [ ] Database connections
-- [ ] Development tools
+## Upcoming versions
 
-### v0.2.0 (Long-term Future)
-- [ ] Floem support for desktop and mobile applications
-- [ ] Web application support with Quetzal
-- [ ] Advanced graphics computing
+The project's published direction for v0.1.0 includes:
 
-## How to Contribute
+- More mature package management.
+- Integrated debugger.
+- More complete REST APIs for production environments.
+- Database connections.
+- Additional development tools.
 
-<CardGrid>
-  <Card title="Report Issues" icon="error">
-    Found a bug or have a suggestion? Open an issue on GitHub.
-
-    [Report Issue](https://github.com/AntaresGT/lenguaje-quetzal/issues)
-  </Card>
-
-  <Card title="Contribute Code" icon="github">
-    Want to contribute to development? Check our contribution guidelines.
-
-    [Contribute](https://github.com/AntaresGT/lenguaje-quetzal)
-  </Card>
-
-  <Card title="Join Discussions" icon="open-book">
-    Join the community and share your ideas.
-
-    [Discussions](https://github.com/AntaresGT/lenguaje-quetzal/discussions)
-  </Card>
-
-  <Card title="Improve Documentation" icon="document">
-    Help improve the documentation for other developers.
-
-    [Documentation Repo](https://github.com/AntaresGT/lenguaje-quetzal-documentacion)
-  </Card>
-</CardGrid>
-
-## Release History
-
-| Version | Date | Highlights |
-|---------|------|------------|
-| v0.0.1 | 2024 | Initial release with basic interpreter |
-| v0.0.2 | 2024 | Modules, exceptions, inheritance |
-
----
-
-The Quetzal Language team is committed to creating a powerful and accessible programming tool for the Spanish-speaking community.
+Proposals for later versions may change. [GitHub releases](https://github.com/AntaresGT/lenguaje-quetzal/releases) are the reference for published features.

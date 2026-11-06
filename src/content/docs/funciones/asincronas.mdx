@@ -1,31 +1,64 @@
 ---
-title: Funciones asincrónicas
-description: Estado actual del soporte asincrónico en Lenguaje Quetzal.
+title: Funciones asíncronas
+description: Declaración y ejecución de funciones asíncronas con asincrono y esperar en Lenguaje Quetzal.
 ---
 
-La gramática de Lenguaje Quetzal incluye las palabras reservadas `asincrono` y `esperar` para preparar el soporte de funciones asincrónicas. Sin embargo, en la versión v0.0.12 estas características aún no están implementadas en el intérprete.
+Las funciones asíncronas están disponibles en Lenguaje Quetzal. Se declaran con `asincrono` (o `asincróno`) y sus resultados se obtienen con `esperar`.
 
-## Sintaxis reservada
+## Declarar una función asíncrona
+
+El modificador se coloca antes del tipo de retorno:
 
 ```qz
-asincrono texto obtener_datos() {
-    // Implementación pendiente
+asincrono entero doble(entero valor) {
+    retornar valor * 2
 }
-
-texto resultado = esperar obtener_datos()
 ```
 
-El código anterior no puede ejecutarse actualmente; el intérprete mostrará un error indicando que la funcionalidad no está disponible.
+## Esperar el resultado
 
-## Hoja de ruta
+`esperar` puede utilizarse dentro de otra función asíncrona o en el nivel superior del archivo de entrada:
 
-- Las funciones marcadas con `asincrono` podrán ejecutar operaciones que devuelvan promesas o tareas diferidas.
-- `esperar` permitirá pausar la función en curso hasta que finalice la tarea asincrónica.
-- El sistema respetará las mismas reglas de tipos y manejo de errores que las funciones sincrónicas.
+```qz
+asincrono entero doble(entero valor) {
+    retornar valor * 2
+}
 
-## Recomendaciones temporales
+entero resultado = esperar doble(21)
+consola.mostrar(t"Resultado: {resultado}")
+```
 
-- Implementa operaciones dependientes de E/S como funciones sincrónicas y usa módulos nativos (por ejemplo, `quetzal/matemática`) mientras el soporte asincrónico se completa.
-- Sigue las actualizaciones de la hoja de ruta para conocer la disponibilidad de esta característica.
+Dentro de una función:
 
-Cuando la funcionalidad se publique, esta sección incluirá ejemplos prácticos y patrones recomendados.
+```qz
+asincrono vacio ejecutar() {
+    entero resultado = esperar doble(10)
+    consola.mostrar(resultado.texto())
+}
+
+esperar ejecutar()
+```
+
+## Operaciones asíncronas de la biblioteca estándar
+
+Los módulos de sistema de archivos y red proporcionan variantes con el sufijo `_asincrono`. Estas variantes permiten que el bucle de eventos continúe atendiendo otras operaciones.
+
+```qz
+importar { SistemaArchivos } desde "quetzal/sistema_archivos"
+
+asincrono vacio copiar_datos() {
+    texto datos = esperar SistemaArchivos.leer_asincrono("./entrada.txt")
+    esperar SistemaArchivos.escribir_asincrono("./salida.txt", datos)
+}
+
+esperar copiar_datos()
+```
+
+El acceso a archivos requiere los permisos correspondientes en `quetzal.json`.
+
+## Reglas
+
+- El tipo de retorno se declara después de `asincrono`.
+- `esperar` se escribe antes de la llamada que produce la tarea.
+- Los parámetros, el retorno y las excepciones siguen las mismas reglas de tipos que las funciones síncronas.
+- Los callbacks asíncronos se declaran con nombre; Quetzal no tiene funciones anónimas.

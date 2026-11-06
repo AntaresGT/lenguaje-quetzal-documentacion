@@ -1,0 +1,57 @@
+---
+title: Cambio API
+description: Proyecto de ejemplo construido con Lenguaje Quetzal para consultar el tipo de cambio USD a GTQ.
+---
+
+import { Card, CardGrid, LinkButton } from '@astrojs/starlight/components';
+
+**Cambio API** es una prueba de concepto desarrollada con Lenguaje Quetzal. Consulta el tipo de cambio oficial del día desde el Banco de Guatemala (Banguat) y lo expone mediante una API para convertir valores de dólares estadounidenses (USD) a quetzales (GTQ).
+
+<LinkButton href="https://tipo-cambio.lenguaje-quetzal.com/" icon="external">Abrir proyecto</LinkButton>
+<LinkButton href="https://github.com/AntaresGT/qz-cambio-moneda-pdc" icon="github" variant="secondary">Ver repositorio en GitHub</LinkButton>
+
+## Qué demuestra
+
+El proyecto aplica características del lenguaje en un caso real:
+
+- Servidor HTTP y archivos estáticos.
+- Rutas y controladores escritos en archivos `.qz`.
+- Cliente HTTP asíncrono para consultar el servicio SOAP de Banguat.
+- JSON nativo para las peticiones y respuestas.
+- Manejo de los métodos GET, POST y QUERY.
+- Interfaz web para probar la API y consultar ejemplos de código.
+
+## Endpoint principal
+
+Todos los métodos utilizan `/api/tipo-cambio`:
+
+| Método | Uso |
+|--------|-----|
+| `GET` | Obtiene el tipo de cambio actual sin parámetros. |
+| `POST` | Recibe `valor_dolares` en JSON y devuelve la conversión a quetzales. |
+| `QUERY` | Método HTTP experimental con el mismo comportamiento que POST en este proyecto. |
+
+## Ejecutar en local
+
+Necesitas tener el comando `quetzal` disponible en tu `PATH`.
+
+```bash
+git clone https://github.com/AntaresGT/qz-cambio-moneda-pdc.git
+cd qz-cambio-moneda-pdc
+quetzal ejecutar
+```
+
+El servidor se inicia en `http://localhost:3000`.
+
+<CardGrid>
+  <Card title="Código fuente" icon="github">
+    Revisa la implementación, la estructura del proyecto y sus archivos Quetzal.
+
+    [Abrir repositorio →](https://github.com/AntaresGT/qz-cambio-moneda-pdc)
+  </Card>
+  <Card title="Demostración" icon="rocket">
+    Ejecuta consultas reales y revisa las respuestas JSON desde el navegador.
+
+    [Probar Cambio API →](https://tipo-cambio.lenguaje-quetzal.com/)
+  </Card>
+</CardGrid>

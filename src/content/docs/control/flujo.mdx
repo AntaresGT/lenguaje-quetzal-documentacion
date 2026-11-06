@@ -72,9 +72,19 @@ intentar {
 }
 ```
 
-## `esperar` (reservado)
+## `esperar`
 
-La palabra clave `esperar` está reservada para la futura ejecución de funciones asincrónicas. En v0.0.12 aún no está habilitada.
+Obtiene el resultado de una función declarada con `asincrono`. Puede utilizarse dentro de otra función asíncrona o en el nivel superior del archivo de entrada.
+
+```qz
+asincrono entero doble(entero valor) {
+    retornar valor * 2
+}
+
+entero resultado = esperar doble(21)
+```
+
+Consulta [Funciones asíncronas](/funciones/asincronas) para más ejemplos.
 
 ## Flujo de salida del programa
 

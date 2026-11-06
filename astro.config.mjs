@@ -14,7 +14,7 @@ export default defineConfig({
 				id: 'Bahasa Quetzal',
 				ja: 'ケツァル語',
 			},
-			description: 'Documentación oficial del Lenguaje de Programación Quetzal v0.0.2',
+			description: 'Documentación oficial del Lenguaje de Programación Quetzal v0.0.3',
 			defaultLocale: 'root',
 			locales: {
 				root: {
@@ -394,6 +394,15 @@ export default defineConfig({
 							},
 							slug: 'io/archivos'
 						},
+						{
+							label: 'Variables de entorno',
+							translations: {
+								en: 'Environment variables',
+								id: 'Variabel lingkungan',
+								ja: '環境変数',
+							},
+							slug: 'io/entorno'
+						},
 					],
 				},
 				{
@@ -467,6 +476,20 @@ export default defineConfig({
 								ja: 'ベストプラクティス',
 							},
 							slug: 'ejemplos/mejores-practicas'
+						},
+					],
+				},
+				{
+					label: 'Proyectos',
+					translations: {
+						en: 'Projects',
+						id: 'Proyek',
+						ja: 'プロジェクト',
+					},
+					items: [
+						{
+							label: 'Cambio API',
+							slug: 'proyectos/cambio-api'
 						},
 					],
 				},

@@ -70,23 +70,26 @@ entero resultado = suma_enteros(10, 20)
 Quetzal provides built-in modules with the `quetzal/` prefix.
 
 ```qz
-importar { Matematica } desde "quetzal/matematica"
+importar { Matemática } desde "quetzal/matemática"
 
-numero pi = Matematica.PI
-numero resultado = Matematica.sumar(2, 3)
-numero seno = Matematica.seno(Matematica.PI / 2)
+número pi = Matemática.PI
+número resultado = Matemática.sumar(2, 3)
+número seno = Matemática.seno(Matemática.PI / 2)
 ```
 
 ### Available Native Modules
 
 | Module | Description |
 |--------|-------------|
-| `quetzal/matematica` | Mathematical functions and constants |
-| `quetzal/archivo` | File system operations |
-| `quetzal/sistema` | System utilities |
+| `quetzal/matemática` | Mathematical functions and constants |
+| `quetzal/tiempo` | Dates, times, and time zones |
+| `quetzal/motor` | Regular expressions |
+| `quetzal/entorno` | Environment variables; requires `entorno` permission |
+| `quetzal/sistema_archivos` | File-system operations; requires `sistema-archivos` permission |
+| `quetzal/red` | HTTP clients and servers; requires `red` permission |
 
 <Aside type="note">
-Native modules are available without needing file system permissions. Custom module imports may require permissions in `quetzal.json`.
+Native modules are distributed with the interpreter. File-system, networking, and environment-variable operations require their corresponding permissions in `quetzal.json`.
 </Aside>
 
 ## Relative Paths

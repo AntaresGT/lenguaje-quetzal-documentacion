@@ -1,31 +1,64 @@
 ---
-title: Asynchronous Functions
-description: Current status of asynchronous support in Quetzal Language.
+title: Asynchronous functions
+description: Declare and run asynchronous functions with asincrono and esperar in Quetzal Language.
 ---
 
-The Quetzal Language grammar includes the reserved words `asincrono` and `esperar` to prepare for asynchronous function support. However, in version v0.0.2 these features are not yet fully implemented in the interpreter.
+Asynchronous functions are available in Quetzal Language. Declare them with `asincrono` (or `asincróno`) and obtain their results with `esperar`.
 
-## Reserved Syntax
+## Declare an asynchronous function
+
+Place the modifier before the return type:
 
 ```qz
-asincrono texto obtener_datos() {
-    // Pending implementation
+asincrono entero doble(entero valor) {
+    retornar valor * 2
 }
-
-texto resultado = esperar obtener_datos()
 ```
 
-The above code cannot currently be executed; the interpreter will show an error indicating the functionality is not available.
+## Wait for the result
 
-## Roadmap
+`esperar` can be used inside another asynchronous function or at the top level of the entry file:
 
-- Functions marked with `asincrono` will be able to execute operations that return promises or deferred tasks.
-- `esperar` will allow pausing the current function until the asynchronous task finishes.
-- The system will respect the same type rules and error handling as synchronous functions.
+```qz
+asincrono entero doble(entero valor) {
+    retornar valor * 2
+}
 
-## Temporary Recommendations
+entero resultado = esperar doble(21)
+consola.mostrar(t"Resultado: {resultado}")
+```
 
-- Implement I/O-dependent operations as synchronous functions and use native modules (e.g., `quetzal/matematica`) while asynchronous support is completed.
-- Follow roadmap updates to know the availability of this feature.
+Inside a function:
 
-When the functionality is released, this section will include practical examples and recommended patterns.
+```qz
+asincrono vacio ejecutar() {
+    entero resultado = esperar doble(10)
+    consola.mostrar(resultado.texto())
+}
+
+esperar ejecutar()
+```
+
+## Asynchronous standard-library operations
+
+The file-system and networking modules provide variants with the `_asincrono` suffix. These variants allow the event loop to continue handling other operations.
+
+```qz
+importar { SistemaArchivos } desde "quetzal/sistema_archivos"
+
+asincrono vacio copiar_datos() {
+    texto datos = esperar SistemaArchivos.leer_asincrono("./entrada.txt")
+    esperar SistemaArchivos.escribir_asincrono("./salida.txt", datos)
+}
+
+esperar copiar_datos()
+```
+
+File access requires the corresponding permissions in `quetzal.json`.
+
+## Rules
+
+- Declare the return type after `asincrono`.
+- Place `esperar` before the call that produces the task.
+- Parameters, return values, and exceptions follow the same type rules as synchronous functions.
+- Asynchronous callbacks are declared with a name; Quetzal does not have anonymous functions.

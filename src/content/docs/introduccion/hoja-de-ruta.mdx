@@ -1,48 +1,50 @@
 ---
-title: Hoja de Ruta
-description: Descubre la hoja de ruta de Lenguaje Quetzal, desde sus inicios hasta el futuro. Aprende sobre su evolución, características clave y cómo puedes contribuir.
+title: Versiones y hoja de ruta
+description: Versiones publicadas y próximas características de Lenguaje Quetzal.
 ---
 
-## 🎯 Misión
-Crear un lenguaje de programación en español y que sea totalmente funcional para proposito general, no únicamente para enseñanza.
+## Versión actual: v0.0.3
 
-## 🚀 Visión a corto plazo
-Que Lenguaje Quetzal se convierta en una herramienta capaz de ejecutarse en un servidor para responder peticiones y ejecutar código en tiempo real, facilitando el desarrollo de aplicaciones web y servicios backend.
+Lenguaje Quetzal v0.0.3 mantiene las características de v0.0.2 e incorpora:
 
-## 🌱 Motivación
-La programación no tiene fronteras, pero sí puede tener raíces. Quetzal busca ofrecer a la comunidad hispanohablante con un lenguaje moderno, seguro, eficiente y totalmente en español, permitiendo a los desarrolladores hispanohablantes crear aplicaciones de manera más intuitiva y natural. Además de facilitar la enseñanza de conceptos de programación a quienes tienen el español como lengua materna.
+- Optimizaciones de la máquina virtual, el bytecode, las llamadas a funciones y los bucles.
+- Compilación JIT selectiva mediante Cranelift para funciones compatibles.
+- Opciones `--jit`, `--sin-jit` y `--sin-optimizar`.
+- Servidor de lenguaje `quetzal-lsp` con diagnósticos, autocompletado y navegación a definiciones.
+- Extensiones para Visual Studio Code, Neovim y Zed.
+- Ejecutables `quetzal` y `quetzal-lsp` en los paquetes de Windows y Linux.
+- Mejoras de estabilidad, manejo de excepciones y compatibilidad con programas existentes.
+- Interrupción de sentencias `mientras`.
 
-## 🏭 Quetzal es para producción
-No veas Quetzal como un lenguaje de programación únicamente para aprender a programar, sino, como una herramienta poderosa que puede ser utilizada por desarrolladores experimentados para crear aplicaciones robustas y eficientes. Actualmente en su versión 0.0.1, Quetzal ya cuenta con un intérprete funcional y una extensión para Visual Studio Code que mejora la experiencia de desarrollo.
+Consulta las [notas completas de v0.0.3](https://github.com/AntaresGT/lenguaje-quetzal/releases/tag/v0.0.3).
 
-## 🗺️ ¿En dónde se encuentra Quetzal?
+## v0.0.2
 
-### v0.0.1
-- [x] Intérprete básico en Rust
-- [x] Tipos de datos fundamentales
-- [x] Funciones definidas por el usuario
-- [x] Control de flujo (si/sino, bucles)
-- [x] Soporte JSON nativo
-- [x] Sistema de tipos fuerte
-- [x] Extensión VS Code
+- Tipado estático explícito e inmutabilidad predeterminada con `var`.
+- Módulos de usuario con `importar` y `exportar`.
+- Excepciones con `intentar`, `capturar`, `finalmente` y `lanzar`.
+- Herencia simple y múltiple, prototipos y miembros `libre`.
+- Funciones asíncronas y callbacks nombrados.
+- Listas, JSON nativo y métodos integrados por tipo.
+- Biblioteca estándar de consola, matemáticas, tiempo, expresiones regulares, archivos y red.
+- Manifiesto `quetzal.json` y permisos declarativos.
+- REPL interactivo.
 
-### v0.0.2 (Actual) ✅
-- [x] Sistema de módulos (`importar/exportar`)
-- [x] Manejo de excepciones (`intentar/atrapar/finalmente`)
-- [x] Herencia multiple
-- [x] Funciones asíncronas completas
-- [x] Operadores avanzados
-- [x] REPL interactivo
+## v0.0.1
 
-### v0.1.0 (Futuro)
-- [ ] Librerías estándar
-- [ ] Gestión de paquetes
-- [ ] Debugger integrado
-- [ ] Facilidad para crear aplicaciones de servidor como API REST
-- [ ] Conexión a bases de datos
-- [ ] Herramientas de desarrollo
+- Intérprete básico implementado en Rust.
+- Tipos de datos fundamentales y funciones definidas por el usuario.
+- Condicionales, bucles y JSON nativo.
+- Extensión para Visual Studio Code.
 
-### v0.2.0 (Futuro lejano)
-- [ ] Soporte con Floem para crear aplicaciones de escritorio y móviles (en duda XD)
-- [ ] Soporte para crear aplicaciones web con Quetzal
-- [ ] Computación gráfica avanzada con Quetzal
+## Próximas versiones
+
+La dirección publicada por el proyecto para v0.1.0 incluye:
+
+- Gestión de paquetes más madura.
+- Debugger integrado.
+- APIs REST más completas para entornos de producción.
+- Conexión a bases de datos.
+- Herramientas de desarrollo adicionales.
+
+Las propuestas para versiones posteriores pueden cambiar. Los [lanzamientos en GitHub](https://github.com/AntaresGT/lenguaje-quetzal/releases) son la referencia para conocer las características publicadas.

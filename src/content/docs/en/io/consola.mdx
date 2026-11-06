@@ -3,71 +3,38 @@ title: Console
 description: Console methods for input and output in Quetzal Language.
 ---
 
-The `consola` object provides methods for displaying messages and receiving user input.
+The global `consola` object provides methods for displaying messages and receiving user input. It is available without an import.
 
-## Display Methods
-
-### Basic Output
-
-```qz
-consola.mostrar("Normal message")
-```
-
-### Styled Messages
+## Display messages
 
 | Method | Description |
 |--------|-------------|
-| `mostrar_exito(texto)` | Success message (green) |
-| `mostrar_error(texto)` | Error message (red) |
-| `mostrar_advertencia(texto)` | Warning message (yellow) |
-| `mostrar_informacion(texto)` | Information message (blue) |
-| `mostrar_alerta(texto)` | Alert message |
-| `mostrar_confirmacion(texto)` | Confirmation message |
-| `mostrar_depurar(texto)` | Debug message |
+| `consola.mostrar(texto)` | Prints text using the default color. |
+| `consola.mostrar_error(texto)` | Prints an error in red. |
+| `consola.mostrar_advertencia(texto)` | Prints a warning in yellow. |
+| `consola.mostrar_exito(texto)` | Prints a success message in green. |
+| `consola.mostrar_informacion(texto)` | Prints information in blue. |
 
 ```qz
+consola.mostrar("Normal message")
 consola.mostrar_exito("Operation completed successfully!")
 consola.mostrar_error("An error occurred")
-consola.mostrar_advertencia("This action cannot be undone")
+consola.mostrar_advertencia("Check this value")
 consola.mostrar_informacion("Processing data...")
 ```
 
-## Input Methods
-
-### Standard Input
+## Read input
 
 ```qz
 texto nombre = consola.pedir("Enter your name: ")
-consola.mostrar("Hello, " + nombre)
-```
-
-### Hidden Input (Passwords)
-
-```qz
 texto contrasena = consola.pedir_secreto("Enter password: ")
 ```
 
-## Shortcut Functions
+`pedir` returns the entered text. `pedir_secreto` reads without echoing the input.
 
-These functions are aliases for console methods:
+## Display non-text values
 
-| Function | Equivalent |
-|----------|------------|
-| `imprimir(texto)` | `consola.mostrar` |
-| `imprimir_error(texto)` | `consola.mostrar_error` |
-| `imprimir_advertencia(texto)` | `consola.mostrar_advertencia` |
-| `imprimir_informacion(texto)` | `consola.mostrar_informacion` |
-| `imprimir_exito(texto)` | `consola.mostrar_exito` |
-
-```qz
-// Both do the same thing
-consola.mostrar("Hello")
-imprimir("Hello")
-```
-
-## Displaying Non-Text Values
-
-Convert values to text before displaying:
+Convert values to text before displaying them:
 
 ```qz
 entero numero = 42
@@ -86,9 +53,4 @@ entero edad = 25
 consola.mostrar(t"You are {edad} years old")
 ```
 
-## Best Practices
-
-- Use appropriate message types for clarity
-- Provide clear prompts for user input
-- Validate user input after receiving it
-- Use `pedir_secreto` for sensitive data
+Output colors depend on terminal support. Avoid interactive input in automated scripts.

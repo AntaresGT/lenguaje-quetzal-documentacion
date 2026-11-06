@@ -1,200 +1,167 @@
 ---
-title: Instalación de Lenguaje Quetzal
-description: Guía paso a paso para instalar el intérprete de Lenguaje Quetzal en Windows.
+title: Descargar e instalar Lenguaje Quetzal
+description: Descarga e instala el intérprete de Lenguaje Quetzal v0.0.3 en Windows o Linux, o compílalo desde el código fuente.
 ---
 
-import { Card, CardGrid, Steps, Badge } from '@astrojs/starlight/components';
+import { Aside, Card, CardGrid, Steps, Tabs, TabItem } from '@astrojs/starlight/components';
 
-Esta guía te llevará paso a paso por el proceso de instalación del intérprete de Lenguaje Quetzal en Windows.
+La versión estable más reciente es **Lenguaje Quetzal v0.0.3**. Los paquetes oficiales incluyen el intérprete `quetzal` y el servidor de lenguaje `quetzal-lsp`.
 
-<Badge text="Solo Windows" variant="note" />
+## Descargar Quetzal
 
-## Requisitos del sistema
+Descarga el paquete correspondiente a tu sistema desde los [lanzamientos oficiales en GitHub](https://github.com/AntaresGT/lenguaje-quetzal/releases/latest).
 
-<CardGrid>
-  <Card title="Sistema Operativo" icon="laptop">
-    - Windows 10 (64-bit) o superior
-    - Windows 11 (recomendado)
-  </Card>
-  
-  <Card title="Hardware Mínimo" icon="setting">
-    - RAM: 512 MB mínimo (1 GB recomendado)
-    - Almacenamiento: 100 MB libres
-    - Procesador: x64 compatible
-  </Card>
-</CardGrid>
+| Sistema | Paquete | Contenido |
+|---------|---------|-----------|
+| Windows | [quetzal-windows-msi.zip](https://github.com/AntaresGT/lenguaje-quetzal/releases/download/v0.0.3/quetzal-windows-msi.zip) | Instalador MSI para Windows x86_64 |
+| Windows | [quetzal-windows.zip](https://github.com/AntaresGT/lenguaje-quetzal/releases/download/v0.0.3/quetzal-windows.zip) | Ejecutables portables |
+| Linux | [quetzal-linux.zip](https://github.com/AntaresGT/lenguaje-quetzal/releases/download/v0.0.3/quetzal-linux.zip) | Ejecutables para Linux x86_64 |
+| Ubuntu | [quetzal-ubuntu.zip](https://github.com/AntaresGT/lenguaje-quetzal/releases/download/v0.0.3/quetzal-ubuntu.zip) | Paquete específico para Ubuntu |
+| Fedora | [quetzal-fedora.zip](https://github.com/AntaresGT/lenguaje-quetzal/releases/download/v0.0.3/quetzal-fedora.zip) | Paquete específico para Fedora |
+| Linux | [quetzal-appimage.zip](https://github.com/AntaresGT/lenguaje-quetzal/releases/download/v0.0.3/quetzal-appimage.zip) | Paquete AppImage |
 
-## Instalación paso a paso
+<Aside type="note">
+No hay un paquete para macOS en el lanzamiento v0.0.3. En ese sistema puedes compilar el intérprete desde el código fuente.
+</Aside>
+
+## Instalar en Windows
+
+<Tabs>
+  <TabItem label="Instalador MSI">
 
 <Steps>
 
-1. **Descargar el ejecutable**
-   
-   Ve a la página de releases en GitHub y descarga la versión más reciente:
-    - [Releases de Lenguaje Quetzal](https://github.com/AntaresGT/lenguaje-quetzal/releases)
-    - Busca el archivo llamado `quetzal.exe` en la sección **Assets** de la release más reciente.
+1. Descarga `quetzal-windows-msi.zip` y descomprime el archivo.
+2. Ejecuta `quetzal-0.0.3-x86_64.msi` y completa el asistente de instalación.
+3. Abre una terminal nueva y comprueba la instalación:
 
-2. **Crear directorio de instalación**
-   
-   Crea una carpeta para Quetzal en tu sistema. Recomendamos:
-   
-   ```
-   C:\quetzal\
-   ```
-   
-   Mueve el archivo `quetzal.exe` descargado a esta carpeta.
-
-3. **Configurar variables de entorno**
-   
-   Para poder ejecutar Quetzal desde cualquier ubicación:
-   
-   - Presiona `Win + R`, escribe `sysdm.cpl` y presiona Enter
-   - Ve a la pestaña **"Opciones avanzadas"**
-   - Haz clic en **"Variables de entorno"**
-   - En **"Variables del sistema"**, busca la variable `Path` y haz clic en **"Editar"**
-   - Haz clic en **"Nuevo"** y agrega la ruta: `C:\quetzal`
-   - Haz clic en **"Aceptar"** en todas las ventanas
-
-4. **Verificar la instalación**
-   
-   Abre una nueva ventana de **Command Prompt** o **PowerShell** y ejecuta:
-   
-   ```cmd
+   ```powershell
    quetzal --version
    ```
-   
-   Deberías ver algo como:
-   ```
-   Lenguaje Quetzal v0.0.2
+
+   La salida debe ser:
+
+   ```text
+   Quetzal v0.0.3
    ```
 
 </Steps>
 
-## Uso básico
+Si el comando no se reconoce, agrega al `PATH` la carpeta donde el instalador guardó `quetzal.exe` y vuelve a abrir la terminal.
 
-### Ejecutar un archivo Quetzal
+  </TabItem>
+  <TabItem label="Ejecutable portable">
 
-```cmd
-quetzal mi_programa.qz
+<Steps>
+
+1. Descarga y descomprime `quetzal-windows.zip`.
+2. Guarda los ejecutables en una carpeta permanente, por ejemplo `C:\quetzal`.
+3. Agrega `C:\quetzal` a la variable de entorno `Path`.
+4. Abre una terminal nueva y ejecuta `quetzal --version`.
+
+</Steps>
+
+  </TabItem>
+</Tabs>
+
+## Instalar en Linux
+
+El paquete general `quetzal-linux.zip` contiene `quetzal` y `quetzal-lsp`. Si utilizas Ubuntu o Fedora, también puedes escoger su paquete específico.
+
+```bash
+unzip quetzal-linux.zip -d quetzal
+cd quetzal
+chmod +x quetzal quetzal-lsp
+./quetzal --version
 ```
 
-### Ver ayuda
+Para ejecutar `quetzal` desde cualquier directorio, mueve los ejecutables a una carpeta incluida en tu `PATH` o agrega su ubicación actual al `PATH` de tu terminal.
 
-```cmd
-quetzal --ayuda
+Si descargaste el paquete AppImage, descomprímelo, concede permiso de ejecución al archivo `.AppImage` y ejecútalo desde la terminal.
+
+## Compilar desde el código fuente
+
+Necesitas [Git](https://git-scm.com/) y una instalación actualizada de [Rust](https://rustup.rs/) compatible con la edición 2024.
+
+```bash
+git clone https://github.com/AntaresGT/lenguaje-quetzal.git
+cd lenguaje-quetzal
+cargo build --release
 ```
 
-## Verificación rápida
+El intérprete queda en `target/release/quetzal` (`quetzal.exe` en Windows). Ejecuta un programa de ejemplo para comprobar la compilación:
 
-Crea un archivo llamado `prueba.qz` con el siguiente contenido:
+```bash
+./target/release/quetzal ejemplos/hola_mundo/principal.qz
+```
+
+También puedes compilar y ejecutar sin copiar el binario:
+
+```bash
+cargo run -p lnc -- ejemplos/hola_mundo/principal.qz
+```
+
+## Usar el intérprete
+
+```bash
+# Ejecutar un archivo
+quetzal programa.qz
+
+# Analizar un archivo sin ejecutarlo
+quetzal revisar programa.qz
+
+# Crear un proyecto
+quetzal nuevo mi-proyecto
+
+# Abrir el REPL interactivo
+quetzal
+
+# Consultar la ayuda y la versión
+quetzal ayuda
+quetzal --version
+```
+
+La versión 0.0.3 admite las opciones `--jit`, `--sin-jit` y `--sin-optimizar` para controlar la compilación JIT y las optimizaciones durante la ejecución. Quetzal sigue siendo un lenguaje interpretado: el JIT es una optimización interna para funciones compatibles.
+
+## Comprobar la instalación
+
+Crea un archivo `hola_mundo.qz`:
 
 ```qz
-consola.mostrar_exito("¡Lenguaje Quetzal instalado correctamente!")
-
-entero edad = 25
-texto nombre = "María"
-
-consola.mostrar("Hola " + nombre + ", tienes " + edad.texto() + " años")
-
-si (edad >= 18) {
-    consola.mostrar("Eres mayor de edad")
-} sino {
-    consola.mostrar("Eres menor de edad")
-}
+consola.mostrar_exito("¡Hola, mundo desde Quetzal!")
 ```
 
 Ejecuta el archivo:
 
-```cmd
-quetzal prueba.qz
+```bash
+quetzal hola_mundo.qz
 ```
 
-Si ves la salida correcta, ¡la instalación fue exitosa!
+## Extensiones para editores
 
-## Solución de problemas
+El servidor `quetzal-lsp` proporciona diagnósticos, autocompletado, información de símbolos y navegación a definiciones. Las extensiones oficiales lo integran con los editores:
 
-<CardGrid>
-  <Card title="Comando no reconocido" icon="error">
-    **Error**: `'quetzal' no se reconoce como un comando interno o externo`
-    
-    **Solución**:
-    - Verifica que agregaste la ruta correcta al PATH
-    - Reinicia Command Prompt/PowerShell después de cambiar variables de entorno
-    - Asegúrate de que el archivo esté en `C:\quetzal\quetzal.exe`
-  </Card>
-  
-  <Card title="Error de permisos" icon="warning">
-    **Error**: No se puede ejecutar el archivo
-    
-    **Solución**:
-    - Ejecuta Command Prompt como administrador
-    - Verifica que tienes permisos de lectura en la carpeta de instalación
-    - Asegúrate de que Windows no está bloqueando el archivo (clic derecho > Propiedades > Desbloquear)
-  </Card>
-  
-  <Card title="Antivirus bloquea el archivo" icon="sourcehut">
-    **Error**: El antivirus detecta el archivo como amenaza
-    
-    **Solución**:
-    - Agrega `C:\quetzal\` a las excepciones de tu antivirus
-    - Descarga nuevamente desde GitHub Releases oficial
-    - Reporta el falso positivo a tu proveedor de antivirus
-  </Card>
-</CardGrid>
-
-### Comandos de diagnóstico
-
-```cmd
-# Verificar que el archivo existe
-dir C:\quetzal\quetzal.exe
-
-# Verificar variables de entorno
-echo %PATH%
-
-# Ejecutar con información detallada
-quetzal --info
-```
+- [Visual Studio Code](https://marketplace.visualstudio.com/items?itemName=AntaresGT.lenguaje-quetzal-vscode-extension): `code --install-extension AntaresGT.lenguaje-quetzal-vscode-extension`
+- [Neovim](https://github.com/AntaresGT/lenguaje-quetzal.nvim)
+- [Zed](https://github.com/AntaresGT/lenguaje-quetzal-zed-extension)
 
 ## Actualizar Quetzal
 
-Para actualizar a una nueva versión:
-
-1. Descarga la nueva versión de `quetzal.exe` desde GitHub Releases
-2. Reemplaza el archivo anterior en `C:\quetzal\`
-3. Verifica la nueva versión con `quetzal --version`
-
-## Desinstalar
-
-Para eliminar Quetzal de tu sistema:
-
-1. Elimina la carpeta `C:\quetzal\`
-2. Remueve `C:\quetzal` de la variable de entorno PATH
-3. (Opcional) Elimina cualquier archivo `.qz` que hayas creado
+Descarga el paquete de la nueva versión y reemplaza la instalación anterior, o vuelve a compilar el código fuente actualizado. Después ejecuta `quetzal --version` para confirmar la versión activa.
 
 ## Próximos pasos
 
-¡Perfecto! Ya tienes Lenguaje Quetzal listo para usar. Continúa con:
-
 <CardGrid>
   <Card title="Tu primer programa" icon="rocket">
-    Aprende a crear y ejecutar tu primer programa completo en Quetzal.
-    
+    Crea y ejecuta un programa completo en Quetzal.
+
     [Crear primer programa →](/introduccion/primer-programa)
   </Card>
-  
   <Card title="Sintaxis básica" icon="document">
-    Familiarízate con la sintaxis y estructura del lenguaje.
-    
+    Conoce los tipos, variables y estructuras del lenguaje.
+
     [Aprender sintaxis →](/fundamentos/sintaxis-basica)
-  </Card>
-  
-  <Card title="Ejemplos prácticos" icon="open-book">
-    Explora ejemplos de código para diferentes casos de uso.
-    
-    [Ver ejemplos →](/ejemplos/basicos)
   </Card>
 </CardGrid>
 
----
-
-¿Problemas con la instalación? [Reporta un issue](https://github.com/AntaresGT/lenguaje-quetzal/issues) en nuestro repositorio de GitHub.
+¿Encontraste un problema con la instalación? [Repórtalo en GitHub](https://github.com/AntaresGT/lenguaje-quetzal/issues).

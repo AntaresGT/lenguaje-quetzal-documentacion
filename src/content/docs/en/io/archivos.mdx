@@ -1,88 +1,113 @@
 ---
-title: Files
-description: File system operations in Quetzal Language.
+title: File handling
+description: File-system reading, writing, and permissions in Quetzal Language.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
+The `quetzal/sistema_archivos` module supports text and binary files, directories, cursor-based streams, and change watchers.
+
 <Aside type="caution">
-File operations require permissions configured in `quetzal.json`.
+File operations require the `sistema-archivos` permission in `quetzal.json`. Without it, the interpreter blocks access.
 </Aside>
 
-## Permission Configuration
+## Configure permissions
 
-Add file system permissions to your `quetzal.json`:
+Declare each directory and its required access level:
 
 ```json
 {
+  "versión": "1.0.0",
+  "aplicación": "my-project",
+  "entrada": "principal.qz",
+  "tipo": "aplicación",
+  "quetzal": "0.0.3",
   "permisos": [
     {
       "tipo": "sistema-archivos",
       "habilitado": true,
-      "alcance": ["lectura", "escritura"],
-      "directorios": ["./datos", "./logs"]
+      "directorios": [
+        { "ruta": "./datos", "permiso": "lectura" },
+        { "ruta": "./salida", "permiso": "escritura" }
+      ]
     }
   ]
 }
 ```
 
-## Reading Files
+Available levels are `lectura`, `escritura`, and `todo`. Relative paths are resolved from the project root; `"*"` allows any path.
+
+## Read and write text
 
 ```qz
-importar { Archivo } desde "quetzal/archivo"
+importar { SistemaArchivos } desde "quetzal/sistema_archivos"
 
+SistemaArchivos.crear_directorios("./salida")
+SistemaArchivos.escribir("./salida/resultado.txt", "Hola, Quetzal")
+
+texto contenido = SistemaArchivos.leer("./salida/resultado.txt")
+consola.mostrar(contenido)
+```
+
+`escribir` creates or overwrites the file. To append content, use `anexar`.
+
+## Inspect files and directories
+
+```qz
+log existe = SistemaArchivos.existe("./salida/resultado.txt")
+log es_archivo = SistemaArchivos.es_archivo("./salida/resultado.txt")
+lista<texto> archivos = SistemaArchivos.listar_archivos("./salida")
+```
+
+You can also obtain a reference with metadata:
+
+```qz
+importar { SistemaArchivos, Archivo } desde "quetzal/sistema_archivos"
+
+Archivo archivo = SistemaArchivos.abrir("./salida/resultado.txt")
+consola.mostrar(archivo.nombre())
+consola.mostrar(archivo.tamaño().texto())
+```
+
+## Binary data
+
+`Bits` represents an in-memory byte sequence:
+
+```qz
+importar { SistemaArchivos, Bits } desde "quetzal/sistema_archivos"
+
+Bits datos = Bits.desde_texto("Quetzal")
+SistemaArchivos.escribir_bits("./salida/datos.bin", datos)
+
+Bits leidos = SistemaArchivos.leer_bits("./salida/datos.bin")
+consola.mostrar(leidos.texto())
+```
+
+## Asynchronous operations
+
+I/O operations have a variant with the `_asincrono` suffix, used with `esperar`:
+
+```qz
+asincrono vacio guardar() {
+    esperar SistemaArchivos.escribir_asincrono("./salida/datos.txt", "contenido")
+    texto datos = esperar SistemaArchivos.leer_asincrono("./salida/datos.txt")
+    consola.mostrar(datos)
+}
+
+esperar guardar()
+```
+
+## Handle errors
+
+Insufficient permissions, unauthorized paths, and operating-system errors produce catchable exceptions:
+
+```qz
 intentar {
-    texto contenido = Archivo.leer("./datos/config.txt")
+    texto contenido = SistemaArchivos.leer("./datos/config.txt")
     consola.mostrar(contenido)
-} capturar (excepcion e) {
-    consola.mostrar_error("Could not read file: " + e.mensaje)
+} capturar (excepcion error) {
+    consola.mostrar_error(error.mensaje)
 }
 ```
 
-## Writing Files
-
-```qz
-importar { Archivo } desde "quetzal/archivo"
-
-texto datos = "Hello, Quetzal!"
-
-intentar {
-    Archivo.escribir("./datos/output.txt", datos)
-    consola.mostrar_exito("File saved successfully")
-} capturar (excepcion e) {
-    consola.mostrar_error("Could not write file: " + e.mensaje)
-}
-```
-
-## Checking File Existence
-
-```qz
-importar { Archivo } desde "quetzal/archivo"
-
-si (Archivo.existe("./datos/config.txt")) {
-    consola.mostrar("File exists")
-} sino {
-    consola.mostrar("File not found")
-}
-```
-
-## Working with JSON Files
-
-```qz
-importar { Archivo } desde "quetzal/archivo"
-
-// Read JSON file
-texto json_texto = Archivo.leer("./datos/usuarios.json")
-jsn usuarios = json_texto.jsn()
-
-// Modify and save
-usuarios.establecer("actualizado", verdadero)
-Archivo.escribir("./datos/usuarios.json", usuarios.texto_formateado())
-```
-
-## Best Practices
-
-- Always wrap file operations in `intentar`/`capturar`
-- Verify file existence before reading
-- Use appropriate directories in permissions
-- Limit permissions to only necessary directories
+The module also includes `Flujo` for incremental reading and writing with a persistent cursor, and `Observador` for file and directory change events.

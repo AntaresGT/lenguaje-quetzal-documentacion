@@ -1,46 +1,66 @@
 ---
 title: Palabras reservadas
-description: Lista de palabras que no pueden usarse como identificadores en Lenguaje Quetzal.
+description: Palabras reservadas de Lenguaje Quetzal, su función y ejemplos de uso.
 ---
 
-## Tipos de datos
+Las palabras reservadas tienen un significado definido por la sintaxis de Quetzal y no pueden utilizarse como nombres de variables, funciones, objetos o propiedades.
 
-`vacio`, `entero`, `número`, `texto`, `log`, `lista`, `jsn`
+El analizador léxico normaliza las tildes. Por eso, formas como `número` y `numero` o `publico` y `público` son equivalentes; la tabla presenta cada forma por separado para facilitar su consulta.
 
-## Modificadores y visibilidad
+| Palabra | Categoría | Qué hace | Ejemplo |
+|---------|-----------|----------|---------|
+| `entero` | Tipo | Declara un número entero con signo de 64 bits. | `entero edad = 25` |
+| `número` | Tipo | Declara un número decimal de coma flotante. | `número precio = 99.99` |
+| `numero` | Tipo | Variante sin tilde de `número`; tiene exactamente la misma función. | `numero precio = 99.99` |
+| `texto` | Tipo | Declara una cadena de caracteres Unicode. | `texto nombre = "Ana"` |
+| `log` | Tipo | Declara un valor lógico: `verdadero` o `falso`. | `log activo = verdadero` |
+| `vacío` | Tipo | Indica que una función no devuelve ningún valor. | `vacío saludar() { consola.mostrar("Hola") }` |
+| `vacio` | Tipo | Variante sin tilde de `vacío`. | `vacio saludar() { consola.mostrar("Hola") }` |
+| `lista` | Tipo | Declara una colección ordenada; puede especificar el tipo de sus elementos entre `<` y `>`. | `lista<entero> numeros = [1, 2, 3]` |
+| `jsn` | Tipo | Declara un valor JSON nativo con propiedades accesibles por nombre o índice. | `jsn persona = { nombre: "Ana" }` |
+| `funcion` | Tipo | Declara una variable o parámetro que recibe una función como valor, por ejemplo, un callback nombrado. | `entero aplicar(funcion accion, entero valor) { retornar accion(valor) }` |
+| `var` | Mutabilidad | Permite reasignar una variable o modificar una colección. Sin `var`, la declaración es inmutable. | `entero var contador = 0` |
+| `si` | Control de flujo | Ejecuta un bloque cuando su condición es verdadera. | `si (edad >= 18) { consola.mostrar("Mayor de edad") }` |
+| `sino` | Control de flujo | Ejecuta un bloque alternativo cuando la condición de `si` es falsa. | `sino { consola.mostrar("Menor de edad") }` |
+| `sino si` | Control de flujo | Combina `sino` y `si` para evaluar otra condición después de una condición falsa. | `} sino si (edad >= 13) {` |
+| `mientras` | Bucles | Repite un bloque mientras su condición sea verdadera. También cierra un bucle iniciado con `hacer`. | `mientras (contador < 10) { contador++ }` |
+| `para` | Bucles | Inicia un bucle con contador o un recorrido de una colección. | `para (entero var i = 0; i < 5; i++) { consola.mostrar(i.texto()) }` |
+| `hacer` | Bucles | Inicia un bloque que se ejecuta al menos una vez antes de evaluar la condición de `mientras`. | `hacer { contador++ } mientras (contador < 3)` |
+| `en` | Bucles | Indica la colección que se recorrerá en un bucle `para`. | `para (texto var nombre en nombres) { consola.mostrar(nombre) }` |
+| `cada` | Bucles | Sinónimo de `en` para recorrer una colección. | `para (texto var nombre cada nombres) { consola.mostrar(nombre) }` |
+| `romper` | Control de flujo | Termina inmediatamente el bucle más cercano. | `si (encontrado) { romper }` |
+| `continuar` | Control de flujo | Omite el resto de la iteración actual y pasa a la siguiente. | `si (valor == 0) { continuar }` |
+| `retornar` | Funciones | Finaliza la función actual y, opcionalmente, devuelve un valor. | `retornar a + b` |
+| `asincrono` | Asincronía | Declara una función cuya ejecución produce un resultado asíncrono. | `asincrono texto cargar() { retornar "datos" }` |
+| `asincróno` | Asincronía | Variante con tilde de `asincrono`. | `asincróno texto cargar() { retornar "datos" }` |
+| `esperar` | Asincronía | Espera el resultado de una llamada asíncrona antes de continuar. | `texto datos = esperar cargar()` |
+| `intentar` | Excepciones | Delimita un bloque cuyos errores pueden capturarse. | `intentar { ejecutar() }` |
+| `capturar` | Excepciones | Define el bloque que se ejecuta cuando `intentar` produce una excepción. | `capturar (excepcion error) { consola.mostrar_error(error.mensaje) }` |
+| `finalmente` | Excepciones | Define un bloque que se ejecuta después de `intentar` o `capturar`, haya ocurrido una excepción o no. | `finalmente { consola.mostrar("Finalizado") }` |
+| `lanzar` | Excepciones | Produce una excepción con el valor indicado. | `lanzar "Operación no válida"` |
+| `excepcion` | Excepciones | Declara el tipo de la variable que recibe el error en un bloque `capturar`. | `capturar (excepcion error) { }` |
+| `excepción` | Excepciones | Variante con tilde de `excepcion`. | `capturar (excepción error) { }` |
+| `objeto` | Programación orientada a objetos | Define una clase con atributos, constructor y métodos. | `objeto Usuario { }` |
+| `prototipo` | Programación orientada a objetos | Define una interfaz con las firmas que un objeto puede implementar. | `prototipo Imprimible { }` |
+| `hereda` | Programación orientada a objetos | Declara una o varias clases padre de un objeto. | `objeto Admin hereda Usuario { }` |
+| `implementa` | Programación orientada a objetos | Declara los prototipos cuyas firmas debe implementar un objeto. | `objeto Documento implementa Imprimible { }` |
+| `como` | Módulos y herencia | Crea un alias para un símbolo importado o para una clase padre. | `importar { sumar como suma } desde "./math.qz"` |
+| `nuevo` | Programación orientada a objetos | Crea una instancia de un objeto mediante su constructor. | `Usuario usuario = nuevo Usuario()` |
+| `esto` | Programación orientada a objetos | Hace referencia a la instancia actual dentro de sus métodos. | `esto.nombre = nombre` |
+| `padre` | Programación orientada a objetos | Permite acceder a miembros de la clase padre. | `padre.inicializar()` |
+| `publico` | Visibilidad | Marca una sección de miembros accesibles desde fuera del objeto. | `publico:` |
+| `público` | Visibilidad | Variante con tilde de `publico`. | `público:` |
+| `privado` | Visibilidad | Marca una sección de miembros accesibles únicamente dentro del objeto. | `privado:` |
+| `libre` | Programación orientada a objetos | Declara un miembro estático que se utiliza sin crear una instancia. | `libre entero doble(entero n) { retornar n * 2 }` |
+| `opcional` | Prototipos | Marca un miembro de un prototipo que no es obligatorio implementar. | `opcional texto descripcion()` |
+| `importar` | Módulos | Incorpora símbolos exportados por otro archivo o por un módulo nativo. | `importar { Matemática } desde "quetzal/matemática"` |
+| `exportar` | Módulos | Hace que variables, funciones u objetos del archivo estén disponibles para otros módulos. | `exportar { sumar }` |
+| `desde` | Módulos | Indica la ruta del módulo del cual se importan símbolos. | `importar { sumar } desde "./operaciones.qz"` |
+| `verdadero` | Literal lógico | Representa el valor booleano verdadero. | `log activo = verdadero` |
+| `falso` | Literal lógico | Representa el valor booleano falso. | `log activo = falso` |
+| `nulo` | Literal | Representa la ausencia de un valor; puede asignarse a cualquier tipo. | `texto resultado = nulo` |
+| `y` | Operador lógico | Equivale a `&&`: el resultado es verdadero solo si ambas condiciones lo son. | `si (activo y autorizado) { }` |
+| `o` | Operador lógico | Equivale a `\|\|`: el resultado es verdadero si al menos una condición lo es. | `si (admin o propietario) { }` |
+| `no` | Operador lógico | Equivale a `!`: invierte un valor lógico. | `si (no activo) { }` |
 
-`var`, `publico`, `privado`, `libre`, `ambiente`
-
-## Control de flujo
-
-`si`, `sino`, `sino si`, `para`, `mientras`, `hacer`, `romper`, `continuar`, `en`, `cada`, `retornar`
-
-## Objetos, prototipos e instancias
-
-`objeto`, `prototipo`, `implementa`, `nuevo`, `constructor`, `padre`
-
-## Contratos y opcionalidad
-
-`opcional`
-
-## Asincronía reservada
-
-`asincrono`, `esperar`
-
-## Manejo de excepciones
-
-`intentar`, `capturar`, `finalmente`, `lanzar`, `excepcion`
-
-## Módulos y composición
-
-`importar`, `exportar`, `desde`, `como`
-
-## Literales y operadores lógicos
-
-`verdadero`, `falso`, `nulo`, `y`, `o`, `no`
-
-## Otros identificadores protegidos
-
-`mut`, `de`, `es`
-
-Aunque algunas palabras (como `asincrono` o `mut`) aún no tienen implementación completa en v0.0.12, se reservan para futuras extensiones del lenguaje. Evita utilizarlas como nombres de variables, funciones, objetos o propiedades para prevenir errores de análisis.
+Las formas habituales para los operadores lógicos son `&&`, `||` y `!`. Los símbolos y delimitadores como `+`, `=`, `{`, `}` o `[]` no son palabras reservadas; se documentan junto a los operadores y la gramática del lenguaje.

@@ -1,0 +1,107 @@
+---
+title: Environment variables
+description: Read system variables and load .env files with the quetzal/entorno module.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+The `quetzal/entorno` module reads system environment variables and loads variables from a `.env` file in the current directory.
+
+Values loaded from `.env` remain inside the Quetzal runtime and do not modify the process's global environment.
+
+## Required permission
+
+Enable the `entorno` permission in `quetzal.json`:
+
+```json
+{
+  "versión": "1.0.0",
+  "aplicación": "my-project",
+  "entrada": "principal.qz",
+  "tipo": "aplicación",
+  "quetzal": "0.0.3",
+  "permisos": [
+    { "tipo": "entorno", "habilitado": true }
+  ]
+}
+```
+
+Without this permission, every module call throws a catchable exception.
+
+## Import the module
+
+The `entorno` object name is lowercase:
+
+```qz
+importar { entorno } desde "quetzal/entorno"
+```
+
+## Functions
+
+| Function | Returns | Description |
+|----------|---------|-------------|
+| `entorno.cargar()` | `entero` | Reads `.env` from the current directory and returns the number of variables loaded. |
+| `entorno.obtener(nombre)` | `texto` or `nulo` | Returns the variable value or `nulo` if it does not exist. |
+| `entorno.obtener_o(nombre, defecto)` | `texto` | Returns the variable value or `defecto` if it does not exist. |
+| `entorno.contiene(nombre)` | `log` | Indicates whether the variable exists. |
+
+## Load a `.env` file
+
+Create a `.env` file in the directory from which you will run the program:
+
+```text
+MODO=desarrollo
+PUERTO=3000
+URL_BASE=http://localhost:3000
+```
+
+Load the file before reading its values:
+
+```qz
+importar { entorno } desde "quetzal/entorno"
+
+entero cargadas = entorno.cargar()
+consola.mostrar(t"Variables cargadas: {cargadas}")
+
+texto modo = entorno.obtener_o("MODO", "producción")
+texto puerto = entorno.obtener_o("PUERTO", "8080")
+
+consola.mostrar(t"Modo: {modo}")
+consola.mostrar(t"Puerto: {puerto}")
+```
+
+## Read system variables
+
+You do not need to call `cargar()` to read variables that already exist in the system:
+
+```qz
+importar { entorno } desde "quetzal/entorno"
+
+si (entorno.contiene("HOME")) {
+    texto inicio = entorno.obtener("HOME")
+    consola.mostrar(inicio)
+}
+```
+
+Use `obtener_o` when you want to provide a default value:
+
+```qz
+texto editor = entorno.obtener_o("EDITOR", "code")
+```
+
+## Handle permission errors
+
+```qz
+importar { entorno } desde "quetzal/entorno"
+
+intentar {
+    texto modo = entorno.obtener_o("MODO", "desarrollo")
+    consola.mostrar(modo)
+} capturar (excepcion error) {
+    consola.mostrar_error(error.mensaje)
+}
+```
+
+<Aside type="caution">
+Do not publish credentials in `.env`. Keep that file out of version control and share a `.env.example` containing variable names and non-secret example values.
+</Aside>

@@ -1,6 +1,6 @@
 ---
 title: Quetzal Language
-description: Official documentation for the Quetzal Programming Language v0.0.2
+description: Official documentation for the Quetzal Programming Language v0.0.3
 template: splash
 head:
   - tag: meta
@@ -10,7 +10,7 @@ head:
   - tag: meta
     attrs:
       property: 'og:description'
-      content: 'Documentation for Quetzal Language v0.0.2 - A modern programming language with Spanish syntax'
+      content: 'Documentation for Quetzal Language v0.0.3 - A modern programming language with Spanish syntax'
   - tag: meta
     attrs:
       property: 'og:image'
@@ -34,7 +34,7 @@ head:
   - tag: meta
     attrs:
       name: 'twitter:description'
-      content: 'Documentation for Quetzal Language v0.0.2 - A modern programming language with Spanish syntax'
+      content: 'Documentation for Quetzal Language v0.0.3 - A modern programming language with Spanish syntax'
   - tag: meta
     attrs:
       name: 'twitter:image'
@@ -62,7 +62,7 @@ import { Card, CardGrid, LinkButton } from '@astrojs/starlight/components';
   <div class="floating-code">
     <pre class="code-snippet">
       <code class="language-qz">
-{`// Quetzal Language v0.0.2
+{`// Quetzal Language v0.0.3
 texto saludo = "Hola, Quetzal"
 log es_activo = verdadero
 lista<entero> valores = [1, 2, 3]
@@ -93,8 +93,8 @@ consola.mostrar(t"Valores: {valores.texto()}")`}
     <Card title="Permission-Based Modules" icon="seti:csv">
       Control access to system resources through the `quetzal.json` configuration file.
     </Card>
-    <Card title="Rust Implementation" icon="rocket">
-      The interpreter written in Rust provides fast execution, detailed error handling, and tools like the official VS Code extension.
+    <Card title="JIT and development tools" icon="rocket">
+      Version 0.0.3 includes selective JIT, the `quetzal-lsp` server, and extensions for VS Code, Neovim, and Zed.
     </Card>
   </CardGrid>
 </div>
@@ -104,13 +104,13 @@ consola.mostrar(t"Valores: {valores.texto()}")`}
 ```qz
 // Example file: ejemplo.qz
 importar {
-    Matematica
-} desde "quetzal/matematica"
+    Matemática
+} desde "quetzal/matemática"
 
 texto var mensaje = "Bienvenido"
 lista<texto> tecnologias = ["Quetzal", "Rust", "JSON"]
 
-numero resultado = Matematica.sumar(2, 3)
+número resultado = Matemática.sumar(2, 3)
 consola.mostrar_exito(mensaje + " a Lenguaje Quetzal")
 consola.mostrar(t"Resultado: {resultado}")
 

@@ -1,128 +1,83 @@
 ---
 title: Welcome to Quetzal Language
-description: General introduction to Quetzal Language v0.0.12, its main goals and characteristics.
+description: Introduction to Quetzal Language v0.0.3 and its main features.
 ---
 
 import { Card, CardGrid } from '@astrojs/starlight/components';
 
-**Quetzal Language** is a modern interpreted programming language, designed with fully Spanish syntax to make programming more accessible to the Spanish-speaking community.
+**Quetzal Language** is an interpreted programming language implemented in Rust with Spanish syntax. It uses explicit static typing and validates code before running it on its virtual machine.
 
-## What is Quetzal Language?
-
-Quetzal is a runtime-interpreted language implemented in **Rust** to guarantee high performance and safety. Its design focuses on:
-
-- **Spanish syntax**: Every keyword is written in Spanish
-- **Strong typing**: Prevents common errors at analysis time
-- **Native JSON support**: Direct interoperability with JSON structures
-- **Optimized performance**: Implemented in Rust for maximum efficiency
-
-## Project goals
+## Language features
 
 <CardGrid>
-  <Card title="Accessible for Spanish speakers" icon="document">
-    All keywords use Spanish: `si`, `sino`, `lista`, `consola`, `retornar`, among others. This decision reduces the learning curve for people who think and work in Spanish.
+  <Card title="Types and data" icon="document">
+    Includes `entero`, `número`, `texto`, `log`, `vacio`, `nulo`, typed or heterogeneous lists, native JSON through `jsn`, and functions as values through the `funcion` type.
   </Card>
-  <Card title="Instant productivity" icon="rocket">
-    The interpreter offers lists, JSON, and objects oriented toward building real-world applications. The built-in methods let you manipulate data without extra dependencies.
+  <Card title="Explicit mutability" icon="setting">
+    Declarations are immutable by default. The `var` keyword allows variable reassignment and collection mutation.
   </Card>
-  <Card title="Robustness" icon="seti:csv">
-    Lexical and syntactic analysis detects errors early. Messages include suggestions and highlight the line with the issue so you can debug quickly.
+  <Card title="Functions and async" icon="rocket">
+    Functions have explicit types, support recursion and named callbacks, and can use `asincrono` and `esperar`.
   </Card>
-  <Card title="Extensibility" icon="sourcehut">
-    Modules let you organize code in separate files and share definitions via `exportar` and `importar`. This version also includes native modules such as `quetzal/matemática`.
+  <Card title="Object-oriented programming" icon="sourcehut">
+    `objeto` and `prototipo` support constructors, visibility, `libre` members, single or multiple inheritance, and interface implementation.
   </Card>
 </CardGrid>
 
-## Why Quetzal?
+## What is included in v0.0.3
 
-### **Language accessibility**
-Quetzal removes the language barrier in programming, enabling Spanish-speaking developers to work with familiar concepts in their native tongue.
+- **User modules** with `importar`, `exportar`, `desde`, and aliases through `como`.
+- **Exceptions** with `intentar`, `capturar`, `finalmente`, and `lanzar`.
+- **Standard library** with console, mathematics, dates and times, regular expressions, file system, and HTTP networking.
+- **Declarative permissions** in `quetzal.json` to control access to files, networking, and process execution.
+- **Interactive REPL** and commands to run, check, and create projects.
+- **Selective JIT** to accelerate compatible functions, with `--jit`, `--sin-jit`, and `--sin-optimizar` options.
+- **`quetzal-lsp` language server** with diagnostics, completion, symbol information, and go-to-definition.
+- **Official extensions** for Visual Studio Code, Neovim, and Zed.
 
-## What is included in version v0.0.2
-
-- Primitive types (`entero`, `número`, `texto`, `log`, `vacio`), typed and untyped lists, and `jsn` values with advanced access methods.
-- Objects with `privado` and `publico` blocks, constructors, free attributes, and support for static members.
-- Imports and exports between `.qz` files, symbol aliases, and permissions controlled through `quetzal.json` to access the file system.
-- Exception handling with `intentar`, `capturar`, `finalmente`, and explicit error throwing with `lanzar`.
-- Console methods for success, warning, error, info, and prompts for input or passwords.
+JIT is an interpreter optimization; Quetzal remains an interpreted language.
 
 ## First look at the language
 
 ```qz
-importar {
-    Matemática
-} desde "quetzal/matemática"
+importar { Matemática } desde "quetzal/matemática"
 
-objeto Usuario {
-    privado:
-        texto nombre
-        entero edad
-    publico:
-        Usuario(texto nombre, entero edad) {
-            ambiente.nombre = nombre
-            ambiente.edad = edad
-        }
+texto var nombre = "Quetzal"
+lista<entero> numeros = [1, 2, 3, 4]
 
-        texto saludo() {
-            retornar t"Hola, {ambiente.nombre}. Tienes {ambiente.edad} años."
-        }
+entero sumar(entero a, entero b) {
+    retornar a + b
 }
 
-Usuario persona = nuevo Usuario("María", 29)
-número suma = Matemática.sumar(7, 3)
+entero resultado = sumar(7, 3)
+número raiz = Matemática.raiz_cuadrada(16)
 
-consola.mostrar_exito(persona.saludo())
-consola.mostrar(t"Resultado de 7 + 3: {suma}")
+consola.mostrar(t"Hola desde {nombre}")
+consola.mostrar(t"7 + 3 = {resultado}")
+consola.mostrar(t"Raíz cuadrada de 16 = {raiz}")
 ```
-
-### **Spanish-speaking community**
-Designed specifically to foster the growth of programming in the Spanish-speaking community.
 
 ## Next steps
 
 <CardGrid>
-  <Card title="Installation" icon="setting">
-    Learn how to install and configure the Quetzal interpreter on your system.
+  <Card title="Download and install" icon="setting">
+    Install Quetzal v0.0.3 on Windows or Linux, or build it from source.
 
-    [See installation guide →](/en/introduccion/instalacion)
+    [See the installation guide →](/en/introduccion/instalacion)
   </Card>
-
   <Card title="Your first program" icon="rocket">
-    Create and run your first program in Quetzal Language step by step.
+    Create and run your first `.qz` file.
 
-    [Create first program →](/en/introduccion/primer-programa)
+    [Create your first program →](/en/introduccion/primer-programa)
   </Card>
+  <Card title="Built-in functions" icon="document">
+    Explore methods for each type and the standard library modules.
 
-  <Card title="Fundamentals" icon="document">
-    Explore the basic language concepts: types, variables, and syntax.
-
-    [Learn fundamentals →](/en/fundamentos/sintaxis-basica)
+    [See the reference →](/en/referencia/funciones-integradas)
   </Card>
-
   <Card title="Examples" icon="open-book">
-    Review practical examples and sample projects for inspiration.
+    Review programs written in Quetzal.
 
-    [View examples →](/en/ejemplos/basicos)
+    [See examples →](/en/ejemplos/basicos)
   </Card>
 </CardGrid>
-
-## Project philosophy
-
-> *"Programming should not require leaving your native language behind. Quetzal brings modern programming to Spanish while preserving the power and elegance of contemporary languages."*
-
-See Quetzal not only as a learning language, but also as a powerful tool to build modern and efficient applications—all in Spanish.
-
----
-
-## Made in Guatemala
-
-The name “Quetzal” pays homage to Guatemala’s national bird, symbolizing freedom and beauty.
-The language was created by a very small team of Guatemalan developers passionate about borderless technology.
-
-## Contributions
-Quetzal is an open-source project. You can contribute to the development, report bugs, or suggest improvements on our GitHub repository:
-[Contribute on GitHub](https://github.com/AntaresGT/lenguaje-quetzal/discussions)
-
----
-
-Ready to get started? Continue with the [installation guide](/en/introduccion/instalacion) to configure your development environment.
