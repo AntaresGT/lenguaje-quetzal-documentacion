@@ -36,9 +36,9 @@ export default defineConfig({
 			},
 			social: [
 				{
-					icon: 'codePen',
-					href: 'https://entorno-interactivo.escod.com.gt',
-					label: 'Entorno interactivo'
+					icon: 'discord',
+					href: 'https://discord.gg/4URMWPnNUx',
+					label: 'Discord'
 				},
 				{
 					icon: 'github',
